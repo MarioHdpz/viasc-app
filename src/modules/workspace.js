@@ -9,11 +9,14 @@ import axios from 'axios';
 
 import InputText from '../components/inputText';
 import Calendar from '../components/calendar';
+import InputNumber from '../components/inputNumber';
 
 type Props = {};
 export default class App extends Component<Props> {
   state = {
-    myComment:''
+    myComment:'',
+    number:'',
+    selectedStartDate:null,
   }
 
   componentDidMount = () => {
@@ -131,18 +134,31 @@ export default class App extends Component<Props> {
     this.setState({ myComment: inputText })
   }
 
+  handleNumberChange = (inputText) => {
+    this.setState({ number: inputText })
+  }
+
+  dateChange = (selectedStartDate) => {
+    this.setState({selectedStartDate});
+  }
+
   render = () => {
     return (
       <ImageBackground source={
         require('../assets/bginit/bginit.png')
       } style={styles.container}>
-        <Text>
-          Conexión WS
-        </Text>
         <InputText
          handleTextChange = {this.handleTextChange}
+         pholder="Texto"
         />
-        <Calendar />
+        <Calendar
+          dateChange = {this.dateChange}
+          selectedStartDate = {this.state.selectedStartDate}
+        />
+        <InputNumber
+          handleTextChange = {this.handleNumberChange}
+          pholder = "Número"
+        />
       </ImageBackground>
     );
   }

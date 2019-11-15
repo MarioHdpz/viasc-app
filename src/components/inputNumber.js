@@ -10,6 +10,7 @@ export default class InputText extends Component {
           onChangeText={this.props.handleTextChange}
           placeholder={this.props.pholder}
           placeholderTextColor="#f2f2f2"
+          keyboardType="numeric"
         />
     );
   }
