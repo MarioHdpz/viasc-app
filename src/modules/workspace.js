@@ -10,6 +10,7 @@ import axios from 'axios';
 import InputText from '../components/inputText';
 import Calendar from '../components/calendar';
 import InputNumber from '../components/inputNumber';
+import ButtonLarge from '../components/buttonLarge'
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -142,6 +143,10 @@ export default class App extends Component<Props> {
     this.setState({selectedStartDate});
   }
 
+  onClickButton = () => {
+    console.warn("click");
+  }
+
   render = () => {
     return (
       <ImageBackground source={
@@ -159,6 +164,24 @@ export default class App extends Component<Props> {
           handleTextChange = {this.handleNumberChange}
           pholder = "Número"
         />
+        <ButtonLarge
+          icon = {require('../assets/icon/icon.png')}
+          text = "Button"
+          onClickButton = {this.onClickButton}
+          status = {null}
+        />
+        <ButtonLarge
+          icon = {require('../assets/icon/icon.png')}
+          text = "Button"
+          onClickButton = {this.onClickButton}
+          status = {true}
+        />
+        <ButtonLarge
+          icon = {require('../assets/icon/icon.png')}
+          text = "Button"
+          onClickButton = {this.onClickButton}
+          status = {false}
+        />
       </ImageBackground>
     );
   }
@@ -167,5 +190,8 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container:{
     flex:1,
+    paddingTop:35,
+    paddingLeft:15,
+    paddingRight:15,
   }
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { Button, View, Image } from 'react-native';
 
 import Login from '../modules/login';
 import Init from '../modules/init';
@@ -12,13 +13,37 @@ const AppNavigator = createStackNavigator({
   WorkSpace: {
     screen: WorkSpace,
     navigationOptions: {
-      headerTitle: "mi title"
+      headerTransparent:true,
+      headerTitle: () => (
+        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <Image
+            style = {{width:50, height:50}}
+            source={require('../assets/icon/icon.png')}
+          />
+        </View>
+      ),
+      headerRight: () => (
+        <View style={{flex:1, paddingRight:30}}>
+          <Button
+            onPress={() => alert('This is a button!')}
+            title="Info"
+            color="black"
+          />
+        </View>
+      ),
+      headerLeft: () => (
+        <View style={{flex:1, paddingLeft:30}}>
+          <Button
+            onPress={() => alert('This is a button!')}
+            title="Info"
+            color="black"
+          />
+        </View>
+      ),
     },
   },
-
   Login: {
     screen: Login,
-
   },
   Init: {
     screen: Init,
@@ -26,7 +51,6 @@ const AppNavigator = createStackNavigator({
   InitAvaluo: {
     screen: InitAvaluo,
   },
-
   Avaluos: {
     screen: Avaluos,
   },
