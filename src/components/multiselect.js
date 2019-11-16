@@ -40,64 +40,35 @@ export default class Select extends Component<Props> {
     const products = [{id: 1},{id: 2},{id: 3}];
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={{flex:1}} onPress={() => {
-          this.setModalVisible(!this.state.modalVisible);
-        }}>
-          <Text style={styles.textSelect}>
-            {this.props.value}
-          </Text>
-        </TouchableHighlight>
+      <Text style={styles.label}>
+        {this.props.label}
+      </Text>
+      {
+        products.map((val) => {
 
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-          <View style={styles.modal}>
+          { tempCheckValues[val.id] = false }
 
-            <View style={{alignItems:'center'}}>
-              <Image style={styles.image} source={require('../assets/icon/icon.png')}/>
+          return (
 
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text style={styles.label}>
-                  {`${this.props.label}  ❌`}
+            <View key={val.id} style={{ flexDirection: 'column' }}>
+
+              <View style={{ flexDirection: 'row' }}>
+                <CheckBox
+                  style={{color:'white'}}
+                  value={this.state.checkBoxChecked[val.id]}
+                  onValueChange={() => this.checkBoxChanged(val.id, this.state.checkBoxChecked[val.id])}
+                />
+                <Text style={{color:'black'}}>
+                {val.id}
                 </Text>
-              </TouchableHighlight>
+              </View >
+            </View >
 
-            </View>
-            <View style={{width:'100%'}}>
-              {
-                products.map((val) => {
+          )
 
-                  { tempCheckValues[val.id] = false }
+        })
 
-                  return (
-
-                    <View key={val.id} style={{ flexDirection: 'column' }}>
-                      <View style={{ flexDirection: 'row' }}>
-                        <CheckBox
-                          value={this.state.checkBoxChecked[val.id]}
-                          onValueChange={() => this.checkBoxChanged(val.id, this.state.checkBoxChecked[val.id])}
-                        />
-                        <Text>
-                        {val.id}
-                        </Text>
-                      </View >
-                    </View >
-
-                  )
-
-                })
-
-              }
-            </View>
-          </View>
-        </Modal>
+      }
       </View>
     );
   }
@@ -105,8 +76,12 @@ export default class Select extends Component<Props> {
 
 const styles = StyleSheet.create({
   container:{
-    height:40,
-    margin:15,
+    flex:1,
+    margin:30,
+    backgroundColor:'#f2f2f2',
+    padding:10,
+    borderTopColor: '#e04783',
+    borderTopWidth: 10,
   },
   textSelect:{
     color:'white',
@@ -133,13 +108,11 @@ const styles = StyleSheet.create({
     flexDirection:'row',
   },
   capture:{
-    color:'white',
+    color:'black',
     paddingLeft:15,
   },
   label:{
-    color:'white',
-    fontSize:20,
-    textAlign:'center'
+    color:'black',
   },
   image:{
     width:50,

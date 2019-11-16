@@ -166,7 +166,7 @@ export default class App extends Component<Props> {
       <ImageBackground source={
         require('../assets/bginit/bginit.png')
       } style={styles.container}>
-        <ScrollView>
+        <ScrollView style={{marginTop:40, marginBottom:40,}}>
         <ButtonLarge
           icon = {require('../assets/icon/icon.png')}
           text = "Button"
@@ -206,7 +206,7 @@ export default class App extends Component<Props> {
         <Multiselect
           options = {[[1,'baño'], [2,'cochera'], [3,'jardín']]}
           buttonSelected = { this.multiselected }
-          label = "Inmueble"
+          label = {this.state.mulSelected}
           value={this.state.mulSelected}
         />
 

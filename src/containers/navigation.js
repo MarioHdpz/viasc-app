@@ -22,24 +22,6 @@ const AppNavigator = createStackNavigator({
           />
         </View>
       ),
-      headerRight: () => (
-        <View style={{flex:1, paddingRight:30}}>
-          <Button
-            onPress={() => alert('This is a button!')}
-            title="Info"
-            color="black"
-          />
-        </View>
-      ),
-      headerLeft: () => (
-        <View style={{flex:1, paddingLeft:30}}>
-          <Button
-            onPress={() => alert('This is a button!')}
-            title="Info"
-            color="black"
-          />
-        </View>
-      ),
     },
   },
   Login: {
