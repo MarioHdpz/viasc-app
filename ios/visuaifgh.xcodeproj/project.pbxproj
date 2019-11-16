@@ -161,7 +161,6 @@
 				E7692ED19429DF3337E26ACE /* Pods-visuaifghTests.debug.xcconfig */,
 				D21F4875368A0A3FA2CC2217 /* Pods-visuaifghTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -308,6 +307,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);

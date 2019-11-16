@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 type Props = {};
-export default class App extends Component<Props> {
+export default class ButtonLarge extends Component<Props> {
 
   render = () => {
     return (
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     height:60,
     margin:15,
     padding:0,
-    backgroundColor:'rgba(0,0,0,0.8)',
+    backgroundColor:'rgba(0,0,0,0.7)',
     borderRadius:15,
     borderBottomColor:'rgba(255, 136, 13,0.7)',
     borderRightColor:'rgba(255, 136, 13,0.7)',

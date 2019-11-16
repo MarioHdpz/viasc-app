@@ -3,14 +3,17 @@ import {
   View,
   Text,
   StyleSheet,
-  ImageBackground
+  ImageBackground,
+  ScrollView
 } from 'react-native';
 import axios from 'axios';
 
 import InputText from '../components/inputText';
 import Calendar from '../components/calendar';
 import InputNumber from '../components/inputNumber';
-import ButtonLarge from '../components/buttonLarge'
+import ButtonLarge from '../components/buttonLarge';
+import Select from '../components/select';
+import Multiselect from '../components/multiselect';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -18,6 +21,9 @@ export default class App extends Component<Props> {
     myComment:'',
     number:'',
     selectedStartDate:null,
+    multiselect:[],
+    value:'Seleccionar',
+    mulSelected:'MultiSelect',
   }
 
   componentDidMount = () => {
@@ -147,23 +153,20 @@ export default class App extends Component<Props> {
     console.warn("click");
   }
 
+  buttonSelected = (data) => {
+    this.setState({value:data[1]});
+  }
+
+  multiselected = (data) => {
+
+  }
+
   render = () => {
     return (
       <ImageBackground source={
         require('../assets/bginit/bginit.png')
       } style={styles.container}>
-        <InputText
-         handleTextChange = {this.handleTextChange}
-         pholder="Texto"
-        />
-        <Calendar
-          dateChange = {this.dateChange}
-          selectedStartDate = {this.state.selectedStartDate}
-        />
-        <InputNumber
-          handleTextChange = {this.handleNumberChange}
-          pholder = "Número"
-        />
+        <ScrollView>
         <ButtonLarge
           icon = {require('../assets/icon/icon.png')}
           text = "Button"
@@ -182,6 +185,32 @@ export default class App extends Component<Props> {
           onClickButton = {this.onClickButton}
           status = {false}
         />
+        <InputText
+         handleTextChange = {this.handleTextChange}
+         pholder="Texto"
+        />
+        <Calendar
+          dateChange = {this.dateChange}
+          selectedStartDate = {this.state.selectedStartDate}
+        />
+        <InputNumber
+          handleTextChange = {this.handleNumberChange}
+          pholder = "Número"
+        />
+        <Select
+          options = {[[1,'casa'], [2,'edificio'], [3,'departamento']]}
+          value = {this.state.value}
+          label = 'Tipo de inmueble'
+          buttonSelected = { this.buttonSelected }
+        />
+        <Multiselect
+          options = {[[1,'baño'], [2,'cochera'], [3,'jardín']]}
+          buttonSelected = { this.multiselected }
+          label = "Inmueble"
+          value={this.state.mulSelected}
+        />
+
+        </ScrollView>
       </ImageBackground>
     );
   }

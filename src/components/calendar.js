@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 
-export default class App extends Component {
+export default class Calendar extends Component {
   state = {
     modalVisible: false,
   };
