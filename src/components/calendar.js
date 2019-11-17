@@ -23,12 +23,12 @@ export default class Calendar extends Component {
     const m = d.getMonth();
     const n = d.getDate();
 
-    this.props.dateChange(`${y}-${m}-${n}`);
+    this.props.dateChange(`${n}-${m}-${y}`);
     this.setModalVisible(!this.state.modalVisible);
   }
   render() {
     const { selectedStartDate } = this.props;
-    const startDate = selectedStartDate ? selectedStartDate.toString() : '__-__-__';
+    const startDate = selectedStartDate ? selectedStartDate.toString() : 'dd-mm-yyyy';
     return (
       <View style={styles.container}>
 

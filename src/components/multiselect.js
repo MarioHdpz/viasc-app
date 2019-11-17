@@ -6,9 +6,10 @@ import {
   Modal,
   TouchableHighlight,
   TouchableOpacity,
-  Image,
-  CheckBox
+  Image
 } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
+
 var tempCheckValues = [];
 type Props = {};
 export default class Select extends Component<Props> {
