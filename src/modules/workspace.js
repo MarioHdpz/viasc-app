@@ -15,6 +15,7 @@ import ButtonLarge from '../components/buttonLarge';
 import Select from '../components/select';
 import Multiselect from '../components/multiselect';
 import Camara from '../components/camara';
+import File from '../components/file';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -25,24 +26,6 @@ export default class App extends Component<Props> {
     multiselect:[],
     value:'Seleccionar',
     mulSelected:'MultiSelect',
-  }
-
-  componentDidMount = () => {
-    //this.login();
-  }
-
-  login = async () => {
-    const url = 'http://167.172.197.238:3000/rest-auth/login/';
-    const obj = {
-      email:'jess.monter@lytica.ai',
-      password:'admin'
-    }
-
-    axios.post(url, obj, { headers: { 'Content-Type': 'application/json' } })
-    .then((response) => {
-      console.log('login response', response);
-    })
-    .catch((response) => console.log('user sign in err', response));
   }
 
   handleTextChange = (inputText) => {
@@ -121,6 +104,7 @@ export default class App extends Component<Props> {
 
           <Camara/>
 
+          <File/>
 
         </ScrollView>
       </ImageBackground>

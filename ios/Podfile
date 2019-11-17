@@ -36,6 +36,9 @@ target 'visuaifgh' do
 
 
   pod 'react-native-camera', path: '../node_modules/react-native-camera'
+  pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
+  
+
 
   target 'visuaifghTests' do
     inherit! :search_paths
