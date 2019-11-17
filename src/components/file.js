@@ -3,7 +3,8 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
-  Image
+  Image,
+  Dimensions
 } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 
@@ -16,12 +17,15 @@ export default class File extends Component<Props> {
         const res = await DocumentPicker.pick({
           type: [DocumentPicker.types.pdf],
         });
-
-        console.log(res);
-
-
+        if (res) {
+            this.props.getData(this.props.id,res,true);
+        }
+        else{
+          this.props.getData(this.props.id,res,false);
+        }
 
       } catch (err) {
+
         if (DocumentPicker.isCancel(err)) {
           // User cancelled the picker, exit any dialogs or menus and move on
         } else {
@@ -31,26 +35,48 @@ export default class File extends Component<Props> {
   }
 
   render = () => {
+    const {estado, label} = this.props
+
     return (
       <TouchableOpacity style={styles.container} onPress={this.getFile}>
-        <Image
-          style={styles.icon}
-          source = {require('../assets/icon/icon.png')}
-        />
+
+        {
+          estado === null
+          ? <Image
+              style={styles.icon}
+              source = {require('../assets/icon/icon.png')}
+            />
+          :estado
+            ?<Image
+              style={styles.icon}
+              source = {require('../assets/iconGreen/icon.png')}
+            />
+            :<Image
+              style={styles.icon}
+              source = {require('../assets/iconRed/icon.png')}
+            />
+        }
+
+
         <Text style={styles.text}>
-          Escritura
+          {label}
         </Text>
       </TouchableOpacity>
     );
   }
 }
 
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container:{
-    width:150,
-    margin: 20,
+    width:width/2.3,
+    height:width/2.3,
+    margin: 10,
     padding: 10,
-    alignItems:'center'
+    alignItems:'center',
+    borderWidth:1,
+    borderColor:'black',
+    justifyContent:'center',
   },
   icon:{
     height:100,
@@ -58,7 +84,7 @@ const styles = StyleSheet.create({
   },
   text:{
     color:'white',
-    fontSize:18,
+    fontSize:14,
     textAlign:'center',
   }
 });

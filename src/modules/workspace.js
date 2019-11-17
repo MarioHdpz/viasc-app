@@ -59,18 +59,21 @@ export default class App extends Component<Props> {
       } style={styles.container}>
         <ScrollView style={{marginTop:40, marginBottom:40,}}>
           <ButtonLarge
+            disa = {false}
             icon = {require('../assets/icon/icon.png')}
             text = "Button"
             onClickButton = {this.onClickButton}
             status = {null}
           />
           <ButtonLarge
+            disa = {false}
             icon = {require('../assets/icon/icon.png')}
             text = "Button"
             onClickButton = {this.onClickButton}
             status = {true}
           />
           <ButtonLarge
+            disa = {false}
             icon = {require('../assets/icon/icon.png')}
             text = "Button"
             onClickButton = {this.onClickButton}
