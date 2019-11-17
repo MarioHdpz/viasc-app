@@ -13,6 +13,13 @@ import Captura from '../modules/captura';
 
 const AppNavigator = createStackNavigator({
 
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      headerTransparent:true,
+    }
+  },
+
   Init: {
     screen: Init,
     navigationOptions: {
@@ -27,7 +34,7 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-  
+
   InitAvaluo: {
     screen: InitAvaluo,
     navigationOptions: {
@@ -58,12 +65,7 @@ const AppNavigator = createStackNavigator({
     },
   },
 
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      headerTransparent:true,
-    }
-  },
+
 
 
 
