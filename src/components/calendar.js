@@ -18,12 +18,14 @@ export default class Calendar extends Component {
   }
 
   onDateChange = (date) => {
+    const {index, id} = this.props;
+
     const d = new Date(date);
     const y = d.getFullYear();
     const m = d.getMonth();
     const n = d.getDate();
 
-    this.props.dateChange(`${n}-${m}-${y}`);
+    this.props.dateChange(index, id,`${n}-${m}-${y}`);
     this.setModalVisible(!this.state.modalVisible);
   }
   render() {

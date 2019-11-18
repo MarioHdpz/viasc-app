@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import { TextInput, StyleSheet, View, Text } from 'react-native';
 
 export default class InputNumber extends Component {
 
   render() {
     return (
+      <View style={styles.container}>
+        <Text style={{color:'white', fontSize:16, textAlign:'center'}}>
+          {this.props.label}
+        </Text>
         <TextInput
           style={styles.textInputStyle}
-          onChangeText={this.props.handleTextChange}
+          onChangeText={(texto)=>{this.props.handleTextChange(texto,this.props.id)}}
           placeholder={this.props.pholder}
           placeholderTextColor="#f2f2f2"
           keyboardType="numeric"
         />
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container:{
+    height:40,
+    margin:15,
+    marginBottom:30,
+    marginTop:30,
+  },
   textInputStyle: {
     color:'white',
     borderBottomColor: '#e04783',

@@ -20,57 +20,68 @@ export default class Select extends Component<Props> {
   }
 
   render = () => {
+    const {id, options, value, label} = this.props;
     return (
       <View style={styles.container}>
-      <TouchableHighlight style={{flex:1}} onPress={() => {
-        this.setModalVisible(!this.state.modalVisible);
-      }}>
-        <Text style={styles.textSelect}>
-          {this.props.value}
-        </Text>
-      </TouchableHighlight>
 
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={this.state.modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
-        <View style={styles.modal}>
-          <View style={{alignItems:'center'}}>
-            <Image style={styles.image} source={require('../assets/icon/icon.png')}/>
-            <TouchableHighlight
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}>
-              <Text style={styles.label}>
-                {`${this.props.label}  ❌`}
+        <Text
+          style={{color:'white', fontSize:16, textAlign:'center'}}
+          onPress={() => {
+            this.setModalVisible(!this.state.modalVisible);
+          }}
+        >
+          {label}
+        </Text>
+        <Text
+          style={styles.textSelect}
+          onPress={() => {
+            this.setModalVisible(!this.state.modalVisible);
+          }}
+        >
+          {value}
+        </Text>
+
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={styles.modal}>
+            <View style={{alignItems:'center'}}>
+              <Image style={styles.image} source={require('../assets/icon/icon.png')}/>
+              <Text
+                style={styles.label}
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
+              >
+                {`${label}  ❌`}
               </Text>
-            </TouchableHighlight>
+            </View>
+            <View style={{width:'100%'}}>
+              {
+                options.map((data, index) =>{
+                  return(
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => {
+                        this.props.buttonSelected(this.props.index,id,data)
+                        this.setModalVisible(!this.state.modalVisible)
+                      }}
+                      style={styles.options}
+                    >
+                      <Text style={styles.capture}>
+                        {data[1]}
+                      </Text>
+                    </TouchableOpacity>
+                  )
+                })
+              }
+            </View>
           </View>
-          <View style={{width:'100%'}}>
-            {
-              this.props.options.map((data, index) =>{
-                return(
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => {
-                      this.props.buttonSelected(data)
-                      this.setModalVisible(!this.state.modalVisible)
-                    }}
-                    style={styles.options}
-                  >
-                    <Text style={styles.capture}>
-                      {data[1]}
-                    </Text>
-                  </TouchableOpacity>
-                )
-              })
-            }
-          </View>
-        </View>
-      </Modal>
+        </Modal>
       </View>
     );
   }
@@ -80,6 +91,7 @@ const styles = StyleSheet.create({
   container:{
     height:40,
     margin:15,
+    marginBottom:30,
   },
   textSelect:{
     color:'white',

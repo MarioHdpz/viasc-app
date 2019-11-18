@@ -17,7 +17,7 @@ export default class ButtonLarge extends Component<Props> {
       style={styles.button}
       onPress={
         disabled
-        ? this.props.onClickButton
+        ? ()=>{this.props.onClickButton(this.props.id)}
         : ()=>{}
       }
       activeOpacity={disabled ? 1 : 0.7}

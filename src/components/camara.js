@@ -26,16 +26,14 @@ export default class Camara extends Component<Props> {
   }
 
   takePicture = async() => {
+    const {index, id}= this.props
+
     if (this.camera) {
       const options = { quality: 0.5, base64: true, orientation:'portrait', forceUpOrientation: true };
       const data = await this.camera.takePictureAsync(options);
-      console.log(data.base64);
 
-
-      this.setState({pic:data.base64},()=>{
-        this.setModalVisible(!this.state.modalVisible)
-      })
-
+      this.props.getPhoto(index, id, data.base64 )
+      this.setModalVisible(!this.state.modalVisible)
     }
   };
 
@@ -63,8 +61,8 @@ export default class Camara extends Component<Props> {
           }}
         >
           {
-            this.state.pic
-            ?<Image style={styles.picture} source={{uri:`data:image/png;base64,${this.state.pic}`}} />
+            this.props.value
+            ?<Image style={styles.picture} source={{uri:`data:image/png;base64,${this.props.value}`}} />
             :<Image style={styles.picture} source={require('../assets/bginit/bginit.png')} />
           }
         </TouchableOpacity>
