@@ -131,7 +131,8 @@ export default class App extends Component<Props> {
 
       case "select":
         if ( respuestas[d.id] ) {
-          value = d.options[ respuestas[d.id] ][1];
+          //console.log("respuestas",respuestas[d.id], d.options);
+          value = d.options[ (respuestas[d.id]-1) ][1];
         }
 
         if (!value) { value = "Seleccionar"; }
