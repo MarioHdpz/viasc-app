@@ -55,19 +55,6 @@ export default class App extends Component<Props> {
     this.props.navigation.navigate('Init');
   }
 
-  getData = async () => {
-    console.log('getData');
-    try {
-      const value = await AsyncStorage.getItem('docs')
-      console.log(value);
-      if(value !== null) {
-
-      }
-    } catch(e) {
-      // error reading value
-    }
-  }
-
   clearAll = async () => {
     console.warn("limpiando");
     try {

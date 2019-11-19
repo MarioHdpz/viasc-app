@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import _ from 'lodash';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import db from '../containers/formulario.json';
 
@@ -29,6 +30,7 @@ export default class App extends Component<Props> {
     optionActive : 0,
     group : [],
     respuestas : {},
+    seccion:{},
 
 
 
@@ -41,13 +43,17 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    this.dynamicRender();
+    this.getStorage();
   }
 
   dynamicRender = () => {
-    let {formIndex, group} = this.state;
+    let {formIndex, group, seccion} = this.state;
 
     const result = _.filter(db, {parent:formIndex});
+
+    //¿Cuántos componentes tiene esta sección?
+    //Guardar la sección y la cantidad de respuestasa recibir
+    seccion[formIndex] = result.length
 
     //Limpio los componentes
     group = [];
@@ -67,18 +73,49 @@ export default class App extends Component<Props> {
   backForm = () => {
     let { beforeIndex, formIndex } = this.state
 
+    //El index anterior se convierte en el actual
     formIndex = beforeIndex[beforeIndex.length-1];
+
+    //El último registrado se elimina del array.
     beforeIndex.pop();
 
     this.setState({formIndex, beforeIndex}, this.dynamicRender);
   }
 
+  setStorage = async () => {
+    console.log('set storage');
+    try {
+      await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+  }
+
+  getStorage = async () => {
+    try {
+      const value = await AsyncStorage.getItem('respuestas');
+      console.log('value', value);
+      if(value !== null) {
+        const respuestas = JSON.parse(value);
+        this.setState({respuestas}, this.dynamicRender )
+      }
+      else{
+        this.dynamicRender()
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
+  }
+
   getComponent = (d, i, value) => {
     const { optionActive, respuestas } = this.state;
+
+
     switch (d.inputType) {
       case "button":
         //activa o desactiva los botones
         //{ i === optionActive ? true : false }
+        console.log('button');
         return (
           <ButtonLarge
             key = {i}
@@ -93,6 +130,10 @@ export default class App extends Component<Props> {
       break;
 
       case "select":
+        if ( respuestas[d.id] ) {
+          value = d.options[ respuestas[d.id] ][1];
+        }
+
         if (!value) { value = "Seleccionar"; }
         return (
           <Select
@@ -108,6 +149,7 @@ export default class App extends Component<Props> {
       break;
 
       case "calendar":
+        if ( respuestas[d.id] ) { value = d.options[ respuestas[d.id] ]; }
         if (!value) { value = null; }
         return (
           <Calendar
@@ -121,6 +163,7 @@ export default class App extends Component<Props> {
       break;
 
       case "photo":
+        if ( respuestas[d.id] ) { value = d.options[ respuestas[d.id] ]; }
         return (
           <Camara
             key = {i}
@@ -182,7 +225,7 @@ export default class App extends Component<Props> {
     const component = this.getComponent(r[0], index, data[1])
 
     group[index] = component;
-    this.setState({group, respuestas});
+    this.setState({group, respuestas}, this.setStorage);
   }
 
   handleTextChange = (inputText, id) => {
@@ -213,6 +256,9 @@ export default class App extends Component<Props> {
     group[index] = component;
     this.setState({group, respuestas});
   }
+
+  //Guardar en el storage.
+
 
   //··················································································//
 

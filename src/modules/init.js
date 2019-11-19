@@ -23,20 +23,20 @@ export default class App extends Component<Props> {
   }
 
   getAllKeys = async () => {
-  let keys = []
-  try {
-    keys = await AsyncStorage.getAllKeys()
-  } catch(e) {
-    // read key error
-  }
+    let keys = []
+    try {
+      keys = await AsyncStorage.getAllKeys()
+    } catch(e) {
+      // read key error
+    }
 
-  if (keys.length>0) {
-    this.setState({label:'Continuar Avalúo'})
+    if (keys.length>0) {
+      this.setState({label:'Continuar Avalúo'})
+    }
+    else{
+      this.setState({label:'Iniciar Avalúo'});
+    }
   }
-  else{
-    this.setState({label:'Iniciar Avalúo'});
-  }
-}
 
   render = () => {
     return (
