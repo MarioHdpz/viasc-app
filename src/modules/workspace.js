@@ -11,7 +11,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import db from '../containers/formulario.json';
-
+/*
 import InputText from '../components/inputText';
 import Calendar from '../components/calendar';
 import InputNumber from '../components/inputNumber';
@@ -20,7 +20,15 @@ import Select from '../components/select';
 import Multiselect from '../components/multiselect';
 import Camara from '../components/camara';
 import File from '../components/file';
+*/
 
+import InputText from '../components/inputText';
+import InputNumber from '../components/inputNumber';
+import ButtonLarge from '../components/buttonLarge';
+import Select from '../components/select';
+import ButtonForm from '../components/buttonForm'
+import ButtonBack from '../components/buttonBack'
+import File from '../components/file'
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -275,27 +283,15 @@ export default class App extends Component<Props> {
 
     return(
       <ImageBackground
-        source={
-          require('../assets/bginit/bginit.png')
-        }
+        source={require('../assets/bg_app/bg_app.png')}
         style={styles.container}
       >
         {
           beforeIndex.length===0
           ? null
-          :<Text
-          style={{
-            textAlign:'center',
-            padding:10,
-            marginTop:20,
-            color:'#f2f2f2',
-            fontWeight:'bold',
-            borderWidth:1,
-          }}
-          onPress={this.backForm}
-          >
-            Regresar
-          </Text>
+          :<ButtonBack
+          backForm={this.backForm}
+          />
         }
 
         <ScrollView style={{marginTop:40, marginBottom:40,}}>
@@ -315,7 +311,5 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
     paddingTop:35,
-    paddingLeft:15,
-    paddingRight:15,
   }
 });

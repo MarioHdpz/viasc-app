@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { TextInput, StyleSheet, View, Text } from 'react-native';
 
-export default class InputNumber extends Component {
+export default class InputText extends Component {
 
   render() {
     return (
-      <View style={styles.v1}>
-        <Text style={styles.label}>
+      <View style={styles.container}>
+        <Text style={{color:'white', fontSize:16, textAlign:'center'}}>
           {this.props.label}
         </Text>
         <TextInput
@@ -14,9 +14,7 @@ export default class InputNumber extends Component {
           onChangeText={(texto)=>{this.props.handleTextChange(texto,this.props.id)}}
           placeholder={this.props.pholder}
           placeholderTextColor="#f2f2f2"
-          keyboardType="numeric"
         />
-
       </View>
     );
   }
@@ -31,33 +29,13 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     color:'white',
-    borderColor: '#73DB1D',
-    borderWidth: 1,
-    borderRadius: 10,
-    width:130,
+    borderBottomColor: '#e04783',
+    borderBottomWidth: 1,
     height: 40,
-    margin: 40,
-    paddingLeft:10,
-    fontSize:18,
-    fontWeight: 'bold',
-    textAlign:'right'
+    margin: 20,
+    padding: 10,
   },
   textOutputStyle: {
     fontSize: 20
-  },
-  label : {
-    color:'white',
-    padding:130,
-    fontSize:18,
-    fontWeight: 'bold',
-    marginLeft:-110,
-    textAlign:'left',
-  },
-  v1:{
-    marginTop:30,
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
-
-  },
+  }
 })

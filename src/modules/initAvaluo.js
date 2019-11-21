@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   Button,
-  Dimensions
+  Dimensions,
+  ImageBackground
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from 'react-navigation';
@@ -85,31 +86,31 @@ export default class App extends Component<Props> {
   render = () => {
     const {okformulario, okfotos} = this.state;
     return (
-      <View style={styles.container}>
+      <ImageBackground
+        source={require('../assets/bg_home/bg_home.png')}
+        style={styles.container}
+      >
       <NavigationEvents
         onWillFocus={payload => {this.getStorage()}}
       />
 
         <View style={styles.container}>
-          <Text>
-            Proceso de avalúo
-          </Text>
           <ButtonLarge
-            icon = {require('../assets/icon/icon.png')}
+            icon = {require('../assets/icono_acierto/icono_acierto.png')}
             text = "Adjuntar documentos"
             onClickButton = {this.adjuntarDocs}
             status = {this.state.docs}
             disabled = {true}
           />
           <ButtonLarge
-            icon = {require('../assets/icon/icon.png')}
+            icon = {require('../assets/icono_acierto/icono_acierto.png')}
             text = "Iniciar formulario"
             onClickButton = {this.formulario}
             status = {null}
             disabled = {okformulario}
           />
           <ButtonLarge
-            icon = {require('../assets/icon/icon.png')}
+            icon = {require('../assets/icono_acierto/icono_acierto.png')}
             text = "Captura de fotos"
             onClickButton = {this.captura}
             status = {null}
@@ -128,7 +129,7 @@ export default class App extends Component<Props> {
             onPress = {this.sendAll}
           />
         </View>
-      </View>
+      </ImageBackground>
     );
   }
 }

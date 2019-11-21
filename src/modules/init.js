@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  ImageBackground
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from 'react-navigation';
@@ -40,18 +41,21 @@ export default class App extends Component<Props> {
 
   render = () => {
     return (
-      <View style={styles.container}>
+      <ImageBackground
+        source={require('../assets/bg_home/bg_home.png')}
+        style={styles.container}
+      >
         <NavigationEvents
           onWillFocus={payload => {this.getAllKeys()}}
         />
         <ButtonLarge
           disabled = {true}
-          icon = {require('../assets/icon/icon.png')}
+          icon = {require('../assets/icono_iniciaravaluo/icono_iniciaravaluo.png')}
           text = {this.state.label}
           onClickButton = {this.onClickButton}
           status = {null}
         />
-      </View>
+      </ImageBackground>
     );
   }
 }

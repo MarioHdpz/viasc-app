@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Alert,
+  ImageBackground
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -78,11 +79,16 @@ export default class App extends Component<Props> {
 
   render = () => {
     return (
-      <View style={styles.container}>
-        <Image style={styles.image} source={require('../assets/icon/icon.png')}/>
+      <ImageBackground
+        source={require('../assets/bg_login/bg_login.png')}
+        style={styles.container}
+      >
+        <Image style={styles.image} source={require('../assets/logotipo_vias/logotipo_vias.png')}/>
+        <Image style={styles.image} source={require('../assets/icono_usuario/icono_usuario.png')}/>
         <TextInput
           style={styles.input}
           placeholder="Correo electrónico"
+          placeholderTextColor="#f2f2f2"
           onChangeText={(text) => this.validate(text)}
           value={this.state.email}
           keyboardType="email-address"
@@ -90,16 +96,20 @@ export default class App extends Component<Props> {
         <TextInput
           style={styles.input}
           placeholder="Contraseña"
+          placeholderTextColor="#f2f2f2"
           onChangeText={(pass) => this.setState({pass})}
           value={this.state.pass}
           secureTextEntry={true}
         />
         <TouchableOpacity style={styles.button} onPress={this.login}>
-          <Text style={{textAlign:'center'}}>
-            Iniciar
-          </Text>
+          <Image
+            style={{
+              width:200,
+            }}
+            source={require('../assets/btn_iniciarsesion/btn_iniciarsesion.png')}
+          />
         </TouchableOpacity>
-      </View>
+      </ImageBackground>
     );
   }
 }
@@ -112,21 +122,21 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   image:{
-    width:150,
-    height:150,
+    width:100,
+    height:100,
+    margin:20,
   },
   input:{
-    borderColor:'black',
-    borderWidth:1,
+    borderBottomColor: '#73DB1D',
+    borderBottomWidth: 1,
+    color:'white',
     width:width-100,
+    textAlign:'center',
   },
   button:{
-    borderColor:'black',
-    borderWidth:1,
-    width:width-100,
-    paddingTop:10,
-    paddingBottom:10,
-    marginTop:20,
+    paddingTop:20,
+    alignItems:'center',
+    justifyContent:'center',
   },
   minitext:{
     fontSize:9,

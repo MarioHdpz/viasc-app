@@ -12,8 +12,6 @@ import AdjuntarDocs from '../modules/adjuntarDocs';
 import Captura from '../modules/captura';
 
 const AppNavigator = createStackNavigator({
-
-
   Init: {
     screen: Init,
     navigationOptions: {
@@ -22,7 +20,22 @@ const AppNavigator = createStackNavigator({
         <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
           <Image
             style = {{width:50, height:50}}
-            source={require('../assets/icon/icon.png')}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
+          />
+        </View>
+      ),
+    },
+  },
+
+  WorkSpace: {
+    screen: WorkSpace,
+    navigationOptions: {
+      headerTransparent:true,
+      headerTitle: () => (
+        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <Image
+            style = {{width:50, height:50}}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
           />
         </View>
       ),
@@ -36,20 +49,9 @@ const AppNavigator = createStackNavigator({
     }
   },
 
-  WorkSpace: {
-    screen: WorkSpace,
-    navigationOptions: {
-      headerTransparent:true,
-      headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
-          <Image
-            style = {{width:50, height:50}}
-            source={require('../assets/icon/icon.png')}
-          />
-        </View>
-      ),
-    },
-  },
+
+
+
 
 
 
@@ -65,7 +67,7 @@ const AppNavigator = createStackNavigator({
         <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
           <Image
             style = {{width:50, height:50}}
-            source={require('../assets/icon/icon.png')}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
           />
         </View>
       ),
@@ -80,7 +82,7 @@ const AppNavigator = createStackNavigator({
         <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
           <Image
             style = {{width:50, height:50}}
-            source={require('../assets/icon/icon.png')}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
           />
         </View>
       ),

@@ -41,22 +41,23 @@ export default class File extends Component<Props> {
       <TouchableOpacity style={styles.container} onPress={this.getFile}>
 
         {
-
           estado === null
-          ?<Image
+          ? <Image
               style={styles.icon}
-              source = {require('../assets/icono_folder/icono_folder.png')}
+              source = {require('../assets/icon/icon.png')}
             />
-          :estado === true
+          :estado
             ?<Image
               style={styles.icon}
-              source = {require('../assets/icono_seleccionararchivo/icono_seleccionararchivo.png')}
+              source = {require('../assets/iconGreen/icon.png')}
             />
             :<Image
               style={styles.icon}
-              source = {require('../assets/icono_foldererror/icono_foldererror.png')}
+              source = {require('../assets/iconRed/icon.png')}
             />
         }
+
+
         <Text style={styles.text}>
           {label}
         </Text>
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems:'center',
     borderWidth:1,
-    borderColor:'#76bc21',
+    borderColor:'black',
     justifyContent:'center',
   },
   icon:{

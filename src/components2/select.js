@@ -22,7 +22,16 @@ export default class Select extends Component<Props> {
   render = () => {
     const {id, options, value, label} = this.props;
     return (
-      <View style={styles.v1}>
+      <View style={styles.container}>
+
+        <Text
+          style={{color:'white', fontSize:16, textAlign:'center'}}
+          onPress={() => {
+            this.setModalVisible(!this.state.modalVisible);
+          }}
+        >
+          {label}
+        </Text>
         <Text
           style={styles.textSelect}
           onPress={() => {
@@ -30,27 +39,28 @@ export default class Select extends Component<Props> {
           }}
         >
           {value}
-
         </Text>
-        <Image style={styles.icon} source={this.props.icon}/>
-        <Modal style={styles.container}
-          transparent
+
+        <Modal
           animationType="slide"
-          transparent={true}
-          presentationStyle={this.formSheet}
+          transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
           }}>
           <View style={styles.modal}>
             <View style={{alignItems:'center'}}>
+              <Image style={styles.image} source={require('../assets/icon/icon.png')}/>
               <Text
                 style={styles.label}
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
               >
-                {`${label}`}
+                {`${label}  ❌`}
               </Text>
             </View>
-            <View style={{width:'100%',height:'auto'}}>
+            <View style={{width:'100%'}}>
               {
                 options.map((data, index) =>{
                   return(
@@ -70,16 +80,6 @@ export default class Select extends Component<Props> {
                 })
               }
             </View>
-            <View style={{alignItems:'center'}}>
-              <Text
-                style={styles.labelExit}
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}
-              >
-                {`❌`}
-              </Text>
-            </View>
           </View>
         </Modal>
       </View>
@@ -92,76 +92,44 @@ const styles = StyleSheet.create({
     height:40,
     margin:15,
     marginBottom:30,
-    marginTop:30,
-    flexGrow: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: 'transparent'
   },
   textSelect:{
     color:'white',
-    borderBottomColor: '#73DB1D',
+    borderBottomColor: '#e04783',
     borderBottomWidth: 1,
-    width:370,
-    height: 40,
-    margin: -15,
-    marginLeft:10,
     padding: 10,
-    fontSize:18,
-    fontWeight: 'bold'
+    margin: 15,
   },
   modal:{
-    backgroundColor:'black',
-    marginTop: 100,
-    marginBottom: 100,
-    borderRadius: 20,
+    backgroundColor:'rgba(0,0,0,0.7)',
+    marginTop: 22,
     alignItems:'center',
     justifyContent:'center',
     flex:1,
-    margin:35,
-    opacity:0.9
+
   },
   options:{
-    height:30,
-    margin:20,
+    height:40,
+    margin:15,
     padding:0,
     borderBottomColor:'rgba(255, 136, 13,0.7)',
     borderBottomWidth:1,
-    textAlign:'center'
+    alignItems:'center',
+    justifyContent:'flex-start',
+    flexDirection:'row',
   },
   capture:{
     color:'white',
-    paddingLeft:0,
-    fontSize:15,
-    fontWeight: 'bold',
+    paddingLeft:15,
+  },
+  label:{
+    color:'white',
+    fontSize:20,
     textAlign:'center'
   },
-  v1:{
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
-    height:40,
-    margin:15,
-    marginBottom:30,
-    marginTop:30,
-    backgroundColor: 'transparent'
-  },
-  label : {
-    color:'white',
-    fontSize:18,
-    fontWeight: 'bold',
-    marginLeft: 0,
-    textAlign:'center',
-    borderBottomColor:'#73DB1D',
-    borderBottomWidth:3,
-  },
-  labelExit : {
-    color:'white',
-    fontSize:18,
-    textAlign:'center',
-  },
-  icon:{
-    width:20,
-    height:20
+  image:{
+    width:50,
+    height:50,
+    marginLeft:20,
   },
 });

@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 type Props = {};
-export default class ButtonLarge extends Component<Props> {
+export default class ButtonForm extends Component<Props> {
 
   render = () => {
     const {disabled} = this.props;
@@ -23,22 +23,13 @@ export default class ButtonLarge extends Component<Props> {
       activeOpacity={disabled ? 1 : 0.7}
       >
         <View style={styles.v1}>
-          <Image style={styles.image} source={this.props.iconPrimary}/>
+
           <Text style={styles.text}>
             {this.props.text}
           </Text>
+
         </View>
-        {
-          this.props.status === null
-          ? null
-          :this.props.status
-            ? <View style={styles.ok}>
-                <Image style={styles.image} source={this.props.icon}/>
-              </View>
-            :<View style={styles.no}>
-              <Image style={styles.image} source={this.props.icon}/>
-            </View>
-        }
+        <Image style={styles.image} source={this.props.icon}/>
       </TouchableOpacity>
     );
   }
@@ -47,15 +38,12 @@ export default class ButtonLarge extends Component<Props> {
 const styles = StyleSheet.create({
   button:{
     width:350,
-    height:60,
+    height:40,
     margin:15,
     padding:0,
     backgroundColor:'rgba(0,0,0,0.7)',
-    borderRadius:15,
-    borderBottomColor:'rgba(255, 136, 13,0.7)',
-    borderRightColor:'rgba(255, 136, 13,0.7)',
-    borderBottomWidth:4,
-    borderRightWidth:5,
+    borderBottomColor:'#76bc21',
+    borderBottomWidth:2,
     alignItems:'center',
     justifyContent:'flex-start',
     flexDirection:'row',
@@ -66,9 +54,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   image:{
-    width:30,
-    height:30,
-    marginLeft:20,
+    width:18,
+    height:18,
+    marginRight:5,
   },
   text:{
     color:'white',

@@ -23,14 +23,14 @@ export default class ButtonLarge extends Component<Props> {
       activeOpacity={disabled ? 1 : 0.7}
       >
         <View style={styles.v1}>
-          <Image style={styles.image} source={this.props.iconPrimary}/>
+          <Image style={styles.image} source={this.props.icon}/>
           <Text style={styles.text}>
             {this.props.text}
           </Text>
         </View>
         {
           this.props.status === null
-          ? null
+          ?null
           :this.props.status
             ? <View style={styles.ok}>
                 <Image style={styles.image} source={this.props.icon}/>
@@ -39,6 +39,7 @@ export default class ButtonLarge extends Component<Props> {
               <Image style={styles.image} source={this.props.icon}/>
             </View>
         }
+
       </TouchableOpacity>
     );
   }
@@ -46,9 +47,7 @@ export default class ButtonLarge extends Component<Props> {
 
 const styles = StyleSheet.create({
   button:{
-    width:350,
     height:60,
-    margin:15,
     padding:0,
     backgroundColor:'rgba(0,0,0,0.7)',
     borderRadius:15,
