@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  ScrollView
+  ScrollView,
+  Dimensions,
 } from 'react-native';
 import _ from 'lodash';
 import axios from 'axios';
@@ -305,11 +306,13 @@ export default class App extends Component<Props> {
 
 }
 
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container:{
     flex:1,
+    height:height+10,
     paddingTop:35,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
   }
 });
