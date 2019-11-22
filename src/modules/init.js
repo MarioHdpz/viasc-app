@@ -50,6 +50,7 @@ export default class App extends Component<Props> {
         />
         <ButtonLarge
           disabled = {true}
+          iconPrimary = {require('../assets/icono_iniciaravaluo/icono_iniciaravaluo.png')}
           icon = {require('../assets/icono_iniciaravaluo/icono_iniciaravaluo.png')}
           text = {this.state.label}
           onClickButton = {this.onClickButton}

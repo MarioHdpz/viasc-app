@@ -96,6 +96,7 @@ export default class App extends Component<Props> {
 
         <View style={styles.container}>
           <ButtonLarge
+            iconPrimary = {require('../assets/icono_adjuntar/icono_adjuntar.png')}
             icon = {require('../assets/icono_acierto/icono_acierto.png')}
             text = "Adjuntar documentos"
             onClickButton = {this.adjuntarDocs}
@@ -103,6 +104,7 @@ export default class App extends Component<Props> {
             disabled = {true}
           />
           <ButtonLarge
+            iconPrimary = {require('../assets/icono_iniciarformulario/icono_iniciarformulario.png')}
             icon = {require('../assets/icono_acierto/icono_acierto.png')}
             text = "Iniciar formulario"
             onClickButton = {this.formulario}
@@ -110,6 +112,7 @@ export default class App extends Component<Props> {
             disabled = {okformulario}
           />
           <ButtonLarge
+            iconPrimary = {require('../assets/icono_camara/icono_camara.png')}
             icon = {require('../assets/icono_acierto/icono_acierto.png')}
             text = "Captura de fotos"
             onClickButton = {this.captura}
