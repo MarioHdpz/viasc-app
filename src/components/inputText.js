@@ -6,13 +6,11 @@ export default class InputText extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.label}>
-          {this.props.label}
-        </Text>
+
         <TextInput
           style={styles.textInputStyle}
           onChangeText={(texto) => {this.props.handleTextChange(texto,this.props.id)}}
-          placeholder={this.props.pholder}
+          placeholder={this.props.label}
           placeholderTextColor="#f2f2f2"
         />
       </View>

@@ -123,13 +123,12 @@ export default class App extends Component<Props> {
       case "button":
         //activa o desactiva los botones
         //{ i === optionActive ? true : false }
-        console.log('button');
         return (
-          <ButtonLarge
+          <ButtonForm
             key = {i}
             id = {d.id}
             disabled = {true}
-            icon = {require('../assets/icon/icon.png')}
+            icon = {require('../assets/icono_flechader/icono_flechader.png')}
             text = {d.label}
             onClickButton = {this.onClickButton}
             status = {null}
@@ -139,7 +138,6 @@ export default class App extends Component<Props> {
 
       case "select":
         if ( respuestas[d.id] ) {
-          //console.log("respuestas",respuestas[d.id], d.options);
           value = d.options[ (respuestas[d.id]-1) ][1];
         }
 

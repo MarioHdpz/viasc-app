@@ -12,8 +12,8 @@ import AdjuntarDocs from '../modules/adjuntarDocs';
 import Captura from '../modules/captura';
 
 const AppNavigator = createStackNavigator({
-  Init: {
-    screen: Init,
+  InitAvaluo: {
+    screen: InitAvaluo,
     navigationOptions: {
       headerTransparent:true,
       headerTitle: () => (
@@ -26,7 +26,7 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-
+  
   WorkSpace: {
     screen: WorkSpace,
     navigationOptions: {
@@ -49,18 +49,8 @@ const AppNavigator = createStackNavigator({
     }
   },
 
-
-
-
-
-
-
-
-
-
-
-  InitAvaluo: {
-    screen: InitAvaluo,
+  Init: {
+    screen: Init,
     navigationOptions: {
       headerTransparent:true,
       headerTitle: () => (
@@ -73,6 +63,10 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
+
+
+
+
 
   AdjuntarDocs: {
     screen: AdjuntarDocs,
