@@ -14,13 +14,29 @@ export default class ButtonLarge extends Component<Props> {
     const {disabled} = this.props;
     return (
       <TouchableOpacity
-      style={styles.button}
+      style={{
+        width:350,
+        height:60,
+        margin:15,
+        padding:0,
+        backgroundColor:disabled
+        ?'rgba(0,0,0,0.7)'
+        :'rgba(0,0,0,0.3)'
+        ,
+        borderRadius:15,
+        borderBottomColor:'rgba(255, 136, 13,0.7)',
+        borderRightColor:'rgba(255, 136, 13,0.7)',
+        borderBottomWidth:4,
+        borderRightWidth:5,
+        alignItems:'center',
+        justifyContent:'flex-start',
+        flexDirection:'row',
+      }}
       onPress={
         disabled
         ? ()=>{this.props.onClickButton(this.props.id)}
         : ()=>{}
       }
-      activeOpacity={disabled ? 1 : 0.7}
       >
         <View style={styles.v1}>
           <Image style={styles.image} source={this.props.iconPrimary}/>
@@ -45,21 +61,6 @@ export default class ButtonLarge extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-  button:{
-    width:350,
-    height:60,
-    margin:15,
-    padding:0,
-    backgroundColor:'rgba(0,0,0,0.7)',
-    borderRadius:15,
-    borderBottomColor:'rgba(255, 136, 13,0.7)',
-    borderRightColor:'rgba(255, 136, 13,0.7)',
-    borderBottomWidth:4,
-    borderRightWidth:5,
-    alignItems:'center',
-    justifyContent:'flex-start',
-    flexDirection:'row',
-  },
   v1:{
     flex:1,
     flexDirection:'row',
