@@ -18,13 +18,22 @@ export default class App extends Component<Props> {
     4:null,
     5:null,
     6:null,
+
+
+    "Escritura":null,
+    "INE Solicitante":null,
+    "Boleto Predial":null,
+    "INE Propietario":null,
+    "Recibos":null,
+    "Plano vivienda":null,
+
   }
 
   componentDidMount = () => {
-    this.getStorage();
+    this.getDocsStorage();
   }
 
-  getStorage = async () => {
+  getDocsStorage = async () => {
     try {
       const value = await AsyncStorage.getItem('docs')
       if(value !== null) {
@@ -46,9 +55,62 @@ export default class App extends Component<Props> {
     }
   }
 
-  getData = (id, data, estado) => {
-    this.setState( {[id]:estado}, this.setStorage );
+  getData = async (id, archive, estado) => {
+    try {
+      const value = await AsyncStorage.getItem('user')
+      if(value !== null) {
+        const user = JSON.parse(value);
+
+        let data = new FormData()
+        data.append('user', user.pk)
+        data.append('encoding', '')
+        data.append('archive', archive)
+        data.append('process', '')
+        data.append('label', id)
+        data.append('appraisal', '1')
+        data.append('created_at', '2019-11-02 04:41:16')
+        data.append('updated_at', '2019-11-02 04:41:16')
+
+        fetch('http://18.219.244.117/documents/', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': user.token,
+          },
+          body: JSON.stringify(data),
+        }).then((response) => {
+          this.setState( {[id]:true}, this.setStorage );
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log("response false",id, error);
+          this.setState( {[id]:false}, this.setStorage );
+        });
+
+      }
+    } catch(e) {
+      // error reading value
+    }
   }
+
+  /*getData = (id, archive, estado) => {
+    const token = this.getToken();
+    console.log('token', token, 'archive', archive);
+    const url = 'http://18.219.244.117/documents/'
+    let data = new FormData()
+    data.append('user', 'hubot')
+    data.append('encoding', '')
+    data.append('archive', archive)
+    data.append('process', '')
+    data.append('label', '')
+    data.append('appraisal', '')
+    data.append('created_at', '')
+    data.append('updated_at', )
+
+    //this.getData();
+
+    //this.setState( {[id]:estado}, this.setStorage );
+  }*/
 
   validar = () => {
     let ready = true;
@@ -61,7 +123,6 @@ export default class App extends Component<Props> {
       }
     }
 
-    console.log(ready);
     if (ready !== null) {
       this.setStorage(ready.toString());
     }
@@ -81,15 +142,15 @@ export default class App extends Component<Props> {
             style={styles.left}
             label = "Escritura"
             getData = {this.getData}
-            id={1}
-            estado={this.state[1]}
+            id="Escritura"
+            estado={this.state["Escritura"]}
           />
           <File
             style={styles.left}
             label = "INE Solicitante"
             getData = {this.getData}
-            id={2}
-            estado={this.state[2]}
+            id="INE Solicitante"
+            estado={this.state["INE Solicitante"]}
           />
         </View>
 
@@ -98,15 +159,15 @@ export default class App extends Component<Props> {
             style={styles.left}
             label = "Boleto Predial"
             getData = {this.getData}
-            id={3}
-            estado={this.state[3]}
+            id="Boleto Predial"
+            estado={this.state["Boleto Predial"]}
           />
           <File
             style={styles.left}
             label = "INE Propietario"
             getData = {this.getData}
-            id={4}
-            estado={this.state[4]}
+            id="INE Propietario"
+            estado={this.state["INE Propietario"]}
           />
         </View>
 
@@ -115,15 +176,15 @@ export default class App extends Component<Props> {
             style={styles.left}
             label = "Recibos"
             getData = {this.getData}
-            id={5}
-            estado={this.state[5]}
+            id="Recibos"
+            estado={this.state["Recibos"]}
           />
           <File
             style={styles.left}
             label = "Plano vivienda"
             getData = {this.getData}
-            id={6}
-            estado={this.state[6]}
+            id="Plano vivienda"
+            estado={this.state["Plano vivienda"]}
           />
         </View>
       </ImageBackground>

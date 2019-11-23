@@ -17,13 +17,10 @@ export default class File extends Component<Props> {
         const res = await DocumentPicker.pick({
           type: [DocumentPicker.types.pdf],
         });
+        console.log('res');
         if (res) {
-            this.props.getData(this.props.id,res,true);
+          this.props.getData(this.props.id,res,true);
         }
-        else{
-          this.props.getData(this.props.id,res,false);
-        }
-
       } catch (err) {
 
         if (DocumentPicker.isCancel(err)) {

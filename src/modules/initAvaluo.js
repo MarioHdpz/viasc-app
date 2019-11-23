@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Button,
   Dimensions,
-  ImageBackground
+  ImageBackground,
+  Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from 'react-navigation';
@@ -52,8 +53,25 @@ export default class App extends Component<Props> {
   }
 
   cancelar = () => {
-    this.clearAll();
-    this.props.navigation.navigate('Init');
+
+    Alert.alert(
+      'Cancelar gestión',
+      '¿Desea cancelar la gestión?',
+      [
+        {
+          text: 'No, continuar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Si, cancelar', onPress: () => {
+          this.clearAll();
+          this.props.navigation.navigate('Init');
+        }},
+      ],
+      {cancelable: false},
+    );
+
+
   }
 
   clearAll = async () => {
@@ -66,9 +84,25 @@ export default class App extends Component<Props> {
   }
 
   sendAll = () =>{
-    console.warn("Enviando");
-    this.clearAll();
-    this.props.navigation.navigate('Init');
+
+    Alert.alert(
+      'Envíar gestión',
+      '¿Desea envíar la gestión?',
+      [
+        {
+          text: 'No envíar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Si envíar', onPress: () => {
+          this.clearAll();
+          this.props.navigation.navigate('Init');
+        }},
+      ],
+      {cancelable: false},
+    );
+
+
   }
 
   adjuntarDocs = () => {
