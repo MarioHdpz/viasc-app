@@ -6,7 +6,9 @@ import {
   Button,
   Dimensions,
   ImageBackground,
-  Alert
+  Alert,
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from 'react-navigation';
@@ -94,7 +96,7 @@ export default class App extends Component<Props> {
       console.log("error storage", e);
     }
 
-    //console.log(buttons.length, formulario, totalRespuestas);
+    //VALIDAMOS FOTOGRAFÍAS.
   }
 
   cancelar = () => {
@@ -189,15 +191,24 @@ export default class App extends Component<Props> {
         </View>
 
         <View style={styles.fixToText}>
-          <Button
-            title="Cancelar"
-            color="rgb(126, 4, 4)"
-            onPress = {this.cancelar}
-          />
-          <Button
-            title="Envíar"
-            onPress = {this.sendAll}
-          />
+
+          <TouchableOpacity onPress={this.cancelar}>
+            <Image
+              style={{
+                width:100,
+              }}
+              source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this.sendAll}>
+            <Image
+              style={{
+                width:100,
+              }}
+              source={require('../assets/btn_guardar/btn_guardar.png')}
+            />
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     );

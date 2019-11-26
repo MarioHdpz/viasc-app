@@ -281,21 +281,20 @@ export default class App extends Component<Props> {
           }
 
           <View style={styles.buttonsBottom}>
-            <TouchableOpacity onPress={this.saveConfirm}>
-              <Image
-                style={{
-                  width:100,
-                }}
-                source={require('../assets/btn_guardar/btn_guardar.png')}
-              />
-            </TouchableOpacity>
-
             <TouchableOpacity onPress={this.clear}>
               <Image
                 style={{
                   width:100,
                 }}
                 source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.saveConfirm}>
+              <Image
+                style={{
+                  width:100,
+                }}
+                source={require('../assets/btn_guardar/btn_guardar.png')}
               />
             </TouchableOpacity>
           </View>
