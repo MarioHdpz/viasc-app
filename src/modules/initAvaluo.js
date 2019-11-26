@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from 'react-navigation';
+import _ from 'lodash';
+
+import db from '../containers/formulario.json';
 import ButtonLarge from '../components/buttonLarge';
 
 type Props = {};
@@ -68,6 +71,30 @@ export default class App extends Component<Props> {
     } catch(e) {
       console.log("error storage", e);
     }
+
+    //VALIDAMOS FORMULARIO
+    const buttons = _.filter(db, {inputType:'button'});
+    const formulario = Object.keys(db).length;
+    const totalRespuestas = formulario - buttons.length
+
+    try {
+      let {form, okfotos} = this.state;
+      const value = await AsyncStorage.getItem('respuestas')
+
+      if(value !== null) {
+        const okRespuestas = Object.keys(JSON.parse(value)).length;
+        if (totalRespuestas === okRespuestas) {
+          form = true;
+          okfotos = true;
+        }
+
+        this.setState({ form, okfotos });
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
+
+    //console.log(buttons.length, formulario, totalRespuestas);
   }
 
   cancelar = () => {
