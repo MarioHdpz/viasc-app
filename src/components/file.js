@@ -14,18 +14,18 @@ export default class File extends Component<Props> {
 
   getFile = async () => {
     try {
-        const res = await DocumentPicker.pick({
-          type: [DocumentPicker.types.pdf],
-        });
-        console.log('res');
+        const res = await DocumentPicker.pick({ type: [DocumentPicker.types.pdf], });
         if (res) {
-          this.props.getData(this.props.id,res,true);
+          this.props.getData(this.props.id,res);
+        }
+        else{
+          this.props.getData(this.props.id,false);
         }
       } catch (err) {
 
-        if (DocumentPicker.isCancel(err)) {
-          // User cancelled the picker, exit any dialogs or menus and move on
-        } else {
+        if (DocumentPicker.isCancel(err)) {}
+        else {
+          this.props.getData(this.props.id,false);
           throw err;
         }
       }
@@ -38,21 +38,20 @@ export default class File extends Component<Props> {
       <TouchableOpacity style={styles.container} onPress={this.getFile}>
 
         {
-
           estado === null
           ?<Image
               style={styles.icon}
               source = {require('../assets/icono_folder/icono_folder.png')}
             />
-          :estado === true
-            ?<Image
-              style={styles.icon}
-              source = {require('../assets/icono_seleccionararchivo/icono_seleccionararchivo.png')}
-            />
-            :<Image
-              style={styles.icon}
-              source = {require('../assets/icono_foldererror/icono_foldererror.png')}
-            />
+          : estado === false
+            ? <Image
+                style={styles.icon}
+                source = {require('../assets/icono_foldererror/icono_foldererror.png')}
+              />
+            : <Image
+                style={styles.icon}
+                source = {require('../assets/icono_seleccionararchivo/icono_seleccionararchivo.png')}
+              />
         }
         <Text style={styles.text}>
           {label}

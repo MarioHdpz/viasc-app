@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from 'react-native';
 
 type Props = {};
@@ -87,9 +88,11 @@ export default class Select extends Component<Props> {
   }
 }
 
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container:{
     height:40,
+    width:width-50,
     margin:15,
     marginBottom:30,
   },

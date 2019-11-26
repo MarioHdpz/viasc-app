@@ -12,12 +12,41 @@ import AdjuntarDocs from '../modules/adjuntarDocs';
 import Captura from '../modules/captura';
 
 const AppNavigator = createStackNavigator({
+  Captura: {
+    screen: Captura,
+    navigationOptions: {
+      headerTransparent:true,
+      headerTitle: () => (
+        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <Image
+            style = {{width:50, height:50}}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
+          />
+        </View>
+      ),
+    },
+  },
 
   Login: {
     screen: Login,
     navigationOptions: {
       headerTransparent:true,
     }
+  },
+
+  InitAvaluo: {
+    screen: InitAvaluo,
+    navigationOptions: {
+      headerTransparent:true,
+      headerTitle: () => (
+        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <Image
+            style = {{width:50, height:50}}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
+          />
+        </View>
+      ),
+    },
   },
 
   Init: {
@@ -49,24 +78,6 @@ const AppNavigator = createStackNavigator({
     },
   },
 
-
-
-  InitAvaluo: {
-    screen: InitAvaluo,
-    navigationOptions: {
-      headerTransparent:true,
-      headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
-          <Image
-            style = {{width:50, height:50}}
-            source={require('../assets/logotipo_vias/logotipo_vias.png')}
-          />
-        </View>
-      ),
-    },
-  },
-
-
   AdjuntarDocs: {
     screen: AdjuntarDocs,
     navigationOptions: {
@@ -80,12 +91,6 @@ const AppNavigator = createStackNavigator({
         </View>
       ),
     },
-  },
-
-
-
-  Captura: {
-    screen: Captura,
   },
 });
 

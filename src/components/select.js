@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   Image,
+  Dimensions,
 } from 'react-native';
 
 type Props = {};
@@ -40,7 +41,7 @@ export default class Select extends Component<Props> {
           presentationStyle={this.formSheet}
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
+            this.setModalVisible(!this.state.modalVisible);
           }}>
           <View style={styles.modal}>
             <View style={{alignItems:'center'}}>
@@ -86,7 +87,7 @@ export default class Select extends Component<Props> {
     );
   }
 }
-
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container:{
     height:40,
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     color:'white',
     borderBottomColor: '#73DB1D',
     borderBottomWidth: 1,
-    width:370,
+    width:width-50,
     height: 40,
     margin: -15,
     marginLeft:10,

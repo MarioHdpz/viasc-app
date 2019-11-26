@@ -15,19 +15,26 @@ import ButtonLarge from '../components/buttonLarge';
 type Props = {};
 export default class App extends Component<Props> {
   state = {
+    user:null,
+
     docs : null,
     okformulario:false,
     okfotos:false,
   }
 
+  componentDidMount = () => {
+    const user = this.props.navigation.getParam('user');
+    this.setState({user});
+  }
 
-  getStorage = async () => {
-    console.log('getStorage');
+  validarFromStorage = async () => {
+
+    //VALIDAMOS DOCUMENTOS
     try {
       const value = await AsyncStorage.getItem('docs')
       if(value !== null) {
         const json = JSON.parse(value);
-        this.validarDocs(json);
+        console.log('VALIDAR DOCUMENTOS: ',json);
       }
     } catch(e) {
       console.log("error storage", e);
@@ -53,7 +60,6 @@ export default class App extends Component<Props> {
   }
 
   cancelar = () => {
-
     Alert.alert(
       'Cancelar gestión',
       '¿Desea cancelar la gestión?',
@@ -70,8 +76,6 @@ export default class App extends Component<Props> {
       ],
       {cancelable: false},
     );
-
-
   }
 
   clearAll = async () => {
@@ -84,7 +88,6 @@ export default class App extends Component<Props> {
   }
 
   sendAll = () =>{
-
     Alert.alert(
       'Envíar gestión',
       '¿Desea envíar la gestión?',
@@ -101,8 +104,6 @@ export default class App extends Component<Props> {
       ],
       {cancelable: false},
     );
-
-
   }
 
   adjuntarDocs = () => {
@@ -117,6 +118,12 @@ export default class App extends Component<Props> {
     this.props.navigation.navigate('Captura');
   }
 
+  /*
+  <NavigationEvents
+    onWillFocus={payload => {this.validarFromStorage()}}
+  />
+  */
+
   render = () => {
     const {okformulario, okfotos} = this.state;
     return (
@@ -124,16 +131,12 @@ export default class App extends Component<Props> {
         source={require('../assets/bg_home/bg_home.png')}
         style={styles.container}
       >
-      <NavigationEvents
-        onWillFocus={payload => {this.getStorage()}}
-      />
-
         <View style={styles.container}>
           <ButtonLarge
             iconPrimary = {require('../assets/icono_adjuntar/icono_adjuntar.png')}
             icon = {require('../assets/icono_acierto/icono_acierto.png')}
             text = "Adjuntar documentos"
-            onClickButton = {this.adjuntarDocs}
+            onClickButton = { () => { this.props.navigation.navigate('AdjuntarDocs', {user:this.state.user}) }}
             status = {this.state.docs}
             disabled = {true}
           />

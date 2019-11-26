@@ -13,17 +13,30 @@ type Props = {};
 export default class App extends Component<Props> {
   state={
     label:'Iniciar Avalúo',
+    user:null,
   }
 
   componentDidMount = () => {
-    this.getAllKeys()
+    const user = this.props.navigation.getParam('user');
+    this.setState({user},()=>{
+      console.log('INIT USER:',user);
+    });
+
+    //this.getAllKeys()
   }
 
   onClickButton = () => {
-    this.props.navigation.navigate('InitAvaluo');
+    this.props.navigation.navigate('InitAvaluo', { user:this.state.user });
   }
 
   getAllKeys = async () => {
+
+    /*
+    <NavigationEvents
+      onWillFocus={payload => {this.getAllKeys()}}
+    />
+    */
+
     let keys = []
     try {
       keys = await AsyncStorage.getAllKeys()
@@ -45,9 +58,6 @@ export default class App extends Component<Props> {
         source={require('../assets/bg_home/bg_home.png')}
         style={styles.container}
       >
-        <NavigationEvents
-          onWillFocus={payload => {this.getAllKeys()}}
-        />
         <ButtonLarge
           disabled = {true}
           iconPrimary = {require('../assets/icono_iniciaravaluo/icono_iniciaravaluo.png')}
