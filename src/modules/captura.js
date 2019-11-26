@@ -34,7 +34,7 @@ export default class App extends Component<Props> {
     let { respuestas, active } = this.state;
     respuestas[active]['encoding'] = data;
 
-
+    console.log('getPhoto',respuestas);
     this.setState({respuestas});
   }
 
@@ -58,7 +58,7 @@ export default class App extends Component<Props> {
               value = {
                 respuestas[active]
                 ? respuestas[active]['label']
-                : 'Seleccionar'
+                : 'Módulo'
               }
               label = ""
               buttonSelected = { this.buttonSelected }
@@ -72,6 +72,7 @@ export default class App extends Component<Props> {
               ? respuestas[active]['encoding']
               : null
             }
+            modulo = {respuestas[active]}
             getPhoto = {this.getPhoto}
           />
 

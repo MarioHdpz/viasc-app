@@ -43,19 +43,24 @@ export default class Camara extends Component<Props> {
 
         <View>
           <View style={styles.show}>
-            <TouchableOpacity
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}
-            >
-              <Image
-                style={{
-                  width:50,
-                  height:50,
+          {
+            this.props.modulo
+            ? <TouchableOpacity
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
                 }}
-                source={require('../assets/icono_camara/icono_camara.png')}
-              />
-            </TouchableOpacity>
+              >
+                <Image
+                  style={{
+                    width:50,
+                    height:50,
+                  }}
+                  source={require('../assets/icono_camara/icono_camara.png')}
+                />
+              </TouchableOpacity>
+            :null
+          }
+
           </View>
 
           {
