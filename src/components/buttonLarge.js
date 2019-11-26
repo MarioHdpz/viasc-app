@@ -52,7 +52,7 @@ export default class ButtonLarge extends Component<Props> {
                 <Image style={styles.image} source={this.props.icon}/>
               </View>
             :<View style={styles.no}>
-              <Image style={styles.image} source={this.props.icon}/>
+              <Image style={styles.image} source={this.props.iconError}/>
             </View>
         }
       </TouchableOpacity>

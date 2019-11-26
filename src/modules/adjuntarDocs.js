@@ -63,7 +63,11 @@ export default class App extends Component<Props> {
   getData = async (id, archive) => {
     let {docs, user} = this.state;
 
-    console.log(archive);
+    /*
+    docs[id] = false;
+    this.setState({docs}, this.setDogsStorage);
+    */
+
 
     if (archive) {
       let data = new FormData()
@@ -81,8 +85,6 @@ export default class App extends Component<Props> {
           'Authorization': `jwt ${user.token}`,
         }
       }
-
-      console.log(conf);
 
       axios.post('http://18.219.244.117/documents/', data, conf)
       .then((response) => {
@@ -103,7 +105,7 @@ export default class App extends Component<Props> {
       this.setState({docs}, this.setDogsStorage);
     }
 
-    //console.log('getData',docs);
+
   }
 
   render = () => {

@@ -12,6 +12,13 @@ import AdjuntarDocs from '../modules/adjuntarDocs';
 import Captura from '../modules/captura';
 
 const AppNavigator = createStackNavigator({
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      headerTransparent:true,
+    }
+  },
+  
   Captura: {
     screen: Captura,
     navigationOptions: {
@@ -25,13 +32,6 @@ const AppNavigator = createStackNavigator({
         </View>
       ),
     },
-  },
-
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      headerTransparent:true,
-    }
   },
 
   InitAvaluo: {

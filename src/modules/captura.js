@@ -7,7 +7,9 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
+  Alert,
 } from 'react-native';
+import axios from 'axios';
 
 import TitleForm from '../components/titleForm';
 import Select from '../components/select';
@@ -76,6 +78,14 @@ export default class App extends Component<Props> {
   state = {
     respuestas:{},
     active:null,
+    user:null,
+  }
+
+  componentDidMount = () => {
+    const user = this.props.navigation.getParam('user');
+    this.setState({user},()=>{
+      console.log('CAPTURADEFOTOS:',user);
+    });
   }
 
   buttonSelected = (index,id, data) => {
@@ -104,7 +114,96 @@ export default class App extends Component<Props> {
     this.setState({respuestas});
   }
 
+  saveConfirm = () => {
+    if (this.state.active) {
+      Alert.alert(
+        'Envíar',
+        '¿Desea enviar las fotos?',
+        [
+          {
+            text: 'No, continuar',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'Si, Enviar', onPress: () => {
+            this.send();
+          }},
+        ],
+        {cancelable: false},
+      );
+    }
+    else{
+      Alert.alert(
+        'Error',
+        'Primero capture las fotografías correspondientes',
+        [
+          {},
+          {text: 'Aceptar', onPress: () => {}},
+        ],
+        {cancelable: false},
+      );
+    }
+  }
 
+  send = () => {
+    const { respuestas, user } = this.state;
+    console.log(user);
+    for(let item in respuestas){
+      const p = respuestas[item];
+
+      const data = {
+      	"user": user.pk,
+      	"encoding": p.encoding,
+      	"archive": null,
+      	"process": null,
+      	"items": null,
+      	"label": p.label,
+      	"appraisal": 1
+      }
+
+      const conf = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `jwt ${user.token}`,
+        }
+      }
+
+      console.log(conf, data);
+
+      axios.post('http://18.219.244.117/pictures/', data, conf)
+      .then((response) => {
+        console.log('AXIOS OK -> ',response);
+        //docs[id] = archive;
+        //this.setState({docs}, this.setDogsStorage);
+      })
+      .catch((response) => {
+        //docs[id] = false;
+        //this.setState({docs}, this.setDogsStorage);
+        console.log('error Axios -> ', response);
+      });
+    }
+  }
+
+  clear = () => {
+    Alert.alert(
+      'Cancelar',
+      '¿Desea eliminar todas las fotos?',
+      [
+        {
+          text: 'No, continuar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Si, limpiar', onPress: () => {
+          this.setState({
+            respuestas:{},
+            active:null,
+          });
+        }},
+      ],
+      {cancelable: false},
+    );
+  }
 
   render = () => {
     const {respuestas, active} = this.state;
@@ -125,7 +224,7 @@ export default class App extends Component<Props> {
         />
 
         <View style={styles.area}>
-            <Select
+          <Select
               index = {1}
               id = {1}
               options = {[
@@ -182,7 +281,7 @@ export default class App extends Component<Props> {
           }
 
           <View style={styles.buttonsBottom}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.saveConfirm}>
               <Image
                 style={{
                   width:100,
@@ -191,7 +290,7 @@ export default class App extends Component<Props> {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.clear}>
               <Image
                 style={{
                   width:100,
