@@ -25,8 +25,6 @@ export default class App extends Component<Props> {
     respuestas[id] = {};
     respuestas[id]['label'] = data[1];
 
-    console.log(respuestas);
-
     this.setState({respuestas, active:id});
   }
 
@@ -37,6 +35,17 @@ export default class App extends Component<Props> {
     console.log('getPhoto',respuestas);
     this.setState({respuestas});
   }
+
+  buttonSelectedEtiquetas = (index,id, data) => {
+    let { respuestas } = this.state;
+    respuestas[id]['etiquetas'] = data[1];
+
+    console.log(respuestas);
+
+    this.setState({respuestas});
+  }
+
+
 
   render = () => {
     const {respuestas, active} = this.state;
@@ -54,7 +63,17 @@ export default class App extends Component<Props> {
             <Select
               index = {1}
               id = {1}
-              options = {[[1,"Originación"],[2,"Recuperación por Reestructura"],[3,"Recuperación por Adjudicación"],[4,"Recuperación por Dación En Pago"],[5,"Otro"]]}
+              options = {[
+                [1,"CD (Construccion Dominante)"],
+                [2,"Entorno"],
+                [3,"Esquina"],
+                [4,"Inmueble"],
+                [5,"Interior"],
+                [6,"Número_de_niveles"],
+                [7,"Tipo_de_proyecto"],
+                [8,"Tipo_de_vivienda"],
+                [9,"Vialidad"]
+              ]}
               value = {
                 respuestas[active]
                 ? respuestas[active]['label']
@@ -75,15 +94,23 @@ export default class App extends Component<Props> {
             modulo = {respuestas[active]}
             getPhoto = {this.getPhoto}
           />
-
-          <Select
-            index = {''}
-            id = {1}
-            options = {[[1,"Originación"],[2,"Recuperación por Reestructura"],[3,"Recuperación por Adjudicación"],[4,"Recuperación por Dación En Pago"],[5,"Otro"]]}
-            value = "Seleccionar"
-            label = ""
-            buttonSelected = { this.buttonSelected }
-          />
+          {
+            respuestas[active]
+            ?
+            <Select
+              index = {''}
+              id = {1}
+              options = {[[1,"Originación"],[2,"Recuperación por Reestructura"],[3,"Recuperación por Adjudicación"],[4,"Recuperación por Dación En Pago"],[5,"Otro"]]}
+              value = {
+                respuestas[active]
+                ? respuestas[active]['etiquetas']
+                : 'Etiquetas'
+              }
+              label = ""
+              buttonSelected = { this.buttonSelectedEtiquetas }
+            />
+            : null
+          }
 
           <View style={styles.buttonsBottom}>
             <TouchableOpacity>
@@ -121,7 +148,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   area:{
-    flex:1,
+    height:height-100,
     width:width,
     paddingRight:10,
   },
