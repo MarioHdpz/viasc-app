@@ -52,8 +52,8 @@ export default class Camara extends Component<Props> {
               >
                 <Image
                   style={{
-                    width:50,
-                    height:50,
+                    width:40,
+                    height:40,
                   }}
                   source={require('../assets/icono_camara/icono_camara.png')}
                 />

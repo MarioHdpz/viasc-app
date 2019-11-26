@@ -102,7 +102,7 @@ export default class App extends Component<Props> {
               id = {1}
               options = {[[1,"Originación"],[2,"Recuperación por Reestructura"],[3,"Recuperación por Adjudicación"],[4,"Recuperación por Dación En Pago"],[5,"Otro"]]}
               value = {
-                respuestas[active]
+                respuestas[active]['etiquetas']
                 ? respuestas[active]['etiquetas']
                 : 'Etiquetas'
               }
