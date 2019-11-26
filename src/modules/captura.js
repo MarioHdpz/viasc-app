@@ -13,6 +13,64 @@ import TitleForm from '../components/titleForm';
 import Select from '../components/select';
 import Camara from '../components/camara';
 
+const selectEtiquetas = {
+  0:[],
+  1:[
+    [1,"Casa"],
+    [2,"Depto (Departamento)"],
+    [3,"n (nulo)"]
+  ],
+  2:[
+    [4,"banqueta"],
+    [5,"colonia"],
+    [6,"conjunto"],
+    [7,"coto"],
+    [8,"fracc (fraccionamiento)"],
+    [9,"medidor"],
+    [10,"n"],
+    [11,"RedArea"]
+  ],
+  3:[
+    [12,"esquina"],
+    [13,"noesquina"]
+  ],
+  4:[
+    [14,"CasaHab (Casa Habitación)"],
+    [15,"Depto"],
+    [16,"Terreno"]
+  ],
+  5:[
+    [17,"Baño"],
+    [18,"Cocina"],
+    [19,"Comedor"],
+    [20,"Escaleras"],
+    [21,"FachPos (Fachada Posterior)"],
+    [22,"Recamara"],
+    [23,"Sala"],
+    [24,"Vacio"],
+  ],
+  6:[
+    [25,"uno"],
+    [26,"dos"],
+    [27,"tres"],
+  ],
+  7:[
+    [28,"AUTOCONSTRUCCION"],
+    [29,"DESARROLLADOR"],
+    [30,"INGENIERO"],
+  ],
+  8:[
+    [31,"nueva"],
+    [32,"usada"],
+  ],
+  9:[
+    [33,"andador"],
+    [34,"AveBlvdCalz (Avenida o Boulevard o Calzada)"],
+    [35,"calle"],
+    [36,"carretera"],
+  ],
+}
+
 type Props = {};
 export default class App extends Component<Props> {
   state = {
@@ -23,6 +81,7 @@ export default class App extends Component<Props> {
   buttonSelected = (index,id, data) => {
     let { respuestas } = this.state;
     respuestas[id] = {};
+    respuestas[id]['value'] = data[0];
     respuestas[id]['label'] = data[1];
 
     this.setState({respuestas, active:id});
@@ -49,6 +108,12 @@ export default class App extends Component<Props> {
 
   render = () => {
     const {respuestas, active} = this.state;
+
+    let sin = null
+    if (respuestas[active]) {
+      sin = respuestas[active]['value']
+    }
+
 
     return (
       <ImageBackground
@@ -100,7 +165,11 @@ export default class App extends Component<Props> {
             <Select
               index = {''}
               id = {1}
-              options = {[[1,"Originación"],[2,"Recuperación por Reestructura"],[3,"Recuperación por Adjudicación"],[4,"Recuperación por Dación En Pago"],[5,"Otro"]]}
+              options = {
+                sin
+                ? selectEtiquetas[sin]
+                : []
+              }
               value = {
                 respuestas[active]['etiquetas']
                 ? respuestas[active]['etiquetas']

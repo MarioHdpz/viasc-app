@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  ScrollView
 } from 'react-native';
 
 type Props = {};
@@ -24,6 +25,7 @@ export default class Select extends Component<Props> {
     const {id, options, value, label} = this.props;
     return (
       <View style={styles.v1}>
+
         <Text
           style={styles.textSelect}
           onPress={() => {
@@ -44,6 +46,9 @@ export default class Select extends Component<Props> {
             this.setModalVisible(!this.state.modalVisible);
           }}>
           <View style={styles.modal}>
+          <ScrollView
+              style={styles.scroll}
+            >
             <View style={{alignItems:'center'}}>
               <Text
                 style={styles.label}
@@ -71,6 +76,7 @@ export default class Select extends Component<Props> {
                 })
               }
             </View>
+            </ScrollView>
             <View style={{alignItems:'center'}}>
               <Text
                 style={styles.labelExit}
@@ -81,8 +87,10 @@ export default class Select extends Component<Props> {
                 {`❌`}
               </Text>
             </View>
+
           </View>
         </Modal>
+
       </View>
     );
   }
@@ -107,7 +115,7 @@ const styles = StyleSheet.create({
     height: 40,
     margin: -15,
     marginLeft:10,
-    padding: 10,
+    padding: 5,
     fontSize:18,
     fontWeight: 'bold'
   },

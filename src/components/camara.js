@@ -76,7 +76,7 @@ export default class Camara extends Component<Props> {
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
+            this.setModalVisible(!this.state.modalVisible);
           }}>
           <View>
             <RNCamera
