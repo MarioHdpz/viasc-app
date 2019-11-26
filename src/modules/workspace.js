@@ -12,6 +12,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import db from '../containers/formulario.json';
+
 /*
 import InputText from '../components/inputText';
 import Calendar from '../components/calendar';
@@ -30,6 +31,7 @@ import Select from '../components/select';
 import ButtonForm from '../components/buttonForm'
 import ButtonBack from '../components/buttonBack'
 import File from '../components/file'
+import TitleForm from '../components/titleForm'
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -40,6 +42,7 @@ export default class App extends Component<Props> {
     group : [],
     respuestas : {},
     seccion:{},
+    title:{},
 
 
 
@@ -118,7 +121,6 @@ export default class App extends Component<Props> {
 
   getComponent = (d, i, value) => {
     const { optionActive, respuestas } = this.state;
-
 
     switch (d.inputType) {
       case "button":
@@ -214,7 +216,11 @@ export default class App extends Component<Props> {
   }
 
   onClickButton = (id) => {
-    let { formIndex, beforeIndex } = this.state;
+    let { formIndex, beforeIndex, title } = this.state;
+    //Busco la label para poner en el title
+    const result = _.filter(db, {id:id});
+    title[id] = result[0].label;
+
     //El index actual se convierte en el index anterior
     beforeIndex.push(formIndex);
 
@@ -222,7 +228,7 @@ export default class App extends Component<Props> {
     formIndex = id;
 
     //Envío a filtrar
-    this.setState({formIndex, beforeIndex}, this.dynamicRender);
+    this.setState({formIndex, beforeIndex, title}, this.dynamicRender);
   }
 
   buttonSelected = (index,id, data) => {
@@ -278,7 +284,7 @@ export default class App extends Component<Props> {
   }
 
   render = () => {
-    const {group, beforeIndex} = this.state;
+    const {group, beforeIndex, title, formIndex} = this.state;
 
     return(
       <ImageBackground
@@ -288,10 +294,21 @@ export default class App extends Component<Props> {
         {
           beforeIndex.length===0
           ? null
-          :<ButtonBack
-          backForm={this.backForm}
-          />
+          :<View style={styles.btnBack}>
+            <ButtonBack
+              backForm={this.backForm}
+            />
+          </View>
         }
+
+        <TitleForm
+          label={
+            formIndex
+            ? title[formIndex]
+            : "Iniciar formulario"
+
+          }
+        />
 
         <ScrollView style={{marginTop:40, marginBottom:40,}}>
          {
@@ -314,5 +331,10 @@ const styles = StyleSheet.create({
     paddingTop:35,
     justifyContent:'center',
     alignItems:'center',
+  },
+  btnBack:{
+    width:width,
+    height:20,
+    alignItems:'flex-end'
   }
 });

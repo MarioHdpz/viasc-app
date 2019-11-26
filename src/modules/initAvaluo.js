@@ -41,14 +41,14 @@ export default class App extends Component<Props> {
         const json = JSON.parse(value);
         docs = true;
         for (const d in json ){
-          console.log('inFor->',json[d]);
+          //console.log('inFor->',json[d]);
           if ( json[d] === null ) {
-            console.log('NULL->',json[d]);
+            //console.log('NULL->',json[d]);
             docs = null;
             break;
           }
           if (json[d] === false) {
-            console.log('FALSE->',json[d]);
+            //console.log('FALSE->',json[d]);
             docs = false;
             break;
           }
@@ -59,30 +59,15 @@ export default class App extends Component<Props> {
       }
 
       console.log('VALIDAR DOCUMENTOS', docs);
+      if (docs) {
+        okformulario = true
+      }
 
-      this.setState({docs});
+      this.setState({docs,okformulario});
 
     } catch(e) {
       console.log("error storage", e);
     }
-  }
-
-  validarDocs = (estado) => {
-    let ready = true;
-    for(i in estado){
-      if (estado[i]=== false || estado[i] === null){
-        ready = null;
-        if (estado[i]===false) {
-            ready = false;
-        }
-      }
-    }
-
-    if (ready !== null) {
-      this.setState({docs:ready, okformulario:ready});
-    }
-
-    console.log('validarDocs',ready);
   }
 
   cancelar = () => {
@@ -135,10 +120,6 @@ export default class App extends Component<Props> {
   formulario = () => {
     this.props.navigation.navigate('WorkSpace');
   }
-
-  /*
-
-  */
 
   render = () => {
     const {okformulario, okfotos, docs, form, pics} = this.state;
