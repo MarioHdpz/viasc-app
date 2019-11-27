@@ -6,10 +6,12 @@ import {
   ImageBackground,
   ScrollView,
   Dimensions,
+  Switch
 } from 'react-native';
 import _ from 'lodash';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import ToggleSwitch from 'toggle-switch-react-native'
 
 import db from '../containers/formulario.json';
 
@@ -32,6 +34,7 @@ import ButtonForm from '../components/buttonForm'
 import ButtonBack from '../components/buttonBack'
 import File from '../components/file'
 import TitleForm from '../components/titleForm'
+import Calendar from '../components/calendar';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -52,6 +55,8 @@ export default class App extends Component<Props> {
     multiselect:[],
     value:'Seleccionar',
     mulSelected:'MultiSelect',
+
+    switchValue:false,
   }
 
   componentDidMount = () => {
@@ -140,7 +145,7 @@ export default class App extends Component<Props> {
       break;
 
       case "select":
-        if ( respuestas[d.id] ) {
+        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
           value = d.options[ (respuestas[d.id]-1) ][1];
         }
 
@@ -159,13 +164,16 @@ export default class App extends Component<Props> {
       break;
 
       case "calendar":
-        if ( respuestas[d.id] ) { value = d.options[ respuestas[d.id] ]; }
+        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
+          value = respuestas[d.id];
+        }
         if (!value) { value = null; }
         return (
           <Calendar
             key = {i}
             index = {i}
             id = {d.id}
+            label = {d.label}
             dateChange = {this.dateChange}
             selectedStartDate = {value}
           />
@@ -186,6 +194,10 @@ export default class App extends Component<Props> {
       break;
 
       case "text":
+        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
+          value = respuestas[d.id];
+        }
+        if (!value) { value = null }
         return (
           <InputText
             key = {i}
@@ -193,11 +205,16 @@ export default class App extends Component<Props> {
             handleTextChange = {this.handleTextChange}
             pholder = {d.label}
             label = {d.label}
+            value = {value}
           />
         );
       break;
 
       case "number":
+        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
+          value = respuestas[d.id];
+        }
+        if (!value) { value = null }
         return (
           <InputNumber
             key = {i}
@@ -205,9 +222,29 @@ export default class App extends Component<Props> {
             handleTextChange = {this.handleTextChange}
             pholder = {d.label}
             label = {d.label}
+            value = {value}
           />
         );
       break;
+
+      case "switch":
+        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
+          value = respuestas[d.id];
+        }
+        if (value===null || value == undefined ) { value = true }
+        return (
+          <ToggleSwitch
+            key = {i}
+            isOn={ value }
+            onColor="#73DB1D"
+            offColor="#dbdbdb"
+            label = {d.label}
+            labelStyle={{ color: "white", fontWeight: "900",paddingLeft:5, }}
+            size="large"
+            onToggle={(data)=>{this.toggleSwitch(i, d.id, data)}}
+          />
+        );
+      break
 
       default:
         return null;
@@ -239,14 +276,13 @@ export default class App extends Component<Props> {
     const component = this.getComponent(r[0], index, data[1])
 
     group[index] = component;
-    this.setState({group, respuestas}, this.setStorage);
+    this.setState({group, respuestas});
   }
 
   handleTextChange = (inputText, id) => {
     let { respuestas } = this.state;
     respuestas[id] = inputText;
-    console.log(respuestas);
-    this.setState({respuestas});
+    this.setState({respuestas}, this.setStorage);
   }
 
   dateChange = (index, id, data) => {
@@ -257,7 +293,7 @@ export default class App extends Component<Props> {
     const component = this.getComponent(r[0], index, data)
 
     group[index] = component;
-    this.setState({group, respuestas});
+    this.setState({group, respuestas}, this.setStorage);
   }
 
   getPhoto = (index, id, data) => {
@@ -271,9 +307,18 @@ export default class App extends Component<Props> {
     this.setState({group, respuestas});
   }
 
+  toggleSwitch = (index, id, data) => {
+    let { group, respuestas } = this.state;
+    respuestas[id] = data;
+
+    const r = _.filter(db, {id});
+    const component = this.getComponent(r[0], index, data)//<Text key={index}>{ `value = ${data}` }</Text>//
+
+    group[index] = component;
+    this.setState({group, respuestas}, this.setStorage);
+   }
+
   //Guardar en el storage.
-
-
   //··················································································//
 
   handleNumberChange = (inputText) => {

@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  Dimensions
 } from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 
@@ -30,10 +31,10 @@ export default class Calendar extends Component {
   }
   render() {
     const { selectedStartDate } = this.props;
-    const startDate = selectedStartDate ? selectedStartDate.toString() : 'dd-mm-yyyy';
+    console.log('label',this.props.label);
+    const startDate = selectedStartDate ? selectedStartDate.toString() : this.props.label;
     return (
       <View style={styles.container}>
-
         <Modal
           animationType="slide"
           transparent={false}
@@ -66,26 +67,31 @@ export default class Calendar extends Component {
           </View>
         </Modal>
 
-          <Text
-            style={styles.input}
-            onPress={() => {
-              this.setModalVisible(!this.state.modalVisible);
-            }}>
-            { startDate }
-          </Text>
+        <Text
+          style={styles.input}
+          onPress={() => {
+            this.setModalVisible(!this.state.modalVisible);
+          }}>
+          { startDate }
+        </Text>
       </View>
     );
   }
 }
 
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   input: {
+    width:width-50,
     color:'white',
-    borderBottomColor: '#e04783',
+    borderBottomColor: '#73DB1D',
     borderBottomWidth: 1,
+    marginLeft:10,
+    textAlign:'center',
     height: 40,
-    margin: 20,
     padding: 10,
+    fontSize:18,
+    fontWeight: 'bold'
   },
   modal:{
     marginTop: 22,

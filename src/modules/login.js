@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Alert,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
