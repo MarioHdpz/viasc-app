@@ -9,7 +9,7 @@
 
     <application
       android:name=".MainApplication"
-      android:label="@string/app_name"
+      android:label="VisuAI"
       android:screenOrientation="portrait"
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
@@ -17,7 +17,7 @@
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"
-        android:label="@string/app_name"
+        android:label="VisuAI"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize">
         <intent-filter>

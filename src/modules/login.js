@@ -22,6 +22,7 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
+    /*
     //const fghApiKey = 'AIzaSyBRlf1PoCQPMF6F8sNiEOzUiuuwG0JXH4A'
     const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM';//NUEVA API KEY
     const lng = -73.961452;
@@ -37,7 +38,7 @@ export default class App extends Component<Props> {
     })
     .catch((response) => {
       console.log('MAP ERROR:',response);
-    });
+    });*/
 
   }
 
