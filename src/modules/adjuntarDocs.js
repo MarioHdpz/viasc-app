@@ -62,10 +62,12 @@ export default class App extends Component<Props> {
 
   getData = async (id, archive) => {
     let {docs, user} = this.state;
+
     /*
     docs[id] = false;
     this.setState({docs}, this.setDogsStorage);
     */
+
 
     if (archive) {
       let data = new FormData()
@@ -102,6 +104,7 @@ export default class App extends Component<Props> {
       docs[id] = archive;
       this.setState({docs}, this.setDogsStorage);
     }
+    
   }
 
   render = () => {

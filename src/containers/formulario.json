@@ -8,7 +8,7 @@
     "label": "Datos generales",
     "parent" : false,
     "response":false,
-    "long":false
+    "long":false,
   },
   {
     "id":2,

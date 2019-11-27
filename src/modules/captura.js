@@ -97,11 +97,16 @@ export default class App extends Component<Props> {
     this.setState({respuestas, active:id});
   }
 
-  getPhoto = (index, id, data) => {
+  getPhoto = (index, id, data, b64) => {
     let { respuestas, active } = this.state;
+    respuestas[active]['b64'] = b64;
     respuestas[active]['encoding'] = data;
+    this.setState({respuestas});
+  }
 
-    console.log('getPhoto',respuestas);
+  delPhoto = (index, id) => {
+    let { respuestas } = this.state;
+    respuestas[id] = null;
     this.setState({respuestas});
   }
 
@@ -145,15 +150,20 @@ export default class App extends Component<Props> {
     }
   }
 
+  hashCode = s => s.split('').reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0)
+
   send = () => {
     const { respuestas, user } = this.state;
-    console.log(user);
     for(let item in respuestas){
       const p = respuestas[item];
 
+      const pic = p.encoding
+
+      console.log('PIC', pic);
+
       const data = {
       	"user": user.pk,
-      	"encoding": p.encoding,
+      	"encoding": pic,
       	"archive": null,
       	"process": null,
       	"items": null,
@@ -168,7 +178,7 @@ export default class App extends Component<Props> {
         }
       }
 
-      console.log(conf, data);
+      console.log(data);
 
       axios.post('http://18.219.244.117/pictures/', data, conf)
       .then((response) => {
@@ -213,7 +223,6 @@ export default class App extends Component<Props> {
       sin = respuestas[active]['value']
     }
 
-
     return (
       <ImageBackground
         source={require('../assets/bg_app/bg_app.png')}
@@ -252,11 +261,12 @@ export default class App extends Component<Props> {
             index={1}
             value={
               respuestas[active]
-              ? respuestas[active]['encoding']
+              ? respuestas[active]['b64']
               : null
             }
             modulo = {respuestas[active]}
             getPhoto = {this.getPhoto}
+            delPhoto = {this.delPhoto}
           />
           {
             respuestas[active]
