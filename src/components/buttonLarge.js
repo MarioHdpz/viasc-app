@@ -5,7 +5,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
+const {height, width} = Dimensions.get('window');
 
 type Props = {};
 export default class ButtonLarge extends Component<Props> {
@@ -15,7 +17,7 @@ export default class ButtonLarge extends Component<Props> {
     return (
       <TouchableOpacity
       style={{
-        width:350,
+        width:width-50,
         height:60,
         margin:15,
         padding:0,
@@ -59,6 +61,7 @@ export default class ButtonLarge extends Component<Props> {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   v1:{

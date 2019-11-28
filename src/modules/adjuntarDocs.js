@@ -4,9 +4,11 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 import axios from 'axios';
+import {readResponseServer} from '../functions'
 
 import File from '../components/file'
 import AsyncStorage from '@react-native-community/async-storage';
@@ -94,10 +96,20 @@ export default class App extends Component<Props> {
         docs[id] = archive;
         this.setState({docs}, this.setDogsStorage);
       })
-      .catch((response) => {
+      .catch((error) => {
         docs[id] = false;
         this.setState({docs}, this.setDogsStorage);
-        console.log('error Axios -> ', response);
+
+
+        Alert.alert(
+          'Error',
+          readResponseServer(error.response.status),
+          [
+            {text: 'OK'},
+          ],
+          {cancelable: false},
+        );
+
       });
 
     }
