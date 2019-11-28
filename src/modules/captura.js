@@ -8,8 +8,11 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  ScrollView
 } from 'react-native';
 import axios from 'axios';
+
+import {readResponseServer} from '../functions'
 
 import TitleForm from '../components/titleForm';
 import Select from '../components/select';
@@ -197,13 +200,30 @@ export default class App extends Component<Props> {
         axios.post('http://18.219.244.117/pictures/', data, conf)
         .then((response) => {
           console.log('AXIOS OK -> ',response);
+          Alert.alert(
+            'Listo',
+            readResponseServer(response.status),
+            [
+              {text: 'OK'},
+            ],
+            {cancelable: false},
+          );
           //docs[id] = archive;
           //this.setState({docs}, this.setDogsStorage);
         })
-        .catch((response) => {
+        .catch((error) => {
+
+          Alert.alert(
+            'Error',
+            readResponseServer(error.response.status),
+            [
+              {text: 'OK'},
+            ],
+            {cancelable: false},
+          );
+
           //docs[id] = false;
           //this.setState({docs}, this.setDogsStorage);
-          console.log('error Axios -> ', response);
         });
 
       })
@@ -265,10 +285,11 @@ export default class App extends Component<Props> {
         source={require('../assets/bg_app/bg_app.png')}
         style={styles.container}
       >
+
         <TitleForm
         label="Captura de fotos"
         />
-
+        <ScrollView style={styles.ScrollView}>
         <View style={styles.area}>
           <Select
               index = {1}
@@ -349,6 +370,7 @@ export default class App extends Component<Props> {
           </View>
 
         </View>
+        </ScrollView>
       </ImageBackground>
     );
   }
@@ -356,6 +378,10 @@ export default class App extends Component<Props> {
 
 const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
+  ScrollView:{
+    flex:1,
+    paddingBottom:50,
+  },
   container:{
     flex:1,
     height:height+10,

@@ -218,11 +218,11 @@ const styles = StyleSheet.create({
   },
   picture:{
     width: width - 80,
-    height: 362 * ratio,
+    height: width - 150,
     borderRadius:20,
   },
   moveCarrusel:{
-    height: 362 * ratio,
+    height: width - 150,
     alignItems:'center',
     justifyContent:'center',
   },
