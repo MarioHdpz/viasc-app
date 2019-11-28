@@ -233,6 +233,8 @@ PODS:
     - React
   - RNGestureHandler (1.5.0):
     - React
+  - RNSha256 (1.3.6):
+    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -268,6 +270,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNSha256 (from `../node_modules/react-native-sha256`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -333,6 +336,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/async-storage"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNSha256:
+    :path: "../node_modules/react-native-sha256"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -367,8 +372,9 @@ SPEC CHECKSUMS:
   ReactCommon: a6a294e7028ed67b926d29551aa9394fd989c24c
   RNCAsyncStorage: 3c304d1adfaea02ec732ac218801cb13897aa8c0
   RNGestureHandler: a4ddde1ffc6e590c8127b8b7eabfdade45475c74
+  RNSha256: c6f68c850bf8315c95e2508667e8c908bd9f8487
   Yoga: ba3d99dbee6c15ea6bbe3783d1f0cb1ffb79af0f
 
-PODFILE CHECKSUM: e1798fc91c68c509cfe175da369371a834f1af3a
+PODFILE CHECKSUM: c4c34d6c686c72ec5c46cae8259b63dad1989dd3
 
 COCOAPODS: 1.8.4
