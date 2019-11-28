@@ -169,40 +169,44 @@ export default class App extends Component<Props> {
     for(let item in respuestas){
       const p = respuestas[item];
 
-      const pic = p.encoding
+      const pics = p.encoding
 
-      console.log('PIC', pic);
+      console.log('PIC', pics);
 
-      const data = {
-      	"user": user.pk,
-      	"encoding": pic,
-      	"archive": null,
-      	"process": null,
-      	"items": null,
-      	"label": p.label,
-      	"appraisal": 1
-      }
+      pics.map((pic, index) => {
 
-      const conf = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `jwt ${user.token}`,
+        const data = {
+        	"user": user.pk,
+        	"encoding": pic,
+        	"archive": null,
+        	"process": null,
+        	"items": null,
+        	"label": p.label,
+        	"appraisal": 1
         }
-      }
 
-      console.log(data);
+        const conf = {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `jwt ${user.token}`,
+          }
+        }
 
-      axios.post('http://18.219.244.117/pictures/', data, conf)
-      .then((response) => {
-        console.log('AXIOS OK -> ',response);
-        //docs[id] = archive;
-        //this.setState({docs}, this.setDogsStorage);
+        console.log(data);
+
+        axios.post('http://18.219.244.117/pictures/', data, conf)
+        .then((response) => {
+          console.log('AXIOS OK -> ',response);
+          //docs[id] = archive;
+          //this.setState({docs}, this.setDogsStorage);
+        })
+        .catch((response) => {
+          //docs[id] = false;
+          //this.setState({docs}, this.setDogsStorage);
+          console.log('error Axios -> ', response);
+        });
+
       })
-      .catch((response) => {
-        //docs[id] = false;
-        //this.setState({docs}, this.setDogsStorage);
-        console.log('error Axios -> ', response);
-      });
     }
   }
 
@@ -229,8 +233,6 @@ export default class App extends Component<Props> {
 
   moveCarrusel = (dir) => {
     let {respuestas, active, picActive} = this.state;
-
-    console.log(dir, respuestas[active]['b64'].length, picActive);
 
     if (dir === 'der' && picActive > 0) {
       picActive = picActive - 1;

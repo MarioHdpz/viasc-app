@@ -60,13 +60,21 @@ export default class Camara extends Component<Props> {
   }
 
   render = () => {
+
+    let cantFotos = 0;
+    if (this.props.modulo) {
+      if (this.props.modulo['b64']) {
+        cantFotos = this.props.modulo['b64'].length;
+      }
+    }
+
     return (
       <View style={styles.container}>
         <ScrollView>
           <View>
             <View style={styles.show}>
             {
-              this.props.modulo
+              this.props.modulo && cantFotos < 6
               ? <TouchableOpacity
                   onPress={() => {
                     this.setModalVisible(!this.state.modalVisible);
