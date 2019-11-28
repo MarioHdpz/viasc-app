@@ -38,8 +38,8 @@ export default class App extends Component<Props> {
     })
     .catch((response) => {
       console.log('MAP ERROR:',response);
-    });*/
-
+    });
+    */
   }
 
   validate = (text) => {

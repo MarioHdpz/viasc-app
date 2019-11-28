@@ -47,6 +47,8 @@ export default class App extends Component<Props> {
         console.log('getDocsStorage',docs);
         this.setState({docs});
       }
+
+
     } catch(e) {
       // error reading value
     }
@@ -101,10 +103,10 @@ export default class App extends Component<Props> {
     }
     else{
       //console.log('NO HAY ARCHIVO');
-      docs[id] = archive;
+      docs[id] = archive;//false
       this.setState({docs}, this.setDogsStorage);
     }
-    
+
   }
 
   render = () => {

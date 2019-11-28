@@ -97,6 +97,7 @@ export default class App extends Component<Props> {
     }
 
     //VALIDAMOS FOTOGRAFÍAS.
+    //Función de Validación
   }
 
   cancelar = () => {
@@ -111,7 +112,7 @@ export default class App extends Component<Props> {
         },
         {text: 'Si, cancelar', onPress: () => {
           this.clearAll();
-          this.props.navigation.navigate('Init');
+          this.props.navigation.navigate('Init', {user:this.state.user});
         }},
       ],
       {cancelable: false},
@@ -138,16 +139,13 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si envíar', onPress: () => {
+          //conexión con el ws
           this.clearAll();
-          this.props.navigation.navigate('Init');
+          this.props.navigation.navigate('Init', {user:this.state.user});
         }},
       ],
       {cancelable: false},
     );
-  }
-
-  formulario = () => {
-    this.props.navigation.navigate('WorkSpace');
   }
 
   render = () => {
@@ -175,7 +173,7 @@ export default class App extends Component<Props> {
             icon = {require('../assets/icono_acierto/icono_acierto.png')}
             iconError = {require('../assets/icono_errorblanco/icono_errorblanco.png')}
             text = "Iniciar formulario"
-            onClickButton = {this.formulario}
+            onClickButton = {()=>{this.props.navigation.navigate('WorkSpace', {user:this.state.user})}}
             status = {form}
             disabled = {okformulario}
           />

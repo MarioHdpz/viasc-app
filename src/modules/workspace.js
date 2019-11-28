@@ -15,17 +15,6 @@ import ToggleSwitch from 'toggle-switch-react-native'
 
 import db from '../containers/formulario.json';
 
-/*
-import InputText from '../components/inputText';
-import Calendar from '../components/calendar';
-import InputNumber from '../components/inputNumber';
-import ButtonLarge from '../components/buttonLarge';
-import Select from '../components/select';
-import Multiselect from '../components/multiselect';
-import Camara from '../components/camara';
-import File from '../components/file';
-*/
-
 import InputText from '../components/inputText';
 import InputNumber from '../components/inputNumber';
 import ButtonLarge from '../components/buttonLarge';
@@ -66,6 +55,7 @@ export default class App extends Component<Props> {
   dynamicRender = () => {
     let {formIndex, group, seccion} = this.state;
 
+    //result se genera un array de componentes fitrados.
     const result = _.filter(db, {parent:formIndex});
 
     //¿Cuántos componentes tiene esta sección?
@@ -82,6 +72,8 @@ export default class App extends Component<Props> {
       const component = this.getComponent(data, index);
       group.push(component);
     });
+
+    //group['select', 'button', 'calendar', 'text',...]
 
     //Envío a renderizar el grupo
     this.setState({group});
@@ -276,7 +268,7 @@ export default class App extends Component<Props> {
     const component = this.getComponent(r[0], index, data[1])
 
     group[index] = component;
-    this.setState({group, respuestas});
+    this.setState({group, respuestas}, this.setStorage);
   }
 
   handleTextChange = (inputText, id) => {
@@ -357,6 +349,7 @@ export default class App extends Component<Props> {
 
         <ScrollView style={{marginTop:40, marginBottom:40,}}>
          {
+           //group['select', 'button', 'calendar', 'text',...]
            group.map((data, index)=>{
              return data
            })

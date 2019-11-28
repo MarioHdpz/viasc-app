@@ -99,8 +99,14 @@ export default class App extends Component<Props> {
 
   getPhoto = (index, id, data, b64) => {
     let { respuestas, active } = this.state;
-    respuestas[active]['b64'] = b64;
-    respuestas[active]['encoding'] = data;
+
+    if (!respuestas[active]) {
+      respuestas[active]['b64'] = [];
+      respuestas[active]['encoding'] = [];
+    }
+
+    respuestas[active]['b64'].push(b64);
+    respuestas[active]['encoding'].push(data);
     this.setState({respuestas});
   }
 
@@ -268,6 +274,7 @@ export default class App extends Component<Props> {
             getPhoto = {this.getPhoto}
             delPhoto = {this.delPhoto}
           />
+
           {
             respuestas[active]
             ?

@@ -92,7 +92,7 @@ export default class Camara extends Component<Props> {
                 >
                   <Image
                     style={styles.picture}
-                    source={{uri:`data:image/png;base64,${this.props.value}`}}
+                    source={{uri:`data:image/png;base64,${this.props.value[0]}`}}
                   />
                 </TouchableOpacity>
               : null
