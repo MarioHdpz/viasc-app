@@ -79,6 +79,8 @@ export default class App extends Component<Props> {
     respuestas:{},
     active:null,
     user:null,
+
+    picActive:0,
   }
 
   componentDidMount = () => {
@@ -100,9 +102,13 @@ export default class App extends Component<Props> {
   getPhoto = (index, id, data, b64) => {
     let { respuestas, active } = this.state;
 
-    if (!respuestas[active]) {
+    if (!respuestas[active]['b64']) {
+      console.log('creando arrays vacíos');
       respuestas[active]['b64'] = [];
       respuestas[active]['encoding'] = [];
+    }
+    else{
+      console.log('active b64 existe', respuestas[active]);
     }
 
     respuestas[active]['b64'].push(b64);
@@ -221,8 +227,31 @@ export default class App extends Component<Props> {
     );
   }
 
+  moveCarrusel = (dir) => {
+    let {respuestas, active, picActive} = this.state;
+
+    console.log(dir, respuestas[active]['b64'].length, picActive);
+
+    if (dir === 'der' && picActive > 0) {
+      picActive = picActive - 1;
+    }
+    if ( dir === 'izq' && (respuestas[active]['b64'].length - 1) > picActive ){
+      picActive = picActive + 1;
+    }
+
+    this.setState({picActive});
+  }
+
   render = () => {
-    const {respuestas, active} = this.state;
+    const {respuestas, active, picActive} = this.state;
+
+    let arrayPic = null;
+    if (respuestas[active]) {
+      if (respuestas[active]['b64']) {
+        arrayPic = respuestas[active]['b64'];
+      }
+    }
+
 
     let sin = null
     if (respuestas[active]) {
@@ -266,13 +295,14 @@ export default class App extends Component<Props> {
             id={1}
             index={1}
             value={
-              respuestas[active]
-              ? respuestas[active]['b64']
+              arrayPic
+              ? arrayPic[picActive]
               : null
             }
             modulo = {respuestas[active]}
             getPhoto = {this.getPhoto}
             delPhoto = {this.delPhoto}
+            moveCarrusel = {this.moveCarrusel}
           />
 
           {

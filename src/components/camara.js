@@ -87,14 +87,36 @@ export default class Camara extends Component<Props> {
 
             {
               this.props.value
-              ? <TouchableOpacity
-                  onLongPress = {this.delpic}
-                >
-                  <Image
-                    style={styles.picture}
-                    source={{uri:`data:image/png;base64,${this.props.value[0]}`}}
-                  />
-                </TouchableOpacity>
+              ? <View style={styles.carrusel}>
+                  <TouchableOpacity
+                    style={styles.moveCarrusel}
+                    onPress={()=>{this.props.moveCarrusel('izq')}}
+                  >
+                    <Image
+                      style={{width:40, height:40}}
+                      source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
+                    />
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onLongPress = {this.delpic}
+                  >
+                    <Image
+                      style={styles.picture}
+                      source={{uri:`data:image/png;base64,${this.props.value}`}}
+                    />
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={styles.moveCarrusel}
+                    onPress={()=>{this.props.moveCarrusel('der')}}
+                  >
+                    <Image
+                      style={{width:40, height:40}}
+                      source={require('../assets/icono_flechader/icono_flechader.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
               : null
             }
 
@@ -191,17 +213,25 @@ const styles = StyleSheet.create({
     height: 362 * ratio,
     borderRadius:20,
   },
-
+  moveCarrusel:{
+    height: 362 * ratio,
+    alignItems:'center',
+    justifyContent:'center',
+  },
   show:{
     alignItems: 'flex-end',
     marginBottom:10,
   },
-
   buttonsModal:{
     position:'absolute',
     bottom:50,
     width:width,
     flexDirection:'row',
     justifyContent:'space-around',
+  },
+  carrusel:{
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
   },
 });
