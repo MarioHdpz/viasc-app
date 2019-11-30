@@ -86,7 +86,7 @@ export default class Mapa extends Component<Props> {
   }
 
   getAddres = () => {
-    const {myPosition} = this.state;
+    let {myPosition} = this.state;
     const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM';//NUEVA API KEY
     const lng = -73.961452;
     const lat = 40.714224;
@@ -160,13 +160,6 @@ export default class Mapa extends Component<Props> {
           <InputText
             id = {1}
             handleTextChange = {this.handleTextChange}
-            pholder = "Colonia"
-            label = "Colonia"
-            value = {dir[2].long_name.toString()}
-          />
-          <InputText
-            id = {1}
-            handleTextChange = {this.handleTextChange}
             pholder = "Ciudad"
             label = "Ciudad"
             value = {dir[3].long_name.toString()}
@@ -181,16 +174,30 @@ export default class Mapa extends Component<Props> {
           <InputText
             id = {1}
             handleTextChange = {this.handleTextChange}
-            pholder = "País"
-            label = "País"
-            value = {dir[5].long_name.toString()}
+            pholder = "Código postal"
+            label = "Código postal"
+            value = {dir[6].long_name.toString()}
           />
           <InputText
             id = {1}
             handleTextChange = {this.handleTextChange}
-            pholder = "Código postal"
-            label = "Código postal"
-            value = {dir[6].long_name.toString()}
+            pholder = "Longitud"
+            label = "Longitud"
+            value = {myPosition.longitude.toString()}
+          />
+          <InputText
+            id = {1}
+            handleTextChange = {this.handleTextChange}
+            pholder = "Latitud"
+            label = "Latitud"
+            value = {myPosition.latitude.toString()}
+          />
+          <InputText
+            id = {1}
+            handleTextChange = {this.handleTextChange}
+            pholder = "Altitud"
+            label = "Altitud"
+            value = {myPosition.altitude.toString()}
           />
           </View>
           :null

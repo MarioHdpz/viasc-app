@@ -27,7 +27,7 @@ export default class App extends Component<Props> {
     pics : null,
 
     okformulario:true,
-    okfotos:false,
+    okfotos:true,
   }
 
   componentDidMount = () => {
