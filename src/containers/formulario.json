@@ -9,6 +9,7 @@
     "parent" : false,
     "response":false,
     "long":false,
+    "endpoint": 0
   },
   {
     "id":1,
@@ -20,6 +21,7 @@
     "parent" : false,
     "response":false,
     "long":false,
+    "endpoint": 1
   },
   {
     "id":4,
@@ -31,6 +33,7 @@
     "parent" : false,
     "response":false,
     "long":false,
+    "endpoint": 2
   },
   {
     "id":209,
@@ -41,7 +44,8 @@
     "label": "Vías Acceso",
     "parent":false,
     "response":false,
-    "long":250
+    "long":250,
+    "endpoint": 0
   },
   {
     "id":122,
@@ -52,7 +56,8 @@
     "label": "Superficie Vendible",
     "parent":false,
     "response":false,
-    "long":false
+    "long":false,
+    "endpoint": 0
   },
   {
     "id":85,
@@ -63,7 +68,8 @@
     "label": "Año de Terminación",
     "parent":false,
     "response":false,
-    "long":false
+    "long":false,
+    "endpoint": 0
   },
   {
     "id":2,
@@ -74,7 +80,8 @@
     "label": "Propósito del Avaluó",
     "parent":1,
     "response":false,
-    "long":false
+    "long":false,
+    "endpoint": 1
   },
   {
     "id":3,
@@ -85,6 +92,7 @@
     "label": "Tipo de Persona",
     "parent":1,
     "response":false,
-    "long":false
+    "long":false,
+    "endpoint": 0
   },
 ]
