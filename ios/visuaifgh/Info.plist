@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Se utilizará para capturar la ubicación exacta del inmueble utilizando el GPS</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -40,7 +42,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Captura de fotografias</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Se utilizará para capturar la ubicación exacta del inmueble.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Algunas de las librerías requieren del permiso, aunque no será utilizado.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

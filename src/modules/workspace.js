@@ -24,6 +24,7 @@ import ButtonBack from '../components/buttonBack'
 import File from '../components/file'
 import TitleForm from '../components/titleForm'
 import Calendar from '../components/calendar';
+import Mapa from '../components/mapa';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -236,6 +237,14 @@ export default class App extends Component<Props> {
             onToggle={(data)=>{this.toggleSwitch(i, d.id, data)}}
           />
         );
+      break
+
+      case "mapa":
+        return (
+          <Mapa
+            key = {i}
+          />
+        )
       break
 
       default:

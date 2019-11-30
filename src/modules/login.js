@@ -21,27 +21,6 @@ export default class App extends Component<Props> {
     text:'',
   }
 
-  componentDidMount = () => {
-    /*
-    //const fghApiKey = 'AIzaSyBRlf1PoCQPMF6F8sNiEOzUiuuwG0JXH4A'
-    const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM';//NUEVA API KEY
-    const lng = -73.961452;
-    const lat = 40.714224;
-    const url  = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${myApiKey}`;
-
-    axios({
-      url: url,
-      method: 'get'
-    })
-    .then((response) => {
-      console.log('MAP OK:',response);
-    })
-    .catch((response) => {
-      console.log('MAP ERROR:',response);
-    });
-    */
-  }
-
   validate = (text) => {
     this.setState({email:text})
   }

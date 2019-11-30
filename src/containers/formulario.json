@@ -1,5 +1,16 @@
 [
   {
+    "id":1000,
+    "screen":1,
+    "dataType": "text",
+    "inputType": "mapa",
+    "options": [],
+    "label": "Ubicación actual",
+    "parent" : false,
+    "response":false,
+    "long":false,
+  },
+  {
     "id":1,
     "screen":1,
     "dataType": "text",
