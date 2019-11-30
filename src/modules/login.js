@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Alert,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -19,26 +19,6 @@ export default class App extends Component<Props> {
     email:'gibran.aguilar@lytica.ai',
     pass:'admin',
     text:'',
-  }
-
-  componentDidMount = () => {
-    const fghApiKey = 'AIzaSyBRlf1PoCQPMF6F8sNiEOzUiuuwG0JXH4A'
-    const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM';//NUEVA API KEY
-    const lng = -73.961452;
-    const lat = 40.714224;
-    const url  = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${myApiKey}`;
-
-    axios({
-      url: url,
-      method: 'get'
-    })
-    .then((response) => {
-      console.log('MAP OK:',response);
-    })
-    .catch((response) => {
-      console.log('MAP ERROR:',response);
-    });
-
   }
 
   validate = (text) => {

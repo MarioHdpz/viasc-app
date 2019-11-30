@@ -6,10 +6,15 @@ import {
   Button,
   Dimensions,
   ImageBackground,
-  Alert
+  Alert,
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from 'react-navigation';
+import _ from 'lodash';
+
+import db from '../containers/formulario.json';
 import ButtonLarge from '../components/buttonLarge';
 
 type Props = {};
@@ -17,46 +22,82 @@ export default class App extends Component<Props> {
   state = {
     user:null,
 
-    docs : null,
-    okformulario:false,
-    okfotos:false,
+    docs : true,
+    form : null,
+    pics : null,
+
+    okformulario:true,
+    okfotos:true,
   }
 
   componentDidMount = () => {
     const user = this.props.navigation.getParam('user');
     this.setState({user});
+    this.validarFromStorage();
   }
 
   validarFromStorage = async () => {
-
     //VALIDAMOS DOCUMENTOS
     try {
       const value = await AsyncStorage.getItem('docs')
+      let { docs, okformulario } = this.state;
+
       if(value !== null) {
         const json = JSON.parse(value);
-        console.log('VALIDAR DOCUMENTOS: ',json);
+        docs = true;
+        for (const d in json ){
+          //console.log('inFor->',json[d]);
+          if ( json[d] === null ) {
+            //console.log('NULL->',json[d]);
+            docs = null;
+            break;
+          }
+          if (json[d] === false) {
+            //console.log('FALSE->',json[d]);
+            docs = false;
+            break;
+          }
+        }
+      }
+      else{
+        docs = null
+      }
+
+      console.log('VALIDAR DOCUMENTOS', docs);
+      if (docs) {
+        okformulario = true
+      }
+
+      this.setState({docs,okformulario});
+
+    } catch(e) {
+      console.log("error storage", e);
+    }
+
+    //VALIDAMOS FORMULARIO
+    const buttons = _.filter(db, {inputType:'button'});
+    const formulario = Object.keys(db).length;
+    const totalRespuestas = formulario - buttons.length
+
+    try {
+      let {form, okfotos} = this.state;
+      const value = await AsyncStorage.getItem('respuestas')
+
+      if(value !== null) {
+        const okRespuestas = Object.keys(JSON.parse(value)).length;
+        if (totalRespuestas === okRespuestas) {
+          form = true;
+          okfotos = true;
+        }
+
+        this.setState({ form, okfotos });
       }
     } catch(e) {
       console.log("error storage", e);
     }
-  }
 
-  validarDocs = (estado) => {
-    let ready = true;
-    for(i in estado){
-      if (estado[i]=== false || estado[i] === null){
-        ready = null;
-        if (estado[i]===false) {
-            ready = false;
-        }
-      }
-    }
-
-    if (ready !== null) {
-      this.setState({docs:ready, okformulario:ready});
-    }
-
-    console.log('validarDocs',ready);
+    //VALIDAMOS FOTOGRAFÍAS.
+    //Función de Validación
   }
 
   cancelar = () => {
@@ -71,7 +112,7 @@ export default class App extends Component<Props> {
         },
         {text: 'Si, cancelar', onPress: () => {
           this.clearAll();
-          this.props.navigation.navigate('Init');
+          this.props.navigation.navigate('Init', {user:this.state.user});
         }},
       ],
       {cancelable: false},
@@ -98,76 +139,74 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si envíar', onPress: () => {
+          //conexión con el ws
           this.clearAll();
-          this.props.navigation.navigate('Init');
+          this.props.navigation.navigate('Init', {user:this.state.user});
         }},
       ],
       {cancelable: false},
     );
   }
 
-  adjuntarDocs = () => {
-    this.props.navigation.navigate('AdjuntarDocs');
-  }
-
-  formulario = () => {
-    this.props.navigation.navigate('WorkSpace');
-  }
-
-  captura = () => {
-    this.props.navigation.navigate('Captura');
-  }
-
-  /*
-  <NavigationEvents
-    onWillFocus={payload => {this.validarFromStorage()}}
-  />
-  */
-
   render = () => {
-    const {okformulario, okfotos} = this.state;
+    const {okformulario, okfotos, docs, form, pics} = this.state;
     return (
       <ImageBackground
         source={require('../assets/bg_home/bg_home.png')}
         style={styles.container}
       >
+        <NavigationEvents
+          onWillFocus={payload => {this.validarFromStorage()}}
+        />
         <View style={styles.container}>
           <ButtonLarge
             iconPrimary = {require('../assets/icono_adjuntar/icono_adjuntar.png')}
             icon = {require('../assets/icono_acierto/icono_acierto.png')}
+            iconError = {require('../assets/icono_errorblanco/icono_errorblanco.png')}
             text = "Adjuntar documentos"
             onClickButton = { () => { this.props.navigation.navigate('AdjuntarDocs', {user:this.state.user}) }}
-            status = {this.state.docs}
+            status = {docs}
             disabled = {true}
           />
           <ButtonLarge
             iconPrimary = {require('../assets/icono_iniciarformulario/icono_iniciarformulario.png')}
             icon = {require('../assets/icono_acierto/icono_acierto.png')}
+            iconError = {require('../assets/icono_errorblanco/icono_errorblanco.png')}
             text = "Iniciar formulario"
-            onClickButton = {this.formulario}
-            status = {null}
+            onClickButton = {()=>{this.props.navigation.navigate('WorkSpace', {user:this.state.user})}}
+            status = {form}
             disabled = {okformulario}
           />
           <ButtonLarge
             iconPrimary = {require('../assets/icono_camara/icono_camara.png')}
             icon = {require('../assets/icono_acierto/icono_acierto.png')}
+            iconError = {require('../assets/icono_errorblanco/icono_errorblanco.png')}
             text = "Captura de fotos"
-            onClickButton = {this.captura}
-            status = {null}
+            onClickButton = {() => { this.props.navigation.navigate('Captura', {user:this.state.user}) }}
+            status = {pics}
             disabled = {okfotos}
           />
         </View>
 
         <View style={styles.fixToText}>
-          <Button
-            title="Cancelar"
-            color="rgb(126, 4, 4)"
-            onPress = {this.cancelar}
-          />
-          <Button
-            title="Envíar"
-            onPress = {this.sendAll}
-          />
+
+          <TouchableOpacity onPress={this.cancelar}>
+            <Image
+              style={{
+                width:100,
+              }}
+              source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this.sendAll}>
+            <Image
+              style={{
+                width:100,
+              }}
+              source={require('../assets/btn_guardar/btn_guardar.png')}
+            />
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     );

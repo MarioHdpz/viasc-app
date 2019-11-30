@@ -8,10 +8,13 @@ import {
   TouchableHighlight,
   Image,
   Dimensions,
-  ScrollView
+  ScrollView,
+  Alert,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import { sha256 } from 'react-native-sha256';
 import Select from './select'
+
 
 type Props = {};
 export default class Camara extends Component<Props> {
@@ -26,108 +29,164 @@ export default class Camara extends Component<Props> {
 
   takePicture = async() => {
     const {index, id}= this.props
-
     if (this.camera) {
       const options = { quality: 0.5, base64: true, orientation:'portrait', forceUpOrientation: true };
       const data = await this.camera.takePictureAsync(options);
 
-      this.props.getPhoto(index, id, data.base64 )
-      this.setModalVisible(!this.state.modalVisible)
+      sha256(data.base64).then(hash => {
+        this.props.getPhoto(index, id, hash, data.base64 )
+        this.setModalVisible(!this.state.modalVisible)
+      });
     }
   };
 
+  delpic = () =>{
+    const {index, id}= this.props
+    Alert.alert(
+      'Eliminar fotografía',
+      '¿Desea eliminar esta fotografía?',
+      [
+        {
+          text: 'No, continuar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Si, eliminar', onPress: () => {
+          this.props.delPhoto(index, id)
+        }},
+      ],
+      {cancelable: false},
+    );
+  }
+
   render = () => {
+
+    let cantFotos = 0;
+    if (this.props.modulo) {
+      if (this.props.modulo['b64']) {
+        cantFotos = this.props.modulo['b64'].length;
+      }
+    }
+
     return (
       <View style={styles.container}>
-      <ScrollView>
-
-        <View>
-          <View style={styles.show}>
-          {
-            this.props.modulo
-            ? <TouchableOpacity
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}
-              >
-                <Image
-                  style={{
-                    width:50,
-                    height:50,
+        <ScrollView>
+          <View>
+            <View style={styles.show}>
+            {
+              this.props.modulo && cantFotos < 6
+              ? <TouchableOpacity
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
                   }}
-                  source={require('../assets/icono_camara/icono_camara.png')}
-                />
-              </TouchableOpacity>
-            :null
-          }
+                >
+                  <Image
+                    style={{
+                      width:40,
+                      height:40,
+                    }}
+                    source={require('../assets/icono_camara/icono_camara.png')}
+                  />
+                </TouchableOpacity>
+              :null
+            }
+
+            </View>
+
+            {
+              this.props.value
+              ? <View style={styles.carrusel}>
+                  <TouchableOpacity
+                    style={styles.moveCarrusel}
+                    onPress={()=>{this.props.moveCarrusel('izq')}}
+                  >
+                    <Image
+                      style={{width:40, height:40}}
+                      source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
+                    />
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onLongPress = {this.delpic}
+                  >
+                    <Image
+                      style={styles.picture}
+                      source={{uri:`data:image/png;base64,${this.props.value}`}}
+                    />
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={styles.moveCarrusel}
+                    onPress={()=>{this.props.moveCarrusel('der')}}
+                  >
+                    <Image
+                      style={{width:40, height:40}}
+                      source={require('../assets/icono_flechader/icono_flechader.png')}
+                    />
+                  </TouchableOpacity>
+                </View>
+              : null
+            }
 
           </View>
 
-          {
-            this.props.value
-            ? <Image style={styles.picture} source={{uri:`data:image/png;base64,${this.props.value}`}} />
-            : null
-          }
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              this.setModalVisible(!this.state.modalVisible);
+            }}>
+            <View>
+              <RNCamera
+                ref={ref => {
+                  this.camera = ref;
+                }}
+                style={styles.preview}
+                type={RNCamera.Constants.Type.back}
+                flashMode={RNCamera.Constants.FlashMode.on}
+                androidCameraPermissionOptions={{
+                  title: 'Permission to use camera',
+                  message: 'We need your permission to use your camera',
+                  buttonPositive: 'Ok',
+                  buttonNegative: 'Cancel',
+                }}
+                androidRecordAudioPermissionOptions={{
+                  title: 'Permission to use audio recording',
+                  message: 'We need your permission to use your audio',
+                  buttonPositive: 'Ok',
+                  buttonNegative: 'Cancel',
+                }}
+                onGoogleVisionBarcodesDetected={({ barcodes }) => {
+                  console.log(barcodes);
+                }}
+              />
 
-        </View>
+              <View style={styles.buttonsModal}>
+                <TouchableOpacity onPress={this.takePicture.bind(this)}>
+                  <Image
+                    style={{
+                      width:100,
+                    }}
+                    source={require('../assets/btn_guardar/btn_guardar.png')}
+                  />
+                </TouchableOpacity>
 
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-          <View>
-            <RNCamera
-              ref={ref => {
-                this.camera = ref;
-              }}
-              style={styles.preview}
-              type={RNCamera.Constants.Type.back}
-              flashMode={RNCamera.Constants.FlashMode.on}
-              androidCameraPermissionOptions={{
-                title: 'Permission to use camera',
-                message: 'We need your permission to use your camera',
-                buttonPositive: 'Ok',
-                buttonNegative: 'Cancel',
-              }}
-              androidRecordAudioPermissionOptions={{
-                title: 'Permission to use audio recording',
-                message: 'We need your permission to use your audio',
-                buttonPositive: 'Ok',
-                buttonNegative: 'Cancel',
-              }}
-              onGoogleVisionBarcodesDetected={({ barcodes }) => {
-                console.log(barcodes);
-              }}
-            />
-
-            <View style={styles.buttonsModal}>
-              <TouchableOpacity onPress={this.takePicture.bind(this)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                  }}
+                >
                 <Image
                   style={{
                     width:100,
                   }}
-                  source={require('../assets/btn_guardar/btn_guardar.png')}
+                  source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
                 />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}
-              >
-              <Image
-                style={{
-                  width:100,
-                }}
-                source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
-              />
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
         </ScrollView>
       </View>
     );
@@ -159,20 +218,28 @@ const styles = StyleSheet.create({
   },
   picture:{
     width: width - 80,
-    height: 362 * ratio,
+    height: width - 150,
     borderRadius:20,
   },
-
+  moveCarrusel:{
+    height: width - 150,
+    alignItems:'center',
+    justifyContent:'center',
+  },
   show:{
     alignItems: 'flex-end',
     marginBottom:10,
   },
-
   buttonsModal:{
     position:'absolute',
     bottom:50,
     width:width,
     flexDirection:'row',
     justifyContent:'space-around',
+  },
+  carrusel:{
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
   },
 });

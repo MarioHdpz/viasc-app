@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  Dimensions,
 } from 'react-native';
 
 type Props = {};
@@ -35,9 +36,10 @@ export default class ButtonForm extends Component<Props> {
   }
 }
 
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   button:{
-    width:350,
+    width:width-50,
     height:40,
     margin:15,
     padding:0,

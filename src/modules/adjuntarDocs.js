@@ -4,9 +4,11 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 import axios from 'axios';
+import {readResponseServer} from '../functions'
 
 import File from '../components/file'
 import AsyncStorage from '@react-native-community/async-storage';
@@ -47,6 +49,8 @@ export default class App extends Component<Props> {
         console.log('getDocsStorage',docs);
         this.setState({docs});
       }
+
+
     } catch(e) {
       // error reading value
     }
@@ -63,7 +67,11 @@ export default class App extends Component<Props> {
   getData = async (id, archive) => {
     let {docs, user} = this.state;
 
-    console.log(archive);
+    /*
+    docs[id] = false;
+    this.setState({docs}, this.setDogsStorage);
+    */
+
 
     if (archive) {
       let data = new FormData()
@@ -82,28 +90,35 @@ export default class App extends Component<Props> {
         }
       }
 
-      console.log(conf);
-
       axios.post('http://18.219.244.117/documents/', data, conf)
       .then((response) => {
         console.log('AXIOS OK -> ',response);
         docs[id] = archive;
         this.setState({docs}, this.setDogsStorage);
       })
-      .catch((response) => {
+      .catch((error) => {
         docs[id] = false;
         this.setState({docs}, this.setDogsStorage);
-        console.log('error Axios -> ', response);
+
+
+        Alert.alert(
+          'Error',
+          readResponseServer(error.response.status),
+          [
+            {text: 'OK'},
+          ],
+          {cancelable: false},
+        );
+
       });
 
     }
     else{
       //console.log('NO HAY ARCHIVO');
-      docs[id] = archive;
+      docs[id] = archive;//false
       this.setState({docs}, this.setDogsStorage);
     }
 
-    //console.log('getData',docs);
   }
 
   render = () => {

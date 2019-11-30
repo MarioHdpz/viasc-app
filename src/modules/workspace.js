@@ -6,22 +6,14 @@ import {
   ImageBackground,
   ScrollView,
   Dimensions,
+  Switch
 } from 'react-native';
 import _ from 'lodash';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import ToggleSwitch from 'toggle-switch-react-native'
 
 import db from '../containers/formulario.json';
-/*
-import InputText from '../components/inputText';
-import Calendar from '../components/calendar';
-import InputNumber from '../components/inputNumber';
-import ButtonLarge from '../components/buttonLarge';
-import Select from '../components/select';
-import Multiselect from '../components/multiselect';
-import Camara from '../components/camara';
-import File from '../components/file';
-*/
 
 import InputText from '../components/inputText';
 import InputNumber from '../components/inputNumber';
@@ -30,6 +22,9 @@ import Select from '../components/select';
 import ButtonForm from '../components/buttonForm'
 import ButtonBack from '../components/buttonBack'
 import File from '../components/file'
+import TitleForm from '../components/titleForm'
+import Calendar from '../components/calendar';
+import Mapa from '../components/mapa';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -40,6 +35,7 @@ export default class App extends Component<Props> {
     group : [],
     respuestas : {},
     seccion:{},
+    title:{},
 
 
 
@@ -49,6 +45,8 @@ export default class App extends Component<Props> {
     multiselect:[],
     value:'Seleccionar',
     mulSelected:'MultiSelect',
+
+    switchValue:false,
   }
 
   componentDidMount = () => {
@@ -58,6 +56,7 @@ export default class App extends Component<Props> {
   dynamicRender = () => {
     let {formIndex, group, seccion} = this.state;
 
+    //result se genera un array de componentes fitrados.
     const result = _.filter(db, {parent:formIndex});
 
     //¿Cuántos componentes tiene esta sección?
@@ -74,6 +73,8 @@ export default class App extends Component<Props> {
       const component = this.getComponent(data, index);
       group.push(component);
     });
+
+    //group['select', 'button', 'calendar', 'text',...]
 
     //Envío a renderizar el grupo
     this.setState({group});
@@ -119,7 +120,6 @@ export default class App extends Component<Props> {
   getComponent = (d, i, value) => {
     const { optionActive, respuestas } = this.state;
 
-
     switch (d.inputType) {
       case "button":
         //activa o desactiva los botones
@@ -138,7 +138,7 @@ export default class App extends Component<Props> {
       break;
 
       case "select":
-        if ( respuestas[d.id] ) {
+        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
           value = d.options[ (respuestas[d.id]-1) ][1];
         }
 
@@ -157,13 +157,16 @@ export default class App extends Component<Props> {
       break;
 
       case "calendar":
-        if ( respuestas[d.id] ) { value = d.options[ respuestas[d.id] ]; }
+        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
+          value = respuestas[d.id];
+        }
         if (!value) { value = null; }
         return (
           <Calendar
             key = {i}
             index = {i}
             id = {d.id}
+            label = {d.label}
             dateChange = {this.dateChange}
             selectedStartDate = {value}
           />
@@ -184,6 +187,10 @@ export default class App extends Component<Props> {
       break;
 
       case "text":
+        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
+          value = respuestas[d.id];
+        }
+        if (!value) { value = null }
         return (
           <InputText
             key = {i}
@@ -191,11 +198,16 @@ export default class App extends Component<Props> {
             handleTextChange = {this.handleTextChange}
             pholder = {d.label}
             label = {d.label}
+            value = {value}
           />
         );
       break;
 
       case "number":
+        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
+          value = respuestas[d.id];
+        }
+        if (!value) { value = null }
         return (
           <InputNumber
             key = {i}
@@ -203,9 +215,37 @@ export default class App extends Component<Props> {
             handleTextChange = {this.handleTextChange}
             pholder = {d.label}
             label = {d.label}
+            value = {value}
           />
         );
       break;
+
+      case "switch":
+        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
+          value = respuestas[d.id];
+        }
+        if (value===null || value == undefined ) { value = true }
+        return (
+          <ToggleSwitch
+            key = {i}
+            isOn={ value }
+            onColor="#73DB1D"
+            offColor="#dbdbdb"
+            label = {d.label}
+            labelStyle={{ color: "white", fontWeight: "900",paddingLeft:5, }}
+            size="large"
+            onToggle={(data)=>{this.toggleSwitch(i, d.id, data)}}
+          />
+        );
+      break
+
+      case "mapa":
+        return (
+          <Mapa
+            key = {i}
+          />
+        )
+      break
 
       default:
         return null;
@@ -214,7 +254,11 @@ export default class App extends Component<Props> {
   }
 
   onClickButton = (id) => {
-    let { formIndex, beforeIndex } = this.state;
+    let { formIndex, beforeIndex, title } = this.state;
+    //Busco la label para poner en el title
+    const result = _.filter(db, {id:id});
+    title[id] = result[0].label;
+
     //El index actual se convierte en el index anterior
     beforeIndex.push(formIndex);
 
@@ -222,7 +266,7 @@ export default class App extends Component<Props> {
     formIndex = id;
 
     //Envío a filtrar
-    this.setState({formIndex, beforeIndex}, this.dynamicRender);
+    this.setState({formIndex, beforeIndex, title}, this.dynamicRender);
   }
 
   buttonSelected = (index,id, data) => {
@@ -239,8 +283,7 @@ export default class App extends Component<Props> {
   handleTextChange = (inputText, id) => {
     let { respuestas } = this.state;
     respuestas[id] = inputText;
-    console.log(respuestas);
-    this.setState({respuestas});
+    this.setState({respuestas}, this.setStorage);
   }
 
   dateChange = (index, id, data) => {
@@ -251,7 +294,7 @@ export default class App extends Component<Props> {
     const component = this.getComponent(r[0], index, data)
 
     group[index] = component;
-    this.setState({group, respuestas});
+    this.setState({group, respuestas}, this.setStorage);
   }
 
   getPhoto = (index, id, data) => {
@@ -265,9 +308,18 @@ export default class App extends Component<Props> {
     this.setState({group, respuestas});
   }
 
+  toggleSwitch = (index, id, data) => {
+    let { group, respuestas } = this.state;
+    respuestas[id] = data;
+
+    const r = _.filter(db, {id});
+    const component = this.getComponent(r[0], index, data)//<Text key={index}>{ `value = ${data}` }</Text>//
+
+    group[index] = component;
+    this.setState({group, respuestas}, this.setStorage);
+   }
+
   //Guardar en el storage.
-
-
   //··················································································//
 
   handleNumberChange = (inputText) => {
@@ -278,7 +330,7 @@ export default class App extends Component<Props> {
   }
 
   render = () => {
-    const {group, beforeIndex} = this.state;
+    const {group, beforeIndex, title, formIndex} = this.state;
 
     return(
       <ImageBackground
@@ -288,13 +340,25 @@ export default class App extends Component<Props> {
         {
           beforeIndex.length===0
           ? null
-          :<ButtonBack
-          backForm={this.backForm}
-          />
+          :<View style={styles.btnBack}>
+            <ButtonBack
+              backForm={this.backForm}
+            />
+          </View>
         }
+
+        <TitleForm
+          label={
+            formIndex
+            ? title[formIndex]
+            : "Iniciar formulario"
+
+          }
+        />
 
         <ScrollView style={{marginTop:40, marginBottom:40,}}>
          {
+           //group['select', 'button', 'calendar', 'text',...]
            group.map((data, index)=>{
              return data
            })
@@ -314,5 +378,10 @@ const styles = StyleSheet.create({
     paddingTop:35,
     justifyContent:'center',
     alignItems:'center',
+  },
+  btnBack:{
+    width:width,
+    height:20,
+    alignItems:'flex-end'
   }
 });

@@ -1,63 +1,62 @@
 import React, { Component } from 'react';
-import { TextInput, StyleSheet, View, Text } from 'react-native';
+import { TextInput, StyleSheet, View, Text, Dimensions } from 'react-native';
 
 export default class InputNumber extends Component {
 
   render() {
     return (
-      <View style={styles.v1}>
+      <View style={styles.container}>
         <Text style={styles.label}>
           {this.props.label}
         </Text>
         <TextInput
           style={styles.textInputStyle}
           onChangeText={(texto)=>{this.props.handleTextChange(texto,this.props.id)}}
-          placeholder={this.props.pholder}
+          placeholder="000"
           placeholderTextColor="#f2f2f2"
           keyboardType="numeric"
+          value = {this.props.value}
         />
-
       </View>
     );
   }
 }
 
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container:{
+    flexDirection:'row',
+    alignItems:'center',
     height:40,
-    margin:15,
+    width:width-50,
+    marginLeft:15,
     marginBottom:30,
     marginTop:30,
+    backgroundColor: 'transparent'
   },
   textInputStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
     color:'white',
     borderColor: '#73DB1D',
     borderWidth: 1,
     borderRadius: 10,
-    width:130,
+    width:'100%',
     height: 40,
-    margin: 40,
-    paddingLeft:10,
+    padding: 5,
     fontSize:18,
     fontWeight: 'bold',
-    textAlign:'right'
-  },
-  textOutputStyle: {
-    fontSize: 20
+    textAlign:'center'
   },
   label : {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     color:'white',
-    padding:130,
-    fontSize:18,
+    fontSize:15,
     fontWeight: 'bold',
-    marginLeft:-110,
     textAlign:'left',
-  },
-  v1:{
-    marginTop:30,
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
-
   },
 })
