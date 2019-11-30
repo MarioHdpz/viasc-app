@@ -57,7 +57,7 @@
     "parent":false,
     "response":false,
     "long":false,
-    "endpoint": 0
+    "endpoint": 2
   },
   {
     "id":85,
@@ -69,7 +69,7 @@
     "parent":false,
     "response":false,
     "long":false,
-    "endpoint": 0
+    "endpoint": 4
   },
   {
     "id":2,
