@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
     color:'white',
     fontSize:15,
     marginLeft:20,
+    fontSize:18,
+    fontWeight: 'bold'
   },
   ok:{
     backgroundColor:'rgb(57, 194, 103)',
