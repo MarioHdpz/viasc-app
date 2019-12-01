@@ -240,9 +240,21 @@ export default class App extends Component<Props> {
       break
 
       case "mapa":
+      console.log('switch: ',d, i, value);
         return (
           <Mapa
             key = {i}
+            index = {i}
+            num = {respuestas[12]}
+            col = {respuestas[13]}
+            cp  = {respuestas[14]}
+            mun = {respuestas[15]}
+            est = {respuestas[16]}
+            ciu = {respuestas[17]}
+            lon = {respuestas[18]}
+            lat = {respuestas[19]}
+            alt = {respuestas[20]}
+            getDataGeo = {this.getDataGeo}
           />
         )
       break
@@ -318,6 +330,18 @@ export default class App extends Component<Props> {
     group[index] = component;
     this.setState({group, respuestas}, this.setStorage);
    }
+
+  getDataGeo = (inputText, id, index) =>{
+    let { group,respuestas } = this.state;
+    respuestas[id] = inputText;
+
+    if (index>=0) {
+      const component = this.getComponent({inputType:'mapa'}, index)
+      group[index] = component;
+    }
+
+    this.setState({group, respuestas}, this.setStorage);
+  }
 
   //Guardar en el storage.
   //··················································································//

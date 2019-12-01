@@ -21,27 +21,42 @@ export default class Mapa extends Component<Props> {
   }
 
   goToInitialLocation = () => {
-    this.mounted = true;
-    // If you supply a coordinate prop, we won't try to track location automatically
-    if (this.props.coordinate) {
-      return;
-    }
+    const {lon, lat} = this.props;
+    let {myPosition} = this.state;
+    if (lon && lat ) {
+      console.log('props existen', lat, lon);
 
-    if (Platform.OS === 'android') {
-      PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-      ).then(granted => {
-        if (granted && this.mounted) {
-          this.watchLocation();
-        }
-      });
-    } else {
-      this.watchLocation();
+      myPosition = {
+        latitude:parseFloat(lat),
+        longitude:parseFloat(lon),
+        latitudeDelta:0.0005,
+        longitudeDelta:0.0005,
+      }
+
+      this.mapRef.animateToRegion(myPosition);
+      this.setState({myPosition})
+    }
+    else{
+      this.mounted = true;
+      if (this.props.coordinate) {
+        return;
+      }
+
+      if (Platform.OS === 'android') {
+        PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        ).then(granted => {
+          if (granted && this.mounted) {
+            this.watchLocation();
+          }
+        });
+      } else {
+        this.watchLocation();
+      }
     }
   }
 
   watchLocation = () => {
-    console.log('Buscando ubicación...');
     this.watchID = Geolocation.watchPosition(
       position => {
         const myLastPosition = this.state.myPosition;
@@ -68,10 +83,7 @@ export default class Mapa extends Component<Props> {
   onPoiClick = (e) => {
     const myPosition = e.nativeEvent.coordinate;
 
-    this.setState({
-      myPosition,
-      save:false
-    });
+    this.setState({ myPosition });
 
     if (!myPosition.latitudeDelta) {
       myPosition["latitudeDelta"] = 0.005;
@@ -88,8 +100,6 @@ export default class Mapa extends Component<Props> {
   getAddres = () => {
     let {myPosition} = this.state;
     const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM';//NUEVA API KEY
-    const lng = -73.961452;
-    const lat = 40.714224;
     const url  = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${myPosition.latitude},${myPosition.longitude}&key=${myApiKey}`;
 
     axios({
@@ -97,8 +107,21 @@ export default class Mapa extends Component<Props> {
       method: 'get'
     })
     .then((response) => {
-      let {dir} = this.state
-      dir = response.data.results[0].address_components
+      const {myPosition} = this.state
+      const dir = response.data.results[0].address_components
+      console.log('AXIOS DIR',this.props.index, dir);
+
+      this.props.getDataGeo(dir[0].long_name.toString(), 12, this.props.index);
+      this.props.getDataGeo(dir[2].long_name.toString(), 13, this.props.index);
+      this.props.getDataGeo(dir[6].long_name.toString(), 14, this.props.index);
+      this.props.getDataGeo(dir[3].long_name.toString(), 15, this.props.index);
+      this.props.getDataGeo(dir[4].long_name.toString(), 16, this.props.index);
+      this.props.getDataGeo(dir[3].long_name.toString(), 17, this.props.index);
+      this.props.getDataGeo(myPosition.longitude.toString(), 18, this.props.index);
+      this.props.getDataGeo(myPosition.latitude.toString(), 19, this.props.index);
+      this.props.getDataGeo(myPosition.altitude.toString(), 20, this.props.index);
+
+
       this.setState({dir});
     })
     .catch((error) => {
@@ -114,15 +137,11 @@ export default class Mapa extends Component<Props> {
     });
   }
 
-  handleTextChange = (inputText, id) => {
-    console.log(inputText, id);
-    //let { respuestas } = this.state;
-    //respuestas[id] = inputText;
-    //this.setState({respuestas}, this.setStorage);
-  }
-
   render = () => {
     const {myPosition, dir} = this.state
+    const {num, col, cp, mun, est,
+      ciu, lon, lat, alt} = this.props
+
     return(
       <View style={styles.container}>
         <MapView
@@ -141,77 +160,76 @@ export default class Mapa extends Component<Props> {
           }
         </MapView>
 
-        {dir
-          ? <View>
+
+        <View>
           <InputText
-            id = {1}
-            handleTextChange = {this.handleTextChange}
-            pholder = "Número"
-            label = "Número"
-            value = {dir[0].long_name.toString()}
+            id = {12}
+            handleTextChange = {this.props.getDataGeo}
+            pholder = "Número exterior"
+            label = "Número exterior"
+            value = {num}
           />
           <InputText
-            id = {1}
-            handleTextChange = {this.handleTextChange}
-            pholder = "Calle"
-            label = "Calle"
-            value = {dir[1].long_name.toString()}
+            id = {13}
+            handleTextChange = {this.props.getDataGeo}
+            pholder = "Colonia"
+            label = "Colonia"
+            value = {col}
           />
           <InputText
-            id = {1}
-            handleTextChange = {this.handleTextChange}
-            pholder = "Ciudad"
-            label = "Ciudad"
-            value = {dir[3].long_name.toString()}
-          />
-          <InputText
-            id = {1}
-            handleTextChange = {this.handleTextChange}
-            pholder = "Estado"
-            label = "Estado"
-            value = {dir[4].long_name.toString()}
-          />
-          <InputText
-            id = {1}
-            handleTextChange = {this.handleTextChange}
+            id = {14}
+            handleTextChange = {this.props.getDataGeo}
             pholder = "Código postal"
             label = "Código postal"
-            value = {dir[6].long_name.toString()}
+            value = {cp}
           />
           <InputText
-            id = {1}
-            handleTextChange = {this.handleTextChange}
+            id = {15}
+            handleTextChange = {this.props.getDataGeo}
+            pholder = "Municipio"
+            label = "Municipio"
+            value = {mun}
+          />
+          <InputText
+            id = {16}
+            handleTextChange = {this.props.getDataGeo}
+            pholder = "Estado"
+            label = "Estado"
+            value = {est}
+          />
+          <InputText
+            id = {17}
+            handleTextChange = {this.props.getDataGeo}
+            pholder = "Ciudad"
+            label = "Ciudad"
+            value = {ciu}
+          />
+          <InputText
+            id = {18}
+            handleTextChange = {this.props.getDataGeo}
             pholder = "Longitud"
             label = "Longitud"
-            value = {myPosition.longitude.toString()}
+            value = {lon}
           />
           <InputText
-            id = {1}
-            handleTextChange = {this.handleTextChange}
+            id = {19}
+            handleTextChange = {this.props.getDataGeo}
             pholder = "Latitud"
             label = "Latitud"
-            value = {myPosition.latitude.toString()}
+            value = {lat}
           />
           <InputText
-            id = {1}
-            handleTextChange = {this.handleTextChange}
+            id = {20}
+            handleTextChange = {this.props.getDataGeo}
             pholder = "Altitud"
             label = "Altitud"
-            value = {myPosition.altitude.toString()}
+            value = {alt}
           />
-          </View>
-          :null
-        }
-
-
+        </View>
       </View>
     )
   }
 }
-/*
-
-
-*/
 
 const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
