@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import SplashScreen from 'react-native-splash-screen'
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -19,6 +20,12 @@ export default class App extends Component<Props> {
     email:'gibran.aguilar@lytica.ai',
     pass:'admin',
     text:'',
+  }
+
+  componentDidMount() {
+    if (Platform.OS === 'android') {
+      SplashScreen.hide();
+    } else {}
   }
 
   validate = (text) => {

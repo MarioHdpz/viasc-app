@@ -13,8 +13,11 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from 'react-navigation';
 import _ from 'lodash';
+import axios from 'axios';
 
+import {readResponseServer} from '../functions'
 import db from '../containers/formulario.json';
+import ep from '../containers/endpoints.json';
 import ButtonLarge from '../components/buttonLarge';
 
 type Props = {};
@@ -28,6 +31,8 @@ export default class App extends Component<Props> {
 
     okformulario:true,
     okfotos:true,
+
+    respuestas: null,
   }
 
   componentDidMount = () => {
@@ -80,17 +85,18 @@ export default class App extends Component<Props> {
     const totalRespuestas = formulario - buttons.length
 
     try {
-      let {form, okfotos} = this.state;
+      let {form, okfotos, respuestas} = this.state;
       const value = await AsyncStorage.getItem('respuestas')
 
       if(value !== null) {
+        respuestas = JSON.parse(value)
         const okRespuestas = Object.keys(JSON.parse(value)).length;
         if (totalRespuestas === okRespuestas) {
           form = true;
           okfotos = true;
         }
 
-        this.setState({ form, okfotos });
+        this.setState({ form, okfotos, respuestas });
       }
     } catch(e) {
       console.log("error storage", e);
@@ -129,6 +135,7 @@ export default class App extends Component<Props> {
   }
 
   sendAll = () =>{
+
     Alert.alert(
       'Envíar gestión',
       '¿Desea envíar la gestión?',
@@ -139,13 +146,60 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si envíar', onPress: () => {
-          //conexión con el ws
-          this.clearAll();
-          this.props.navigation.navigate('Init', {user:this.state.user});
+          this.redirectEndPoints();
+
         }},
       ],
       {cancelable: false},
     );
+  }
+
+  redirectEndPoints = () => {
+    const {respuestas, user} = this.state;
+
+    const keys =  Object.keys(respuestas);
+    let obj = {}
+    keys.map((id, index) =>{
+      const result = _.filter(db, {id:parseInt(id)});
+      if (!obj[ result[0].endpoint ]) {
+        obj[ result[0].endpoint ] = {}
+      }
+      obj[ result[0].endpoint ][id] = respuestas[id]
+    });
+
+    const epindex =  Object.keys(obj);
+
+    epindex.map( (index) => {
+      const url = ep[index];
+      const data = obj[index]
+
+      const conf = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `jwt ${user.token}`,
+        }
+      }
+
+      axios.post(url, data, conf)
+      .then((response) => {
+        console.log('AXIOS OK -> ',response);
+      })
+      .catch((error) => {
+        Alert.alert(
+          'Error',
+          readResponseServer(error.response.status),
+          [
+            {text: 'OK'},
+          ],
+          {cancelable: false},
+        );
+      });
+
+      //LIMPIAMOS TODO Y REGRESAMOS PARA INICIAR UN NUEVO AVALÚO.
+      //this.clearAll();
+      //this.props.navigation.navigate('Init', {user:this.state.user});
+
+    })
   }
 
   render = () => {
