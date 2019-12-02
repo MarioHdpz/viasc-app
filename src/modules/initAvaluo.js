@@ -29,8 +29,8 @@ export default class App extends Component<Props> {
     form : null,
     pics : null,
 
-    okformulario:true,
-    okfotos:true,
+    okformulario:false,
+    okfotos:false,
 
     respuestas: null,
   }
