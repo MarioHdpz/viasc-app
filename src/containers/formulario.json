@@ -267,7 +267,7 @@
     "inputType": "calendar",
     "options":[],
     "label": "Año de Terminación",
-    "parent":false,
+    "parent":25,
     "response":false,
     "long":false,
     "endpoint": 4
@@ -1997,6 +1997,7 @@
    "long":false,
    "endpoint": 1
  },
+
  {
      "id":159,
      "screen":1,
