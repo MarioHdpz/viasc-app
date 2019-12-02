@@ -1,18 +1,12 @@
 import React, {Component} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  Dimensions,
-  Alert,
-  ImageBackground,
+  View, Text, StyleSheet, Image, TextInput,
+  TouchableOpacity, Dimensions, Alert, ImageBackground,
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen'
+import {readResponseServer} from '../functions'
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -25,11 +19,7 @@ export default class App extends Component<Props> {
   componentDidMount() {
     if (Platform.OS === 'android') {
       SplashScreen.hide();
-    } else {}
-  }
-
-  validate = (text) => {
-    this.setState({email:text})
+    }
   }
 
   login = async () => {
@@ -55,11 +45,10 @@ export default class App extends Component<Props> {
 
         this.props.navigation.navigate('Init', {user:user});
       })
-      .catch((response) => {
-        console.log(response);
+      .catch((error) => {
         Alert.alert(
           'Error',
-          'Revise su usario y contraseña',
+          readResponseServer(error.response.status),
           [
             {text: 'OK'},
           ],
@@ -99,7 +88,7 @@ export default class App extends Component<Props> {
           style={styles.input}
           placeholder="Correo electrónico"
           placeholderTextColor="#f2f2f2"
-          onChangeText={(text) => this.validate(text)}
+          onChangeText={(text) => this.setState({email:text})}
           value={this.state.email}
           keyboardType="email-address"
         />
