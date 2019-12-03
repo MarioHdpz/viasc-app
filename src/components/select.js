@@ -106,15 +106,11 @@ const styles = StyleSheet.create({
     margin: -15,
     marginLeft:10,
     padding: 5,
-    fontSize:18,
-    fontWeight: 'bold'
+    fontSize:16
   },
   modal:{
-
     backgroundColor:'grey',
-
     borderRadius: 20,
-
   },
   options:{
     height:30,
@@ -127,7 +123,7 @@ const styles = StyleSheet.create({
   capture:{
     color:'white',
     paddingLeft:0,
-    fontSize:15,
+    fontSize:16,
     fontWeight: 'bold',
     textAlign:'center'
   },
@@ -142,7 +138,7 @@ const styles = StyleSheet.create({
   },
   label : {
     color:'white',
-    fontSize:18,
+    fontSize:16,
     fontWeight: 'bold',
     marginLeft: 0,
     textAlign:'center',
@@ -151,7 +147,7 @@ const styles = StyleSheet.create({
   },
   labelExit : {
     color:'white',
-    fontSize:18,
+    fontSize:16,
     textAlign:'center',
   },
   icon:{

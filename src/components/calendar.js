@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     height: 40,
     padding: 10,
-    fontSize:18,
+    fontSize:16,
     fontWeight: 'bold'
   },
   modal:{

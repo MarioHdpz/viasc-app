@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     width:'100%',
     height: 40,
     padding: 5,
-    fontSize:18,
+    fontSize:16,
     fontWeight: 'bold',
     textAlign:'center'
   },
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     color:'white',
-    fontSize:15,
+    fontSize:16,
     fontWeight: 'bold',
     textAlign:'left',
   },

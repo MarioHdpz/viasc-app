@@ -33,15 +33,15 @@ const styles = StyleSheet.create({
     height: 40,
     marginLeft:10,
     padding: 10,
-    fontSize:18,
+    fontSize:16,
     fontWeight: 'bold'
   },
   textOutputStyle: {
-    fontSize: 20
+    fontSize: 16
   },
   label : {
     color:'white',
-    fontSize:18,
+    fontSize:16,
     fontWeight: 'bold',
     marginLeft: 29,
     textAlign:'left'

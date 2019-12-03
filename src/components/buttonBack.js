@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   text:{
     color:'white',
-    fontSize:15,
+    fontSize:16,
 
   },
   ok:{
