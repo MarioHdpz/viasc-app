@@ -1,103 +1,93 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  Modal,
   TouchableHighlight,
   TouchableOpacity,
   Image,
+  Button,
   Dimensions,
   ScrollView
-} from 'react-native';
+ } from "react-native";
+import Modal from "react-native-modal";
 
-type Props = {};
-export default class Select extends Component<Props> {
+export default class ModalTester extends Component {
   state = {
-    modalVisible: false,
+    isModalVisible: false
   };
 
-  setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
-  }
+  toggleModal = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
 
-  render = () => {
+  render() {
     const {id, options, value, label} = this.props;
     return (
       <View style={styles.v1}>
-
-        <Text
-          style={styles.textSelect}
-          onPress={() => {
-            this.setModalVisible(!this.state.modalVisible);
-          }}
-        >
-          {value}
-
-        </Text>
-        <Image style={styles.icon} source={this.props.icon}/>
-        <Modal style={styles.container}
-          transparent
-          animationType="slide"
-          transparent={true}
-          presentationStyle={this.formSheet}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            this.setModalVisible(!this.state.modalVisible);
-          }}>
+      <Text
+        style={styles.textSelect}
+        onPress={() => {
+          this.toggleModal(!this.state.isModalVisible);
+        }}
+      >
+        {value}
+      </Text>
+      <Image style={styles.icon} source={this.props.icon}/>
+        <Modal isVisible={this.state.isModalVisible}>
           <View style={styles.modal}>
           <ScrollView
-              style={styles.scroll}
+            style={styles.scroll}
+          >
+          <View style={{alignItems:'center'}}>
+            <Text
+              style={styles.label}
             >
-            <View style={{alignItems:'center'}}>
-              <Text
-                style={styles.label}
-              >
-                {`${label}`}
-              </Text>
-            </View>
-            <View style={{width:'100%',height:'auto'}}>
-              {
-                options.map((data, index) =>{
-                  return(
-                    <TouchableOpacity
-                      key={index}
-                      onPress={() => {
-                        this.props.buttonSelected(this.props.index,id,data)
-                        this.setModalVisible(!this.state.modalVisible)
-                      }}
-                      style={styles.options}
-                    >
-                      <Text style={styles.capture}>
-                        {data[1]}
-                      </Text>
-                    </TouchableOpacity>
-                  )
-                })
-              }
-            </View>
-            </ScrollView>
-            <View style={{alignItems:'center'}}>
+              {`${label}`}
+            </Text>
+          </View>
+          <View style={{width:'100%',height:'auto'}}>
+            {
+              options.map((data, index) =>{
+                return(
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      this.props.buttonSelected(this.props.index,id,data)
+                      this.toggleModal(!this.state.isModalVisible)
+                    }}
+                    style={styles.options}
+                  >
+                    <Text style={styles.capture}>
+                      {data[1]}
+                    </Text>
+                  </TouchableOpacity>
+                )
+              })
+            }
+          </View>
+          </ScrollView>
+          <View style={{alignItems:'center'}}>
               <Text
                 style={styles.labelExit}
                 onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
+                  this.toggleModal(!this.state.isModalVisible);
                 }}
               >
                 {`❌`}
               </Text>
             </View>
-
           </View>
         </Modal>
-
       </View>
     );
   }
 }
+
 const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container:{
+    marginHorizontal:15,
     height:40,
     margin:15,
     marginBottom:30,
@@ -120,15 +110,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   modal:{
-    backgroundColor:'black',
-    marginTop: 100,
-    marginBottom: 100,
+
+    backgroundColor:'grey',
+
     borderRadius: 20,
-    alignItems:'center',
-    justifyContent:'center',
-    flex:1,
-    margin:35,
-    opacity:0.9
+
   },
   options:{
     height:30,
@@ -153,7 +139,6 @@ const styles = StyleSheet.create({
     margin:15,
     marginBottom:30,
     marginTop:30,
-    backgroundColor: 'transparent'
   },
   label : {
     color:'white',
