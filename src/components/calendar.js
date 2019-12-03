@@ -23,7 +23,7 @@ export default class Calendar extends Component {
 
     const d = new Date(date);
     const y = d.getFullYear();
-    const m = d.getMonth();
+    const m = d.getMonth()+1;
     const n = d.getDate();
 
     this.props.dateChange(index, id,`${n}-${m}-${y}`);
@@ -40,7 +40,7 @@ export default class Calendar extends Component {
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
+            this.setModalVisible(!this.state.modalVisible);
           }}>
           <View style={styles.modal}>
             <View>
@@ -86,8 +86,7 @@ const styles = StyleSheet.create({
     color:'white',
     borderBottomColor: '#73DB1D',
     borderBottomWidth: 1,
-    marginLeft:10,
-    textAlign:'center',
+    marginLeft:25,
     height: 40,
     padding: 10,
     fontSize:16,

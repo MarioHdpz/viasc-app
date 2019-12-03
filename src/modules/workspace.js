@@ -142,7 +142,7 @@ export default class App extends Component<Props> {
           value = d.options[ (respuestas[d.id]-1) ][1];
         }
 
-        if (!value) { value = "Seleccionar"; }
+        if (!value) { value = d.label; }
         return (
           <Select
             key = {i}
