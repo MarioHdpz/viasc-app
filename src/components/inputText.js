@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
     marginLeft:10,
     padding: 10,
     fontSize:16,
-    fontWeight: 'bold'
   },
   textOutputStyle: {
     fontSize: 16
