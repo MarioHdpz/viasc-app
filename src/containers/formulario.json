@@ -18,6 +18,15 @@
     "endpoint": 1
   },
   {
+    "id":21,
+    "inputType": "mapa",
+    "options": [],
+    "label": "Ubicación",
+    "parent" : 1,
+    "response":false,
+    "endpoint": 0
+  },
+  {
     "id":22,
     "inputType": "select",
     "options": [
@@ -44,15 +53,7 @@
       },
     "endpoint": 1
   },
-  {
-    "id":21,
-    "inputType": "mapa",
-    "options": [],
-    "label": "Ubicación",
-    "parent" : 1,
-    "response":false,
-    "endpoint": 0
-  },
+
   {
     "id":3,
     "inputType": "text",
