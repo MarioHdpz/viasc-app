@@ -7,11 +7,14 @@ export default class InputText extends Component {
     return (
       <View style={styles.container}>
         <TextInput
+
           style={styles.textInputStyle}
+          scrollEnabled={false}
           onChangeText={(texto) => {this.props.handleTextChange(texto,this.props.id)}}
           placeholder={this.props.label}
           placeholderTextColor="#f2f2f2"
           value = {this.props.value}
+
         />
       </View>
     );
@@ -34,6 +37,7 @@ const styles = StyleSheet.create({
     marginLeft:10,
     padding: 10,
     fontSize:16,
+    fontWeight: 'bold',
   },
   textOutputStyle: {
     fontSize: 16

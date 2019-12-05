@@ -106,6 +106,8 @@ const styles = StyleSheet.create({
     margin: -15,
     marginLeft:10,
     padding: 5,
+    fontSize:16,
+    fontWeight: 'bold'
   },
   modal:{
     backgroundColor:'grey',
