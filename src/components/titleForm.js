@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {
   Text,
   StyleSheet,
-  ImageBackground
+  ImageBackground,
+  Dimensions,
 } from 'react-native';
 
 type Props = {};
@@ -19,10 +20,11 @@ export default class TitleForm extends Component {
   }
 }
 
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   titlePrimary:{
     marginTop:5,
-    marginLeft:270,
+    marginLeft:width/2,
     color:'white',
     fontSize:16,
     fontWeight: 'bold',

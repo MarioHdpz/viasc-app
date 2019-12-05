@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize:16
   },
   modal:{
-    backgroundColor:'grey',
+    backgroundColor:'black',
     borderRadius: 20,
   },
   options:{
