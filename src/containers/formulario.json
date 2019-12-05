@@ -51,7 +51,7 @@
           24
         ],
         2:[
-          26,27,28,29,31,32,76,159
+          26,27,160,28,29,31,32,76,159
         ],
         3:[
           34,36,37,76,159
@@ -170,17 +170,7 @@
     ],
     "label": "Tipo de Construcción",
     "parent":22,
-    "response":{
-        1:[
-          160
-        ],
-        2:[
-          160,201
-        ],
-        3:[
-          160,201,202
-        ]
-      },
+    "response":false,
     "endpoint": 1
   },
   {
@@ -188,25 +178,7 @@
     "inputType": "text",
     "options":[],
     "label": "Superficie",
-    "parent":27,
-    "response":false,
-    "endpoint": 1
-  },
-  {
-    "id":201,
-    "inputType": "text",
-    "options":[],
-    "label": "Superficie",
-    "parent":27,
-    "response":false,
-    "endpoint": 1
-  },
-  {
-    "id":202,
-    "inputType": "text",
-    "options":[],
-    "label": "Superficie",
-    "parent":27,
+    "parent":22,
     "response":false,
     "endpoint": 1
   },
@@ -906,10 +878,78 @@
    "options":[[1,"1"],[2,"2"],[3,"3"],[4,"4"],[5,"5"]],
    "label": "Agregar/Eliminar Calle",
    "parent":70,
-   "response":false,
+   "response":{
+     1:[
+        201
+     ],
+       2:[
+         201,202
+       ],
+       3:[
+         201,202,203
+       ],
+       4:[
+         201,202,203,204
+       ],
+       5:[
+         201,202,203,204,205
+       ]
+     },
    "long":false,
    "endpoint": 4
  },
+
+ {
+   "id":201,
+   "inputType": "text",
+   "options":[],
+   "label": "Calle",
+   "parent":73,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":202,
+   "inputType": "text",
+   "options":[],
+   "label": "Calle",
+   "parent":73,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":203,
+   "inputType": "text",
+   "options":[],
+   "label": "Calle",
+   "parent":73,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":204,
+   "inputType": "text",
+   "options":[],
+   "label": "Calle",
+   "parent":73,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":205,
+   "inputType": "text",
+   "options":[],
+   "label": "Calle",
+   "parent":73,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+
  {
    "id":74,
    "screen":2,
@@ -925,15 +965,148 @@
  {
    "id":75,
    "screen":3,
-   "dataType": "text",
+   "dataType": "int",
+   "inputType": "select",
+   "options":[[1,"1"],[2,"2"],[3,"3"],[4,"4"],
+   [5,"5"],[6,"6"],[7,"7"],[8,"8"],[9,"9"],[10,"10"]],
+   "label": "Agregar medida",
+   "parent":69,
+   "response":{
+     1:[
+        206
+     ],
+       2:[
+         206,207
+       ],
+       3:[
+         206,207,208
+       ],
+       4:[
+         206,207,208,209
+       ],
+       5:[
+         206,207,208,209,210
+       ],
+       6:[
+          206,207,208,209,210,211
+       ],
+         7:[
+           206,207,208,209,210,211,212
+         ],
+         8:[
+           206,207,208,209,210,211,212,213
+         ],
+         9:[
+           206,207,208,209,210,211,212,213,214
+         ],
+         10:[
+          206,207,208,209,210,211,212,213,214,215
+         ]
+     },
+   "long":false,
+   "endpoint": 4
+ },
+ {
+   "id":206,
    "inputType": "text",
    "options":[],
-   "label": "Agregar medida ",
-   "parent":69,
+   "label": "Medida",
+   "parent":75,
    "response":false,
-   "long":50,
+   "long":false,
    "endpoint": 0
  },
+ {
+   "id":207,
+   "inputType": "text",
+   "options":[],
+   "label": "Medida",
+   "parent":75,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":208,
+   "inputType": "text",
+   "options":[],
+   "label": "Medida",
+   "parent":75,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":209,
+   "inputType": "text",
+   "options":[],
+   "label": "Medida",
+   "parent":75,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":210,
+   "inputType": "text",
+   "options":[],
+   "label": "Medida",
+   "parent":75,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":211,
+   "inputType": "text",
+   "options":[],
+   "label": "Medida",
+   "parent":75,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":212,
+   "inputType": "text",
+   "options":[],
+   "label": "Medida",
+   "parent":75,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":213,
+   "inputType": "text",
+   "options":[],
+   "label": "Medida",
+   "parent":75,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":214,
+   "inputType": "text",
+   "options":[],
+   "label": "Medida",
+   "parent":75,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+ {
+   "id":215,
+   "inputType": "text",
+   "options":[],
+   "label": "Medida",
+   "parent":75,
+   "response":false,
+   "long":false,
+   "endpoint": 0
+ },
+
  {
    "id":76,
    "screen":1,
