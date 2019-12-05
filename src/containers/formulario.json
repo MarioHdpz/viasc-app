@@ -1,217 +1,151 @@
 [
   {
     "id":1,
-    "screen":1,
-    "dataType": "text",
     "inputType": "button",
     "options": [],
     "label": "Datos generales",
     "parent" : false,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":2,
-    "screen":2,
-    "dataType": "text",
     "inputType": "button",
     "options": [],
     "label": "Datos del Solicitante",
     "parent" : 1,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
+    "id":200,
+    "inputType": "button",
+    "options": [],
+    "label": "Ubicacion",
+    "parent" : 1,
+    "response":false,
+    "endpoint": 1
+  },
+  {
+    "id":21,
+    "inputType": "mapa",
+    "options": [],
+    "label": "Ubicación",
+    "parent" : 200,
+    "response":false,
+    "endpoint": 0
+  },
+  {
+    "id":22,
+    "inputType": "select",
+    "options": [
+      [1,"Terreno"],
+      [2,"Casa habitación"],
+      [3,"Casa en condominio"],
+      [4,"Departamento en condominio"]
+    ],
+    "label": "Tipo de inmueble",
+    "parent" : 1,
+    "response":{
+        1:[
+          24
+        ],
+        2:[
+          26,27,28,29,31,32,76,159
+        ],
+        3:[
+          34,36,37,76,159
+        ],
+        4:[
+          39,43,44,46,55,56,61,76,159
+        ]
+      },
+    "endpoint": 1
+  },
+
+  {
     "id":3,
-    "screen":3,
-    "dataType": "text",
     "inputType": "text",
     "options": [],
     "label": "Apellido Paterno",
     "parent" : 2,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":4,
-    "screen":3,
-    "dataType": "text",
     "inputType": "text",
     "options": [],
     "label": "Apellido Materno",
     "parent" : 2,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":5,
-    "screen":3,
-    "dataType": "text",
     "inputType": "text",
     "options": [],
     "label": "Nombre",
     "parent" : 2,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":6,
-    "screen":3,
-    "dataType": "text",
     "inputType": "text",
     "options": [],
     "label": "Calle",
     "parent" : 2,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":7,
-    "screen":3,
-    "dataType": "text",
     "inputType": "text",
     "options": [],
     "label": "Numero Exterior",
     "parent" : 2,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":8,
-    "screen":3,
-    "dataType": "text",
     "inputType": "text",
     "options": [],
     "label": "Colonia",
     "parent" : 2,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":9,
-    "screen":3,
-    "dataType": "text",
-    "inputType": "text",
+    "inputType": "number",
     "options": [],
     "label": "Código Postal",
     "parent" : 2,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":10,
-    "screen":3,
-    "dataType": "text",
     "inputType": "text",
     "options": [],
     "label": "Delegación",
     "parent" : 2,
     "response":false,
-    "long":false,
-    "endpoint": 1
-  },
-  {
-    "id":11,
-    "screen":2,
-    "dataType": "int",
-    "inputType": "select",
-    "options":[
-    [1,"Terreno"],
-    [2,"Casa habitación"],
-    [3,"Casa en condominio"],
-    [4,"Departamento en condominio"]
-    ],
-    "label": "Propósito del Avaluó",
-    "parent":1,
-    "response":false,
-    "long":false,
-    "endpoint": 1
-  },
-  {
-    "id":21,
-    "screen":2,
-    "dataType": "text",
-    "inputType": "mapa",
-    "options": [],
-    "label": "Ubicación actual",
-    "parent" : 1,
-    "response":false,
-    "long":false,
-    "endpoint": 0
-  },
-  {
-    "id":22,
-    "screen":1,
-    "dataType": "text",
-    "inputType": "button",
-    "options": [],
-    "label": "Tipo de inmueble",
-    "parent" : false,
-    "response":false,
-    "long":false,
-    "endpoint": 1
-  },
-  {
-    "id":23,
-    "screen":2,
-    "dataType": "text",
-    "inputType": "button",
-    "options": [],
-    "label": "Terreno",
-    "parent" : 22,
-    "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":24,
-    "screen":3,
-    "dataType": "text",
     "inputType": "text",
     "options": [],
     "label": "Superficie de Construcción",
-    "parent" : 23,
-    "response":false,
-    "long":false,
-    "endpoint": 1
-  },
-  {
-    "id":25,
-    "screen":2,
-    "dataType": "text",
-    "inputType": "button",
-    "options": [],
-    "label": "Casa habitación",
     "parent" : 22,
     "response":false,
-    "long":false,
-    "endpoint": 1
-  },
-  {
-    "id":152,
-    "screen":3,
-    "dataType": "text",
-    "inputType": "button",
-    "options": [],
-    "label": "Espacios Exteriores",
-    "parent" : 25,
-    "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":26,
-    "screen":4,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"0"],
@@ -222,75 +156,90 @@
     [6,"5"]
     ],
     "label": "Número de Estacionamiento",
-    "parent":152,
+    "parent":22,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":27,
-    "screen":3,
-    "dataType": "int",
     "inputType": "select",
     "options":[
-    [1,"0"],
-    [2,"1"],
-    [3,"2"],
-    [4,"3"]
+    [1,"1"],
+    [2,"2"],
+    [3,"3"]
     ],
     "label": "Tipo de Construcción",
-    "parent":25,
-    "response":false,
-    "long":false,
+    "parent":22,
+    "response":{
+        1:[
+          160
+        ],
+        2:[
+          160,201
+        ],
+        3:[
+          160,201,202
+        ]
+      },
     "endpoint": 1
   },
   {
     "id":160,
-    "screen":3,
-    "dataType": "int",
-    "inputType": "select",
-    "options":[
-    [1,"Superficie 1"],
-    [2,"Superficie 2"],
-    [3,"Superficie 3"]
-    ],
-    "label": "Tipo de Construcción",
-    "parent":25,
+    "inputType": "text",
+    "options":[],
+    "label": "Superficie",
+    "parent":27,
     "response":false,
-    "long":false,
+    "endpoint": 1
+  },
+  {
+    "id":201,
+    "inputType": "text",
+    "options":[],
+    "label": "Superficie",
+    "parent":27,
+    "response":false,
+    "endpoint": 1
+  },
+  {
+    "id":202,
+    "inputType": "text",
+    "options":[],
+    "label": "Superficie",
+    "parent":27,
+    "response":false,
     "endpoint": 1
   },
   {
     "id":28,
-    "screen":3,
-    "dataType": "date",
     "inputType": "calendar",
     "options":[],
     "label": "Año de Terminación",
-    "parent":25,
+    "parent":22,
     "response":false,
-    "long":false,
     "endpoint": 4
   },
   {
     "id":29,
-    "screen":3,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"Terminada al 100%"],
     [2,"Sin terminar"]
     ],
     "label": "Grado de Terminación",
-    "parent":25,
-    "response":false,
-    "long":false,
+    "parent":22,
+    "response":{
+      1:[
+
+      ],
+        2:[
+           30
+        ]
+      },
     "endpoint": 1
   },
   {
     "id":30,
-    "screen":4,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"90%"],
@@ -305,14 +254,11 @@
     ],
     "label": "Avance",
     "parent":29,
-    "response":2,
-    "long":false,
+    "response":false,
     "endpoint": 1
   },
   {
     "id":31,
-    "screen":3,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"NO APLICA"],
@@ -327,54 +273,33 @@
     [10,"Única"]
     ],
     "label": "Clase de Construcción",
-    "parent":25,
+    "parent":22,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":32,
-    "screen":3,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"Nueva"],
     [2,"Usada"]
     ],
     "label": "Clase de Construcción",
-    "parent":25,
+    "parent":22,
     "response":false,
-    "long":false,
-    "endpoint": 1
-  },
-  {
-    "id":33,
-    "screen":2,
-    "dataType": "text",
-    "inputType": "button",
-    "options": [],
-    "label": "Casa en condominio",
-    "parent" : 22,
-    "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":34,
-    "screen":3,
-    "dataType": "text",
     "inputType": "button",
     "options": [],
     "label": "Espacios Interiores",
     "parent" : 33,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":35,
-    "screen":4,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"0"],
@@ -387,64 +312,40 @@
     "label": "Recámaras",
     "parent":34,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":36,
-    "screen":3,
-    "dataType": "float_2",
     "inputType": "number",
     "options":[],
     "label": "Superficie Vendible",
-    "parent":33,
+    "parent":22,
     "response":false,
-    "long":false,
     "endpoint": 2
   },
   {
     "id":37,
-    "screen":3,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"Nueva"],
     [2,"Usada"]
     ],
     "label": "Estatus de la casa",
-    "parent":33,
+    "parent":22,
     "response":false,
-    "long":false,
-    "endpoint": 1
-  },
-  {
-    "id":38,
-    "screen":2,
-    "dataType": "text",
-    "inputType": "button",
-    "options": [],
-    "label": "Departamento en condominio",
-    "parent" : 22,
-    "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":39,
-    "screen":3,
-    "dataType": "text",
     "inputType": "button",
     "options": [],
     "label": "Elementos independientes",
     "parent" : 22,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":40,
-    "screen":4,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"0"],
@@ -457,13 +358,10 @@
     "label": "Closets",
     "parent":39,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":41,
-    "screen":4,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"0"],
@@ -476,29 +374,23 @@
     "label": "Cocina integral",
     "parent":39,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":42,
-    "screen":4,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"Lujo"],
     [2,"Muy buena"],
     [3,"Buena"]
     ],
-    "label": "Cocina integral",
+    "label": "Cocina integral Calidad",
     "parent":39,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":43,
-    "screen":3,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"1"],
@@ -506,9 +398,8 @@
     [3,"3"]
     ],
     "label": "Número de niveles del departamento",
-    "parent":38,
+    "parent":22,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
@@ -525,8 +416,6 @@
   },
   {
     "id":45,
-    "screen":4,
-    "dataType": "int",
     "inputType": "select",
     "options":[
     [1,"0"],
@@ -539,49 +428,61 @@
     "label": "Escaleras",
     "parent":44,
     "response":false,
-    "long":false,
     "endpoint": 1
   },
   {
     "id":46,
     "screen":3,
-    "dataType": "text",
     "inputType": "button",
     "options": [],
     "label": "Otros Elementos Comunes",
-    "parent" : 38,
+    "parent" : 22,
     "response":false,
     "long":false,
     "endpoint": 1
   },
   {
     "id":47,
-    "screen":4,
-    "dataType": "int",
     "inputType": "select",
     "options":[
-    [1,"1"],
-    [2,"2"],
-    [3,"3"],
-    [4,"4"],
-    [5,"5"]
+    [1,"0"],
+    [2,"1"],
+    [3,"2"],
+    [4,"3"],
+    [5,"4"],
+    [6,"5"]
     ],
     "label": "Alberca",
     "parent":46,
-    "response":false,
-    "long":false,
+    "response":{
+      1:[
+
+      ],
+        2:[
+          48
+        ],
+        3:[
+          48,161
+        ],
+        4:[
+          48,161,162
+        ],
+        5:[
+          48,161,162,163
+        ],
+        6:[
+          48,161,162,163,164
+        ]
+      },
     "endpoint": 1
   },
   {
     "id":48,
-    "screen":4,
-    "dataType": "text",
     "inputType": "text",
     "options":[],
     "label": "Alberca m2",
-    "parent":46,
+    "parent":47,
     "response":false,
-    "long":false,
     "endpoint": 2
   },
   {
@@ -591,7 +492,7 @@
     "inputType": "text",
     "options":[],
     "label": "Alberca m2",
-    "parent":46,
+    "parent":47,
     "response":false,
     "long":false,
     "endpoint": 2
@@ -603,7 +504,7 @@
     "inputType": "text",
     "options":[],
     "label": "Alberca m2",
-    "parent":46,
+    "parent":47,
     "response":false,
     "long":false,
     "endpoint": 2
@@ -615,7 +516,7 @@
     "inputType": "text",
     "options":[],
     "label": "Alberca m2",
-    "parent":46,
+    "parent":47,
     "response":false,
     "long":false,
     "endpoint": 2
@@ -627,7 +528,7 @@
     "inputType": "text",
     "options":[],
     "label": "Alberca m2",
-    "parent":46,
+    "parent":47,
     "response":false,
     "long":false,
     "endpoint": 2
@@ -638,15 +539,35 @@
     "dataType": "int",
     "inputType": "select",
     "options":[
-    [1,"1"],
-    [2,"2"],
-    [3,"3"],
-    [4,"4"],
-    [5,"5"]
+    [1,"0"],
+    [2,"1"],
+    [3,"2"],
+    [4,"3"],
+    [5,"4"],
+    [6,"5"]
     ],
     "label": "Canchas deportivas",
     "parent":46,
-    "response":false,
+    "response":{
+      1:[
+
+      ],
+        2:[
+          50
+        ],
+        3:[
+          50,51
+        ],
+        4:[
+          50,51,52
+        ],
+        5:[
+          50,51,52,53
+        ],
+        6:[
+          50,51,52,53,54
+        ]
+      },
     "long":false,
     "endpoint": 1
   },
@@ -657,7 +578,7 @@
     "inputType": "text",
     "options":[],
     "label": "Nombre cancha 1",
-    "parent":46,
+    "parent":49,
     "response":false,
     "long":false,
     "endpoint": 2
@@ -669,7 +590,7 @@
     "inputType": "text",
     "options":[],
     "label": "Nombre cancha 2",
-    "parent":46,
+    "parent":49,
     "response":false,
     "long":false,
     "endpoint": 2
@@ -681,7 +602,7 @@
     "inputType": "text",
     "options":[],
     "label": "Nombre cancha 3",
-    "parent":46,
+    "parent":49,
     "response":false,
     "long":false,
     "endpoint": 2
@@ -693,7 +614,7 @@
     "inputType": "text",
     "options":[],
     "label": "Nombre cancha 4",
-    "parent":46,
+    "parent":49,
     "response":false,
     "long":false,
     "endpoint": 2
@@ -705,7 +626,7 @@
     "inputType": "text",
     "options":[],
     "label": "Nombre cancha 5",
-    "parent":46,
+    "parent":49,
     "response":false,
     "long":false,
     "endpoint": 2
@@ -1020,7 +941,7 @@
    "inputType": "button",
    "options": [],
    "label": "Construcciones",
-   "parent" : false,
+   "parent" : 22,
    "response":false,
    "long":false,
    "endpoint": 1
@@ -2005,7 +1926,7 @@
      "inputType": "button",
      "options": [],
      "label": "Elementos adicionales",
-     "parent" : false,
+     "parent" : 22,
      "response":false,
      "long":false,
      "endpoint": 1
