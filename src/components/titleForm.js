@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {
   Text,
   StyleSheet,
-  ImageBackground
+  Image,
+  Dimensions,
+  View
 } from 'react-native';
 
 type Props = {};
@@ -10,28 +12,28 @@ export default class TitleForm extends Component {
 
   render() {
     return (
-      <ImageBackground source={require('../assets/shape_tituloseccion/shape_tituloseccion.png')}  style={styles.labelTitle} >
+      <View style={styles.container}>
+        <Image
+          source={
+            require('../assets/shape_tituloseccion/shape_tituloseccion.png')
+          }
+        />
         <Text style={styles.titlePrimary}>
           {this.props.label}
         </Text>
-      </ImageBackground>
+      </View>
     );
   }
 }
 
+const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   titlePrimary:{
-    marginTop:5,
-    marginLeft:270,
     color:'white',
     fontSize:16,
     fontWeight: 'bold',
-    textAlign:'center',
-  },
-  labelTitle:{
-    width:500,
-    height:40,
-    marginLeft: -350,
-    marginTop: 70,
+    position:'absolute',
+    left:25,
+    top:3,
   },
 });

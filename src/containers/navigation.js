@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Button, View, Image } from 'react-native';
 
@@ -11,6 +11,12 @@ import WorkSpace from '../modules/workspace';
 import AdjuntarDocs from '../modules/adjuntarDocs';
 import Captura from '../modules/captura';
 
+
+import FormInicio from '../formulario/inicio';
+import DGenerales from '../formulario/datosgenerales';
+import DDSolicitante from '../formulario/datosdelsolicitante'
+import Ubi from '../formulario/ubicacion'
+
 const AppNavigator = createStackNavigator({
   Login: {
     screen: Login,
@@ -18,7 +24,6 @@ const AppNavigator = createStackNavigator({
       headerTransparent:true,
     }
   },
-  
   Captura: {
     screen: Captura,
     navigationOptions: {
@@ -33,7 +38,6 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-
   InitAvaluo: {
     screen: InitAvaluo,
     navigationOptions: {
@@ -48,7 +52,6 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-
   Init: {
     screen: Init,
     navigationOptions: {
@@ -77,7 +80,6 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-
   AdjuntarDocs: {
     screen: AdjuntarDocs,
     navigationOptions: {
@@ -94,4 +96,107 @@ const AppNavigator = createStackNavigator({
   },
 });
 
-export default createAppContainer(AppNavigator);
+const FInicio = createStackNavigator(
+  {
+    FormInicio: {
+      screen: FormInicio,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+
+
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const DatosGenerales = createStackNavigator(
+  {
+    DGenerales: {
+      screen: DGenerales,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const DatosDelSolicitante = createStackNavigator(
+  {
+    DDSolicitante: {
+      screen: DDSolicitante,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const Ubicacion = createStackNavigator(
+  {
+    Ubi: {
+      screen: Ubi,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const rutas = createSwitchNavigator({
+  FInicio: {
+    screen: FInicio,
+  },
+
+  DatosGenerales: {
+    screen: DatosGenerales,
+  },
+
+  DatosDelSolicitante: {
+    screen: DatosDelSolicitante,
+  },
+
+  Ubicacion: {
+    screen: Ubicacion,
+  },
+
+  AppNavigator: {
+    screen: AppNavigator,
+  },
+
+
+
+});
+
+export default createAppContainer(rutas);

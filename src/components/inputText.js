@@ -24,9 +24,6 @@ export default class InputText extends Component {
 const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   container:{
-    height:40,
-    marginBottom:30,
-    marginTop:30,
   },
   textInputStyle: {
     color:'white',
@@ -34,8 +31,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     width:width-50,
     height: 40,
-    marginLeft:10,
-    padding: 10,
+    marginLeft:15,
     fontSize:16,
     fontWeight: 'bold',
   },

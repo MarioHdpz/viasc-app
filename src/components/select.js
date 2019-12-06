@@ -86,31 +86,17 @@ export default class ModalTester extends Component {
 
 const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
-  container:{
-    marginHorizontal:15,
-    height:40,
-    margin:15,
-    marginBottom:30,
-    marginTop:30,
-    flexGrow: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: 'transparent'
-  },
   textSelect:{
     color:'white',
     borderBottomColor: '#73DB1D',
     borderBottomWidth: 1,
     width:width-50,
     height: 40,
-    margin: -15,
-    marginLeft:10,
-    padding: 5,
     fontSize:16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   modal:{
-    backgroundColor:'grey',
+    backgroundColor:'black',
     borderRadius: 20,
   },
   options:{
@@ -129,13 +115,8 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   v1:{
-    flex:1,
-    flexDirection:'row',
-    alignItems:'center',
     height:40,
     margin:15,
-    marginBottom:30,
-    marginTop:30,
   },
   label : {
     color:'white',

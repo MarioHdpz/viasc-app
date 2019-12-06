@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#73DB1D',
     borderBottomWidth: 1,
     marginLeft:10,
-    textAlign:'center',
     height: 40,
     padding: 10,
     fontSize:16,

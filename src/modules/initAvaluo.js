@@ -227,7 +227,7 @@ export default class App extends Component<Props> {
             icon = {require('../assets/icono_acierto/icono_acierto.png')}
             iconError = {require('../assets/icono_errorblanco/icono_errorblanco.png')}
             text = "Iniciar formulario"
-            onClickButton = {()=>{this.props.navigation.navigate('WorkSpace', {user:this.state.user})}}
+            onClickButton = {()=>{this.props.navigation.navigate('FInicio', {user:this.state.user})}}
             status = {form}
             disabled = {okformulario}
           />
@@ -243,7 +243,6 @@ export default class App extends Component<Props> {
         </View>
 
         <View style={styles.fixToText}>
-
           <TouchableOpacity onPress={this.cancelar}>
             <Image
               style={{

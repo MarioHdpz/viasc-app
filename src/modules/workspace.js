@@ -50,27 +50,36 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
+    //console.log('DB', db);
     this.getStorage();
   }
 
   dynamicRender = () => {
-    let {formIndex, group, seccion} = this.state;
+    let {formIndex, group, seccion, respuestas} = this.state;
 
     //result se genera un array de componentes fitrados.
     const result = _.filter(db, {parent:formIndex});
 
-    //¿Cuántos componentes tiene esta sección?
-    //Guardar la sección y la cantidad de respuestasa recibir
-    seccion[formIndex] = result.length
-
-    //Limpio los componentes
+    //Limpio el grupo de componentes
     group = [];
 
+    //[{data, parent:false},{data, parent:false}.{data, parent:false}]
     //Recorro el mapa de componentes filtrados
     result.map((data,index) => {
+      let value = null
+
+      /*
+      respuestas = {
+        22 : "Algo",
+        35: "otro valor"
+      }
+      */
+      if ( respuestas[data.id] ) {//obtengo la respuesta guardada en el storage
+        value = respuestas[data.id];
+      }
       //console.log(data, index);
       //Obtengo el nuevo componente
-      const component = this.getComponent(data, index);
+      const component = this.getComponent(data, index, value);
       group.push(component);
     });
 
@@ -93,7 +102,6 @@ export default class App extends Component<Props> {
   }
 
   setStorage = async () => {
-    console.log('set storage');
     try {
       await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
     } catch (e) {
@@ -104,7 +112,7 @@ export default class App extends Component<Props> {
   getStorage = async () => {
     try {
       const value = await AsyncStorage.getItem('respuestas');
-      console.log('value', value);
+      console.log('GETSTORAGE', value);
       if(value !== null) {
         const respuestas = JSON.parse(value);
         this.setState({respuestas}, this.dynamicRender )
@@ -118,6 +126,7 @@ export default class App extends Component<Props> {
   }
 
   getComponent = (d, i, value) => {
+    //console.log(d, i, value);
     const { optionActive, respuestas } = this.state;
 
     switch (d.inputType) {
@@ -126,7 +135,7 @@ export default class App extends Component<Props> {
         //{ i === optionActive ? true : false }
         return (
           <ButtonForm
-            key = {i}
+            key = {d.id}
             id = {d.id}
             disabled = {true}
             icon = {require('../assets/icono_flechader/icono_flechader.png')}
@@ -138,14 +147,30 @@ export default class App extends Component<Props> {
       break;
 
       case "select":
-        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
-          value = d.options[ (respuestas[d.id]-1) ][1];
+        //si no trae nada entonces pongo la label de contenido
+        if (!value) { value = d.label; }
+        else{//si trae algo, este será el value del option por consecuencia tengo que ponder su contenido
+          //si hay una opcion seleccionada y revisaré si tiene hijos
+
+          if (d.response) {//si tiene hijos
+            //console.log('response',d.response);
+            this.createChildComponent(i, d.id, d.parent, d.response, value);
+          }
+
+          //obtengo el texto de la opción seleccionada
+          const opts = d.options
+          for(const op in opts){
+            if (opts[op][0] === value ) {
+              //esta es la opción seleccionada y estoy obteniendo su texto
+              value =opts[op][1]
+              break;
+            }
+          }
         }
 
-        if (!value) { value = "Seleccionar"; }
         return (
           <Select
-            key = {i}
+            key = {d.id}
             index = {i}
             id = {d.id}
             options = {d.options}
@@ -163,7 +188,7 @@ export default class App extends Component<Props> {
         if (!value) { value = null; }
         return (
           <Calendar
-            key = {i}
+            key = {d.id}
             index = {i}
             id = {d.id}
             label = {d.label}
@@ -177,7 +202,7 @@ export default class App extends Component<Props> {
         if ( respuestas[d.id] ) { value = d.options[ respuestas[d.id] ]; }
         return (
           <Camara
-            key = {i}
+            key = {d.id}
             index = {i}
             id = {d.id}
             getPhoto = {this.getPhoto}
@@ -187,18 +212,16 @@ export default class App extends Component<Props> {
       break;
 
       case "text":
-        if ( respuestas[d.id] ) {//obtengo la respuesta guardada en el storage
-          value = respuestas[d.id];
-        }
         if (!value) { value = null }
         return (
           <InputText
-            key = {i}
+            key = {d.id}
+            index = {i}
             id = {d.id}
             handleTextChange = {this.handleTextChange}
             pholder = {d.label}
             label = {d.label}
-            value = {value}
+            value={value}
           />
         );
       break;
@@ -210,7 +233,7 @@ export default class App extends Component<Props> {
         if (!value) { value = null }
         return (
           <InputNumber
-            key = {i}
+            key = {d.id}
             id = {d.id}
             handleTextChange = {this.handleTextChange}
             pholder = {d.label}
@@ -227,7 +250,7 @@ export default class App extends Component<Props> {
         if (value===null || value == undefined ) { value = true }
         return (
           <ToggleSwitch
-            key = {i}
+            key = {d.id}
             isOn={ value }
             onColor="#73DB1D"
             offColor="#dbdbdb"
@@ -240,10 +263,9 @@ export default class App extends Component<Props> {
       break
 
       case "mapa":
-      console.log('switch: ',d, i, value);
         return (
           <Mapa
-            key = {i}
+            key = {d.id}
             index = {i}
             num = {respuestas[12]}
             col = {respuestas[13]}
@@ -281,21 +303,55 @@ export default class App extends Component<Props> {
     this.setState({formIndex, beforeIndex, title}, this.dynamicRender);
   }
 
-  buttonSelected = (index,id, data) => {
+  //Acción que realiza cuando se usa un select
+  buttonSelected = (index, id, data) => {
     let { group, respuestas } = this.state;
+    //En las respuestas se guarda el value
     respuestas[id] = data[0];
 
+    //obtengo el componente para ahora cargarlo con la información contenido del option
     const r = _.filter(db, {id});
-    const component = this.getComponent(r[0], index, data[1])
-
+    const component = this.getComponent(r[0], index, data[0])
     group[index] = component;
+
+    //SI EL SELECT GENERA ACCIONES POR SU REPUESTA ENTOCES SE INICIA EL SIGUIENTE PROCESO
+    if (r[0].response) {
+      /*
+      acciones : {
+          1:[
+            24
+          ],
+          2:[
+            26,27,160,28,29,30,31,32
+          ],
+          3:[
+            35,36,37
+          ],
+          4:[
+            40,41,42,43,45,47,48
+          ]
+        }
+      */
+      const acciones = r[0].response
+      const respuesta = data[0]
+
+      //creamos los componentes que correspondan a la respuesta
+      this.createChildComponent(index, r[0].id, r[0].parent, acciones, respuesta)
+    }
+
+    //ACTUALIZO EL STATE Y MANDO GAURDAR EN EL STORAGE
     this.setState({group, respuestas}, this.setStorage);
   }
 
-  handleTextChange = (inputText, id) => {
-    let { respuestas } = this.state;
+  handleTextChange = (inputText, id, index) => {
+    let { group, respuestas } = this.state;
     respuestas[id] = inputText;
-    this.setState({respuestas}, this.setStorage);
+
+    const r = _.filter(db, {id});
+    const component = this.getComponent(r[0], index, inputText)
+
+    group[index] = component;
+    this.setState({group, respuestas}, this.setStorage);
   }
 
   dateChange = (index, id, data) => {
@@ -341,6 +397,85 @@ export default class App extends Component<Props> {
     }
 
     this.setState({group, respuestas}, this.setStorage);
+  }
+
+  createChildComponent = (indexPadre, idPadre, parentPadre, acciones, respuesta) => {
+    console.log('createChildComponent', indexPadre, idPadre, parentPadre, acciones, respuesta);
+    let { group } = this.state;
+    //console.log(group, indexPadre, idPadre, parentPadre, acciones, respuesta);
+
+    //1.- Revisar si hay componentes hijos
+    let arrayDeAcciones = []
+    for(const accion in acciones){
+      arrayDeAcciones = arrayDeAcciones.concat(acciones[accion])
+    }
+
+    console.log('GROUP', group, 'ARRAYDEACCIONES', arrayDeAcciones);
+
+    group.map((data,posicion)=>{
+      /*const coincidencia = arrayDeAcciones.filter(item => {
+        const key = parseInt(data.key);
+        //console.log('EVALUANDO',item,key);
+        return item === key
+      });*/
+      const key = parseInt(data.key);
+      console.log(key);
+      /*for ( const accion in arrayDeAcciones ) { //reviso que ninguna acción este renderizada antes de crear el componente
+        const idAccion = arrayDeAcciones[accion];
+
+        if (idAccion === key){ //se debe borrar por que ya existe y se esta volviendo a pedir
+          console.log('idAccion',idAccion, 'data.key',key);
+          group.splice(posicion,1)//Borro elemento del array para que pueda volver a existir
+        }
+      }*/
+
+      //--------------///
+      //console.log('coincidencia', coincidencia);
+      //si hay coincidencias y se deben borrar
+      /*if (coincidencia.length > 0) {
+        console.log('SE BORRO:',coincidencia);
+        //2.- Borrar los componentes hijos que existan o coincidan
+      }*/
+      //if (coincidencia.length > 0){ // si hay coincidencia no hago nada
+      //}else {//si no hay entonces renderizo el nuevo hijo
+      //}//else de no hay coincidencias y se deber renderizar el nuevo hijo
+
+      //--------------///
+
+
+
+
+    });
+
+    //3.- Crear los nuevos componentes hijos en la misma pantalla y debajo del padre
+    /*Ejemplo:
+      [
+        0: padre1 -> va a crear hijos
+        1: hijo1
+        2: hijo2
+        3: hijo3
+        4: padre2
+        5: padre3
+      ]
+    */
+
+
+    //Renderizo los componentes que corresponden a la respuesta
+    let indexHijo = indexPadre;
+    acciones[respuesta].map((idComponenteHijo)=>{
+      indexHijo++;
+      const getComponenteHijo = _.filter(db, {id:idComponenteHijo});//obtengo el hijo perteneciente a la respuesta selecionada
+      let componenteHijo = getComponenteHijo[0];
+      //componenteHijo.parent = parentPadre //CON ESTO YA TENGO A LOS DOS EN LA MISMA PANTALLA
+      //console.log('ORIGINAL:',original, 'CAMBIO:',componenteHijo);
+      //console.log('HIJO', componenteHijo);
+      const hijo = this.getComponent(componenteHijo, indexHijo ) //GENERO EL COMPONENTE HIJO
+      group.splice( indexHijo, 0, hijo);//lo meto entre los elementos del array Group
+    })
+
+
+
+
   }
 
   //Guardar en el storage.
