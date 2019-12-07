@@ -22,6 +22,17 @@ export default class App extends Component<Props> {
     user:null,
     respuestas : {},
     values:{},
+    i1:false,
+    i2:false,
+    i3:false,
+    i4:false,
+    i5:false,
+    i6:false,
+    i7:false,
+    i8:false,
+    i9:false,
+    i10:false,
+    index:0,
   }
 
   componentDidMount = () => {
@@ -36,6 +47,17 @@ export default class App extends Component<Props> {
     values[id] = inputText;
 
     this.setState({respuestas, values})
+  }
+  addMedida = () => {
+    let {index} = this.state;
+    index = index+1;
+
+    console.log(index);
+
+    this.setState({
+      index,
+      [`i${index}`]:true
+    })
   }
 
   fCancelar = () => {
@@ -75,7 +97,7 @@ export default class App extends Component<Props> {
   }
 
   render = () => {
-    const {values} = this.state;
+    const {values, i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, } = this.state;
     return(
       <ImageBackground
         source={require('../assets/bg_app/bg_app.png')}
@@ -92,85 +114,199 @@ export default class App extends Component<Props> {
 
         <ScrollView style={styles.form}>
           <InputText
-            id = {3}
+            id = {74}
             handleTextChange = {this.handleTextChange}
-            pholder = "Apellido Paterno"
-            label = "Apellido Paterno"
+            pholder = "Frente de lote"
+            label = "Frente de lote"
             value= {
-              values[3]
-            ? values[3]
+              values[74]
+            ? values[74]
             : null}
           />
           <InputText
-            id = {4}
+            id = {206}
             handleTextChange = {this.handleTextChange}
-            pholder = "Apellido Materno"
-            label = "Apellido Materno"
+            pholder = "Fondo de lote"
+            label = "Fondo de lote"
             value= {
-              values[4]
-            ? values[4]
+              values[206]
+            ? values[206]
             : null}
           />
           <InputText
-            id = {5}
+            id = {207}
             handleTextChange = {this.handleTextChange}
-            pholder = "Nombre"
-            label = "Nombre"
+            pholder = "Fondo"
+            label = "Fondo"
             value= {
-              values[5]
-            ? values[5]
+              values[207]
+            ? values[207]
             : null}
           />
           <InputText
-            id = {6}
+            id = {208}
             handleTextChange = {this.handleTextChange}
-            pholder = "Calle"
-            label = "Calle"
+            pholder = "Superficie"
+            label = "Superficie"
             value= {
-              values[6]
-            ? values[6]
+              values[208]
+            ? values[208]
             : null}
           />
-          <InputText
-            id = {7}
-            handleTextChange = {this.handleTextChange}
-            pholder = "Numero Exterior"
-            label = "Numero Exterior"
-            value= {
-              values[7]
-            ? values[7]
-            : null}
-          />
-          <InputText
-            id = {8}
-            handleTextChange = {this.handleTextChange}
-            pholder = "Colonia"
-            label = "Colonia"
-            value= {
-              values[8]
-            ? values[8]
-            : null}
-          />
-          <InputText
-            id = {9}
-            handleTextChange = {this.handleTextChange}
-            pholder = "Código Postal"
-            label = "Código Postal"
-            value= {
-              values[9]
-            ? values[9]
-            : null}
-          />
-          <InputText
-            id = {10}
-            handleTextChange = {this.handleTextChange}
-            pholder = "Delegación"
-            label = "Delegación"
-            value= {
-              values[10]
-            ? values[10]
-            : null}
-          />
+
+          {
+            i1
+            ?<InputText
+              id = {209}
+              handleTextChange = {this.handleTextChange}
+              pholder = "Medida"
+              label = "Medida"
+              value= {
+                values[209]
+              ? values[209]
+              : null}
+            />
+            :null
+          }
+          {
+            i2
+            ?<InputText
+              id = {210}
+              handleTextChange = {this.handleTextChange}
+              pholder = "Medida"
+              label = "Medida"
+              value= {
+                values[210]
+              ? values[210]
+              : null}
+            />
+            :null
+          }
+          {
+            i3
+            ?<InputText
+              id = {211}
+              handleTextChange = {this.handleTextChange}
+              pholder = "Medida"
+              label = "Medida"
+              value= {
+                values[211]
+              ? values[211]
+              : null}
+            />
+            :null
+          }
+          {
+            i4
+            ?<InputText
+              id = {212}
+              handleTextChange = {this.handleTextChange}
+              pholder = "Medida"
+              label = "Medida"
+              value= {
+                values[212]
+              ? values[212]
+              : null}
+            />
+            :null
+          }
+          {
+            i5
+            ?<InputText
+              id = {213}
+              handleTextChange = {this.handleTextChange}
+              pholder = "Medida"
+              label = "Medida"
+              value= {
+                values[213]
+              ? values[213]
+              : null}
+            />
+            :null
+          }
+          {
+            i6
+            ?<InputText
+              id = {214}
+              handleTextChange = {this.handleTextChange}
+              pholder = "Medida"
+              label = "Medida"
+              value= {
+                values[214]
+              ? values[214]
+              : null}
+            />
+            :null
+          }
+          {
+            i7
+            ?<InputText
+              id = {215}
+              handleTextChange = {this.handleTextChange}
+              pholder = "Medida"
+              label = "Medida"
+              value= {
+                values[215]
+              ? values[215]
+              : null}
+            />
+            :null
+          }
+          {
+            i8
+            ?<InputText
+              id = {216}
+              handleTextChange = {this.handleTextChange}
+              pholder = "Medida"
+              label = "Medida"
+              value= {
+                values[216]
+              ? values[216]
+              : null}
+            />
+            :null
+          }
+          {
+            i9
+            ?<InputText
+              id = {217}
+              handleTextChange = {this.handleTextChange}
+              pholder = "Medida"
+              label = "Medida"
+              value= {
+                values[217]
+              ? values[217]
+              : null}
+            />
+            :null
+          }
+          {
+            i10
+            ?<InputText
+              id = {218}
+              handleTextChange = {this.handleTextChange}
+              pholder = "Medida"
+              label = "Medida"
+              value= {
+                values[218]
+              ? values[218]
+              : null}
+            />
+            :null
+          }
+
+          <View style={{justifyContent:'center', alignItems:'center', marginTop:10}}>
+            <TouchableOpacity
+              onPress={this.addMedida}
+            >
+              <Image
+                style={{
+                  width:100,
+                }}
+                source={require('../assets/btn_agregar/btn_agregar.png')}
+              />
+            </TouchableOpacity>
+          </View>
 
           <View style={styles.fixToText}>
             <TouchableOpacity onPress={this.fCancelar}>

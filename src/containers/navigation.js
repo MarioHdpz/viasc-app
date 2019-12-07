@@ -23,16 +23,20 @@ import EUrbano from '../formulario/equipamientoUrbano'
 import CDInmuebles from '../formulario/caracteristicasDeInmuebles'
 import MColindancia from '../formulario/medidasColindancias'
 import TId from '../formulario/terrenoID'
+import EDCRecamaras from '../formulario/recamaras'
 
-const AppNavigator = createStackNavigator({
+const AuthStack = createStackNavigator({
   Login: {
     screen: Login,
     navigationOptions: {
       headerTransparent:true,
     }
   },
-  Captura: {
-    screen: Captura,
+});
+
+const AppNavigator = createStackNavigator({
+  Init: {
+    screen: Init,
     navigationOptions: {
       headerTransparent:true,
       headerTitle: () => (
@@ -59,8 +63,8 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-  Init: {
-    screen: Init,
+  FInicio: {
+    screen: FormInicio,
     navigationOptions: {
       headerTransparent:true,
       headerTitle: () => (
@@ -69,24 +73,13 @@ const AppNavigator = createStackNavigator({
             style = {{width:50, height:50}}
             source={require('../assets/logotipo_vias/logotipo_vias.png')}
           />
+
+
         </View>
       ),
     },
   },
-  WorkSpace: {
-    screen: WorkSpace,
-    navigationOptions: {
-      headerTransparent:true,
-      headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
-          <Image
-            style = {{width:50, height:50}}
-            source={require('../assets/logotipo_vias/logotipo_vias.png')}
-          />
-        </View>
-      ),
-    },
-  },
+
   AdjuntarDocs: {
     screen: AdjuntarDocs,
     navigationOptions: {
@@ -101,28 +94,36 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-});
-
-const FInicio = createStackNavigator(
-  {
-    FormInicio: {
-      screen: FormInicio,
-      navigationOptions: {
-        headerTransparent:true,
-        headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
-            <Image
-              style = {{width:50, height:50}}
-              source={require('../assets/logotipo_vias/logotipo_vias.png')}
-            />
-
-
-          </View>
-        ),
-      },
+  Captura: {
+    screen: Captura,
+    navigationOptions: {
+      headerTransparent:true,
+      headerTitle: () => (
+        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <Image
+            style = {{width:50, height:50}}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
+          />
+        </View>
+      ),
     },
   },
-);
+
+  WorkSpace: {
+    screen: WorkSpace,
+    navigationOptions: {
+      headerTransparent:true,
+      headerTitle: () => (
+        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <Image
+            style = {{width:50, height:50}}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
+          />
+        </View>
+      ),
+    },
+  },
+});
 
 const DatosGenerales = createStackNavigator(
   {
@@ -295,6 +296,25 @@ const MedidasColindancias = createStackNavigator(
   },
 );
 
+const Recamaras = createStackNavigator(
+  {
+    EDCRecamaras: {
+      screen: EDCRecamaras,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
 const TerrenoID = createStackNavigator(
   {
     TId: {
@@ -316,8 +336,12 @@ const TerrenoID = createStackNavigator(
 
 
 const rutas = createSwitchNavigator({
-  FInicio: {
-    screen: FInicio,
+  AuthStack:{
+    screen:AuthStack,
+  },
+
+  AppNavigator: {
+    screen: AppNavigator,
   },
 
   DatosGenerales: {
@@ -360,9 +384,11 @@ const rutas = createSwitchNavigator({
     screen: TerrenoID,
   },
 
-  AppNavigator: {
-    screen: AppNavigator,
+  Recamaras:{
+    screen: Recamaras,
   },
+
+
 });
 
 export default createAppContainer(rutas);
