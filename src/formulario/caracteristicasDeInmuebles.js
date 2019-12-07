@@ -16,7 +16,6 @@ import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
 import InputText from '../components/inputText';
 import ButtonForm from '../components/buttonForm'
-import Select from '../components/select';
 
 export default class App extends Component<Props> {
   state = {
@@ -30,11 +29,11 @@ export default class App extends Component<Props> {
     this.setState({user});
   }
 
-  buttonSelected = (index, id, data) => {
+  handleTextChange = (inputText, id, index) => {
     let {respuestas, values} =  this.state;
 
-    respuestas[id] = data[0];
-    values[id] = data[1];
+    respuestas[id] = inputText;
+    values[id] = inputText;
 
     this.setState({respuestas, values})
   }
@@ -88,59 +87,29 @@ export default class App extends Component<Props> {
         />
 
         <TitleForm
-          label="Información General"
+          label="Características de inmuebles"
         />
 
-        <ScrollView style={styles.form}>
-          <Select
-            id = {63}
-            options = {
-              [
-                [1,"1"],
-                [2,"2"],
-                [3,"3"],
-                [4,"4"],
-                [5,"5"],
-                [6,"6"],
-                [7,"7"],
-                [8,"8"],
-                [9,"9"],
-                [10,"10"],
-                [11,"11"],
-                [12,"12"],
-                [13,"13"],
-                [14,"14"],
-                [15,"15"],
-                [16,"Más de 15"],
-              ]
-            }
-            value = {
-              values[63]
-              ? values[63]
-              : "Niveles de Zona"
-            }
-            label = "Niveles de Zona"
-            buttonSelected = { this.buttonSelected }
+        <ScrollView style={{flex:1, marginTop:40}}>
+          <ButtonForm
+            icon = {require('../assets/icono_flechader/icono_flechader.png')}
+            text = "Medidas colindancias"
+            disabled = {true}
+            onClickButton = {()=>{
+              console.log('InformacionGeneral');
+              this.props.navigation.navigate('MedidasColindancias', {user:this.state.user})
+            }}
           />
-          <View style={styles.fixToText}>
-            <TouchableOpacity onPress={this.fCancelar}>
-              <Image
-                style={{
-                  width:100,
-                }}
-                source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
-              />
-            </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.fSend}>
-              <Image
-                style={{
-                  width:100,
-                }}
-                source={require('../assets/btn_guardar/btn_guardar.png')}
-              />
-            </TouchableOpacity>
-          </View>
+          <ButtonForm
+            icon = {require('../assets/icono_flechader/icono_flechader.png')}
+            text = "Terreno ID "
+            disabled = {true}
+            onClickButton = {()=>{
+              console.log('InfraestructuraDeZona');
+              this.props.navigation.navigate('TerrenoID', {user:this.state.user})
+            }}
+          />
         </ScrollView>
       </ImageBackground>
     )

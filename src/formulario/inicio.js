@@ -83,7 +83,10 @@ export default class App extends Component<Props> {
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Características de inmuebles"
           disabled = {true}
-          onClickButton = {()=>{console.log('redirect')}}
+          onClickButton = {()=>{
+            console.log('CaracteristicasDeInmuebles');
+            this.props.navigation.navigate('CaracteristicasDeInmuebles', {user:this.state.user})
+          }}
         />
       </ScrollView>
 

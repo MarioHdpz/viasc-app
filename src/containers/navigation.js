@@ -20,6 +20,9 @@ import IGeneral from '../formulario/informacionGeneral'
 import IDZona from '../formulario/infraestructuraDeZona'
 import IDisponible from '../formulario/infraestructuraDisponible'
 import EUrbano from '../formulario/equipamientoUrbano'
+import CDInmuebles from '../formulario/caracteristicasDeInmuebles'
+import MColindancia from '../formulario/medidasColindancias'
+import TId from '../formulario/terrenoID'
 
 const AppNavigator = createStackNavigator({
   Login: {
@@ -254,6 +257,64 @@ const Ubicacion = createStackNavigator(
   },
 );
 
+const CaracteristicasDeInmuebles = createStackNavigator(
+  {
+    CDInmuebles: {
+      screen: CDInmuebles,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const MedidasColindancias = createStackNavigator(
+  {
+    MColindancia: {
+      screen: MColindancia,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const TerrenoID = createStackNavigator(
+  {
+    TId: {
+      screen: TId,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+
 const rutas = createSwitchNavigator({
   FInicio: {
     screen: FInicio,
@@ -285,6 +346,18 @@ const rutas = createSwitchNavigator({
 
   Ubicacion: {
     screen: Ubicacion,
+  },
+
+  CaracteristicasDeInmuebles: {
+    screen: CaracteristicasDeInmuebles,
+  },
+
+  MedidasColindancias:{
+    screen: MedidasColindancias,
+  },
+
+  TerrenoID:{
+    screen: TerrenoID,
   },
 
   AppNavigator: {

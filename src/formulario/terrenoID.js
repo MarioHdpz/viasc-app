@@ -16,7 +16,6 @@ import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
 import InputText from '../components/inputText';
 import ButtonForm from '../components/buttonForm'
-import Select from '../components/select';
 
 export default class App extends Component<Props> {
   state = {
@@ -30,11 +29,11 @@ export default class App extends Component<Props> {
     this.setState({user});
   }
 
-  buttonSelected = (index, id, data) => {
+  handleTextChange = (inputText, id, index) => {
     let {respuestas, values} =  this.state;
 
-    respuestas[id] = data[0];
-    values[id] = data[1];
+    respuestas[id] = inputText;
+    values[id] = inputText;
 
     this.setState({respuestas, values})
   }
@@ -84,44 +83,95 @@ export default class App extends Component<Props> {
       >
 
         <ButtonBack
-          backForm={()=>{this.props.navigation.navigate('FInicio', {user:this.state.user})}}
+          backForm={()=>{this.props.navigation.navigate('CaracteristicasDeInmuebles', {user:this.state.user})}}
         />
 
         <TitleForm
-          label="Información General"
+          label="Terreno ID"
         />
 
         <ScrollView style={styles.form}>
-          <Select
-            id = {63}
-            options = {
-              [
-                [1,"1"],
-                [2,"2"],
-                [3,"3"],
-                [4,"4"],
-                [5,"5"],
-                [6,"6"],
-                [7,"7"],
-                [8,"8"],
-                [9,"9"],
-                [10,"10"],
-                [11,"11"],
-                [12,"12"],
-                [13,"13"],
-                [14,"14"],
-                [15,"15"],
-                [16,"Más de 15"],
-              ]
-            }
-            value = {
-              values[63]
-              ? values[63]
-              : "Niveles de Zona"
-            }
-            label = "Niveles de Zona"
-            buttonSelected = { this.buttonSelected }
+          <InputText
+            id = {3}
+            handleTextChange = {this.handleTextChange}
+            pholder = "Apellido Paterno"
+            label = "Apellido Paterno"
+            value= {
+              values[3]
+            ? values[3]
+            : null}
           />
+          <InputText
+            id = {4}
+            handleTextChange = {this.handleTextChange}
+            pholder = "Apellido Materno"
+            label = "Apellido Materno"
+            value= {
+              values[4]
+            ? values[4]
+            : null}
+          />
+          <InputText
+            id = {5}
+            handleTextChange = {this.handleTextChange}
+            pholder = "Nombre"
+            label = "Nombre"
+            value= {
+              values[5]
+            ? values[5]
+            : null}
+          />
+          <InputText
+            id = {6}
+            handleTextChange = {this.handleTextChange}
+            pholder = "Calle"
+            label = "Calle"
+            value= {
+              values[6]
+            ? values[6]
+            : null}
+          />
+          <InputText
+            id = {7}
+            handleTextChange = {this.handleTextChange}
+            pholder = "Numero Exterior"
+            label = "Numero Exterior"
+            value= {
+              values[7]
+            ? values[7]
+            : null}
+          />
+          <InputText
+            id = {8}
+            handleTextChange = {this.handleTextChange}
+            pholder = "Colonia"
+            label = "Colonia"
+            value= {
+              values[8]
+            ? values[8]
+            : null}
+          />
+          <InputText
+            id = {9}
+            handleTextChange = {this.handleTextChange}
+            pholder = "Código Postal"
+            label = "Código Postal"
+            value= {
+              values[9]
+            ? values[9]
+            : null}
+          />
+          <InputText
+            id = {10}
+            handleTextChange = {this.handleTextChange}
+            pholder = "Delegación"
+            label = "Delegación"
+            value= {
+              values[10]
+            ? values[10]
+            : null}
+          />
+
           <View style={styles.fixToText}>
             <TouchableOpacity onPress={this.fCancelar}>
               <Image
@@ -141,6 +191,7 @@ export default class App extends Component<Props> {
               />
             </TouchableOpacity>
           </View>
+
         </ScrollView>
       </ImageBackground>
     )

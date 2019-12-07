@@ -106,8 +106,8 @@ export default class App extends Component<Props> {
               ]
             }
             value = {
-              values[26]
-              ? values[26]
+              values[27]
+              ? values[27]
               : "Tipo de Construcción"
             }
             label = "Tipo de Construcción"
