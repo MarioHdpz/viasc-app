@@ -64,14 +64,20 @@ export default class App extends Component<Props> {
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Información general"
           disabled = {true}
-          onClickButton = {()=>{console.log('redirect')}}
+          onClickButton = {()=>{
+            console.log('InformacionGeneral');
+            this.props.navigation.navigate('InformacionGeneral', {user:this.state.user})
+          }}
         />
 
         <ButtonForm
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Infraestructura de zona"
           disabled = {true}
-          onClickButton = {()=>{console.log('redirect')}}
+          onClickButton = {()=>{
+            console.log('InfraestructuraDeZona');
+            this.props.navigation.navigate('InfraestructuraDeZona', {user:this.state.user})
+          }}
         />
         <ButtonForm
           icon = {require('../assets/icono_flechader/icono_flechader.png')}

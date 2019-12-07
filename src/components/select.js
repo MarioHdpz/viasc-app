@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
   View,
   Text,
+  TextInput,
   StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
@@ -25,15 +26,29 @@ export default class ModalTester extends Component {
     const {id, options, value, label} = this.props;
     return (
       <View style={styles.v1}>
-      <Text
-        style={styles.textSelect}
-        onPress={() => {
-          this.toggleModal(!this.state.isModalVisible);
-        }}
+
+      <TouchableOpacity
+      style={{
+        borderBottomColor: '#73DB1D',
+        borderBottomWidth: 1,
+        width:width-50,
+        padding:0,
+        margin:0,
+        flexDirection:'row',
+        justifyContent:'space-between'
+      }}
+      onPress={() => {
+        this.toggleModal(!this.state.isModalVisible);
+      }}
       >
-        {value}
-      </Text>
-      <Image style={styles.icon} source={this.props.icon}/>
+        <Text
+          style={styles.textSelect}
+        >
+          {value}
+        </Text>
+        <Image style={styles.icon} source={require('../assets/icono_flechaabajo/icono_flechaabajo.png')}/>
+      </TouchableOpacity>
+
         <Modal isVisible={this.state.isModalVisible}>
           <View style={styles.modal}>
           <ScrollView
@@ -88,10 +103,6 @@ const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   textSelect:{
     color:'white',
-    borderBottomColor: '#73DB1D',
-    borderBottomWidth: 1,
-    width:width-50,
-    height: 40,
     fontSize:16,
     fontWeight: 'bold',
   },
@@ -115,7 +126,6 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   v1:{
-    height:40,
     margin:15,
   },
   label : {

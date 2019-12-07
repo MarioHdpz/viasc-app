@@ -67,6 +67,14 @@ export default class Calendar extends Component {
           </View>
         </Modal>
 
+        <View style={{
+          borderBottomColor: '#73DB1D',
+          borderBottomWidth: 1,
+          width:width-50,
+          marginLeft:15,
+          paddingTop: 20,
+        }}
+        >
         <Text
           style={styles.input}
           onPress={() => {
@@ -74,6 +82,7 @@ export default class Calendar extends Component {
           }}>
           { startDate }
         </Text>
+        </View>
       </View>
     );
   }
@@ -82,13 +91,7 @@ export default class Calendar extends Component {
 const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   input: {
-    width:width-50,
     color:'white',
-    borderBottomColor: '#73DB1D',
-    borderBottomWidth: 1,
-    marginLeft:10,
-    height: 40,
-    padding: 10,
     fontSize:16,
     fontWeight: 'bold'
   },

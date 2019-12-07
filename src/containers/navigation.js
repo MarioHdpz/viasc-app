@@ -16,6 +16,10 @@ import FormInicio from '../formulario/inicio';
 import DGenerales from '../formulario/datosgenerales';
 import DDSolicitante from '../formulario/datosdelsolicitante'
 import Ubi from '../formulario/ubicacion'
+import IGeneral from '../formulario/informacionGeneral'
+import IDZona from '../formulario/infraestructuraDeZona'
+import IDisponible from '../formulario/infraestructuraDisponible'
+import EUrbano from '../formulario/equipamientoUrbano'
 
 const AppNavigator = createStackNavigator({
   Login: {
@@ -155,6 +159,82 @@ const DatosDelSolicitante = createStackNavigator(
   },
 );
 
+const InformacionGeneral = createStackNavigator(
+  {
+    IGeneral: {
+      screen: IGeneral,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const InfraestructuraDeZona = createStackNavigator(
+  {
+    IDZona: {
+      screen: IDZona,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const InfraestructuraDisponible = createStackNavigator(
+  {
+    IDisponible: {
+      screen: IDisponible,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const EquipamientoUrbano = createStackNavigator(
+  {
+    EUrbano: {
+      screen: EUrbano,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
 const Ubicacion = createStackNavigator(
   {
     Ubi: {
@@ -187,6 +267,22 @@ const rutas = createSwitchNavigator({
     screen: DatosDelSolicitante,
   },
 
+  InformacionGeneral: {
+    screen: InformacionGeneral,
+  },
+
+  InfraestructuraDeZona:{
+    screen:InfraestructuraDeZona,
+  },
+
+  InfraestructuraDisponible: {
+    screen: InfraestructuraDisponible,
+  },
+
+  EquipamientoUrbano: {
+    screen: EquipamientoUrbano,
+  },
+
   Ubicacion: {
     screen: Ubicacion,
   },
@@ -194,9 +290,6 @@ const rutas = createSwitchNavigator({
   AppNavigator: {
     screen: AppNavigator,
   },
-
-
-
 });
 
 export default createAppContainer(rutas);
