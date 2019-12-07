@@ -23,7 +23,16 @@ import EUrbano from '../formulario/equipamientoUrbano'
 import CDInmuebles from '../formulario/caracteristicasDeInmuebles'
 import MColindancia from '../formulario/medidasColindancias'
 import TId from '../formulario/terrenoID'
+
 import EDCRecamaras from '../formulario/recamaras'
+import EComedor from '../formulario/estanciaComedor';
+import Ban from '../formulario/banios';
+import Esc from '../formulario/escaleras';
+import Coc from '../formulario/cocina';
+import PServicio from '../formulario/patioServicio';
+import Est from '../formulario/estacionamiento';
+import Fach from '../formulario/fachada';
+
 import EAdicionales from '../formulario/elementosAdicionales'
 
 const AuthStack = createStackNavigator({
@@ -36,23 +45,6 @@ const AuthStack = createStackNavigator({
 });
 
 const AppNavigator = createStackNavigator({
-  FInicio: {
-    screen: FormInicio,
-    navigationOptions: {
-      headerTransparent:true,
-      headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
-          <Image
-            style = {{width:50, height:50}}
-            source={require('../assets/logotipo_vias/logotipo_vias.png')}
-          />
-
-
-        </View>
-      ),
-    },
-  },
-
   Init: {
     screen: Init,
     navigationOptions: {
@@ -82,6 +74,22 @@ const AppNavigator = createStackNavigator({
     },
   },
 
+  FInicio: {
+    screen: FormInicio,
+    navigationOptions: {
+      headerTransparent:true,
+      headerTitle: () => (
+        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <Image
+            style = {{width:50, height:50}}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
+          />
+
+
+        </View>
+      ),
+    },
+  },
 
   AdjuntarDocs: {
     screen: AdjuntarDocs,
@@ -318,6 +326,139 @@ const Recamaras = createStackNavigator(
   },
 );
 
+const EstanciaComedor = createStackNavigator(
+  {
+    EComedor: {
+      screen: EComedor,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const Banios = createStackNavigator(
+  {
+    Ban: {
+      screen: Ban,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const Escaleras = createStackNavigator(
+  {
+    Esc: {
+      screen: Esc,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const Cocina = createStackNavigator(
+  {
+    Coc: {
+      screen: Coc,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const PatioServicio = createStackNavigator(
+  {
+    PServicio: {
+      screen: PServicio,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const Estacionamiento = createStackNavigator(
+  {
+    Est: {
+      screen: Est,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
+const Fachada = createStackNavigator(
+  {
+    Fach: {
+      screen: Fach,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
 const TerrenoID = createStackNavigator(
   {
     TId: {
@@ -358,15 +499,13 @@ const ElementosAdicionales = createStackNavigator(
 
 
 const rutas = createSwitchNavigator({
-  AppNavigator: {
-    screen: AppNavigator,
-  },
-  
   AuthStack:{
     screen:AuthStack,
   },
 
-
+  AppNavigator: {
+    screen: AppNavigator,
+  },
 
   DatosGenerales: {
     screen: DatosGenerales,
@@ -412,10 +551,37 @@ const rutas = createSwitchNavigator({
     screen: Recamaras,
   },
 
+  EstanciaComedor:{
+    screen: EstanciaComedor,
+  },
+
+  Banios:{
+    screen: Banios,
+  },
+
+  Escaleras:{
+    screen: Escaleras,
+  },
+
+  Cocina:{
+    screen: Cocina,
+  },
+
+  PatioServicio:{
+    screen: PatioServicio,
+  },
+
+  Estacionamiento:{
+    screen: Estacionamiento,
+  },
+
+  Fachada:{
+    screen: Fachada,
+  },
+
   ElementosAdicionales:{
     screen: ElementosAdicionales,
   },
-
 
 });
 

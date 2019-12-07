@@ -318,63 +318,49 @@ export default class App extends Component<Props> {
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Estancia Comedor"
           disabled = {true}
-          onClickButton = {()=>{
-              this.props.navigation.navigate('ElementosDeLasConstrucciones')
-            }}
+          onClickButton = {()=>{ this.props.navigation.navigate('EstanciaComedor') }}
         />
 
         <ButtonForm
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Baños"
           disabled = {true}
-          onClickButton = {()=>{
-              this.props.navigation.navigate('ElementosDeLasConstrucciones')
-            }}
+          onClickButton = {()=>{ this.props.navigation.navigate('Banios') }}
         />
 
         <ButtonForm
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Escaleras"
           disabled = {true}
-          onClickButton = {()=>{
-              this.props.navigation.navigate('ElementosDeLasConstrucciones')
-            }}
+          onClickButton = {()=>{ this.props.navigation.navigate('Escaleras') }}
         />
 
         <ButtonForm
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Cocina"
           disabled = {true}
-          onClickButton = {()=>{
-              this.props.navigation.navigate('ElementosDeLasConstrucciones')
-            }}
+          onClickButton = {()=>{ this.props.navigation.navigate('Cocina') }}
         />
 
         <ButtonForm
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Patio Servicio"
           disabled = {true}
-          onClickButton = {()=>{
-              this.props.navigation.navigate('ElementosDeLasConstrucciones')
-            }}
+          onClickButton = {()=>{ this.props.navigation.navigate('PatioServicio') }}
         />
 
         <ButtonForm
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Estacionamiento"
           disabled = {true}
-          onClickButton = {()=>{
-              this.props.navigation.navigate('ElementosDeLasConstrucciones')
-            }}
+          onClickButton = {()=>{ this.props.navigation.navigate('Estacionamiento') }}
         />
 
         <ButtonForm
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Fachada"
           disabled = {true}
-          onClickButton = {()=>{
-              this.props.navigation.navigate('ElementosDeLasConstrucciones')
-            }}
+          onClickButton = {()=>{ this.props.navigation.navigate('Fachada') }}
         />
       </View>
     )

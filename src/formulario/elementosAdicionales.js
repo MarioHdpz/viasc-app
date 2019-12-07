@@ -136,8 +136,6 @@ export default class App extends Component<Props> {
             }
           />
 
-
-
           <View style={styles.fixToText}>
             <TouchableOpacity onPress={this.fCancelar}>
               <Image
