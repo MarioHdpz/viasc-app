@@ -24,6 +24,7 @@ import CDInmuebles from '../formulario/caracteristicasDeInmuebles'
 import MColindancia from '../formulario/medidasColindancias'
 import TId from '../formulario/terrenoID'
 import EDCRecamaras from '../formulario/recamaras'
+import EAdicionales from '../formulario/elementosAdicionales'
 
 const AuthStack = createStackNavigator({
   Login: {
@@ -35,6 +36,23 @@ const AuthStack = createStackNavigator({
 });
 
 const AppNavigator = createStackNavigator({
+  FInicio: {
+    screen: FormInicio,
+    navigationOptions: {
+      headerTransparent:true,
+      headerTitle: () => (
+        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <Image
+            style = {{width:50, height:50}}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
+          />
+
+
+        </View>
+      ),
+    },
+  },
+
   Init: {
     screen: Init,
     navigationOptions: {
@@ -63,22 +81,7 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-  FInicio: {
-    screen: FormInicio,
-    navigationOptions: {
-      headerTransparent:true,
-      headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
-          <Image
-            style = {{width:50, height:50}}
-            source={require('../assets/logotipo_vias/logotipo_vias.png')}
-          />
 
-
-        </View>
-      ),
-    },
-  },
 
   AdjuntarDocs: {
     screen: AdjuntarDocs,
@@ -334,15 +337,36 @@ const TerrenoID = createStackNavigator(
   },
 );
 
+const ElementosAdicionales = createStackNavigator(
+  {
+    EAdicionales: {
+      screen: EAdicionales,
+      navigationOptions: {
+        headerTransparent:true,
+        headerTitle: () => (
+          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+            <Image
+              style = {{width:50, height:50}}
+              source={require('../assets/logotipo_vias/logotipo_vias.png')}
+            />
+          </View>
+        ),
+      },
+    },
+  },
+);
+
 
 const rutas = createSwitchNavigator({
+  AppNavigator: {
+    screen: AppNavigator,
+  },
+  
   AuthStack:{
     screen:AuthStack,
   },
 
-  AppNavigator: {
-    screen: AppNavigator,
-  },
+
 
   DatosGenerales: {
     screen: DatosGenerales,
@@ -386,6 +410,10 @@ const rutas = createSwitchNavigator({
 
   Recamaras:{
     screen: Recamaras,
+  },
+
+  ElementosAdicionales:{
+    screen: ElementosAdicionales,
   },
 
 

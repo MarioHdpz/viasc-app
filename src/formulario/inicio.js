@@ -88,6 +88,16 @@ export default class App extends Component<Props> {
             this.props.navigation.navigate('CaracteristicasDeInmuebles', {user:this.state.user})
           }}
         />
+
+        <ButtonForm
+          icon = {require('../assets/icono_flechader/icono_flechader.png')}
+          text = "Elementos Adicionales"
+          disabled = {true}
+          onClickButton = {()=>{
+            console.log('ElementosAdicionales');
+            this.props.navigation.navigate('ElementosAdicionales')
+          }}
+        />
       </ScrollView>
 
       </ImageBackground>
