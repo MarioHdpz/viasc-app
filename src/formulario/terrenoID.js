@@ -53,6 +53,7 @@ export default class App extends Component<Props> {
 
     this.setState({respuestas, values}, this.setStorage)
   }
+
   addMedida = () => {
     let {index} = this.state;
     index = index+1;
@@ -175,6 +176,7 @@ export default class App extends Component<Props> {
       console.log("error storage", e);
     }
   }
+  
   setReadyFormulario= async (rf) => {
     try {
       await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )

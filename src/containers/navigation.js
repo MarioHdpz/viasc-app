@@ -1,7 +1,7 @@
 import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { Button, View, Image } from 'react-native';
+import { Button, View, Image, TouchableOpacity } from 'react-native';
 
 import Login from '../modules/login';
 import Iniciar from '../modules/init';

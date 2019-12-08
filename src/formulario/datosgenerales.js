@@ -13,6 +13,7 @@ import {
   BackHandler
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { NavigationActions } from 'react-navigation';
 
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
@@ -30,7 +31,9 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
+    const {navigation} = this.props;
+
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('InitAvaluo') });
     this.getStorage()
   }
 
@@ -43,6 +46,9 @@ export default class App extends Component<Props> {
 
     respuestas[id] = data[0];
     values[id] = data[1];
+
+    //console.log('buttonSelected id:', id, 'data0',data[0],'data1', data[1]);
+    console.log('buttonSelected', respuestas[id], 'data', data, 'respuestas', respuestas, 'values', values);
 
     this.setState({respuestas, values},this.setStorage)
   }
@@ -66,7 +72,7 @@ export default class App extends Component<Props> {
   }
 
   elementos = (respuesta) => {
-    console.log('respuesta', respuesta );
+    console.log('elementos', respuesta );
     const {values, respuestas} = this.state
     switch (respuesta) {
       case 1:
@@ -172,8 +178,6 @@ export default class App extends Component<Props> {
                 [8,"Residencial Plus"],
                 [9,"Residencial Plus +"],
                 [10,"Única"],
-                [11,"Nueva"],
-                [12,"Usada"],
               ]
             }
             value = {
@@ -189,6 +193,22 @@ export default class App extends Component<Props> {
             ? this.cConstruccion(respuestas[31])
             : null
           }
+          <Select
+            id = {32}
+            options = {
+              [
+                ['Nueva','Nueva'],
+                ['Usada','Usada']
+              ]
+            }
+            value = {
+              values[32]
+              ? values[32]
+              : "Estado de la Casa"
+            }
+            label = "Estado de la Casa"
+            buttonSelected = { this.buttonSelected }
+          />
         </View>
         break;
       case 3:
@@ -813,8 +833,12 @@ export default class App extends Component<Props> {
       clr[r] = null;
     }
 
-    console.log(clr);
-    this.setState({respuestas : clr, values:clr }, ()=>{
+    let clv={};
+    for (const r in values) {
+      clv[r] = null;
+    }
+
+    this.setState({respuestas : clr, values:clv }, ()=>{
       this.setStorage();
     })
   }

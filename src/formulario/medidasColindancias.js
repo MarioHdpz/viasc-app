@@ -44,10 +44,31 @@ export default class App extends Component<Props> {
   buttonSelected = (index, id, data) => {
     let {respuestas, values} =  this.state;
 
-    respuestas[id] = data[0];
-    values[id] = data[1];
+    respuestas[id] = data[1] + ' -> ';
+    values[id] = data[1] + ' -> ';
 
     this.setState({respuestas, values}, this.setStorage)
+  }
+
+  handleTextChange = (inputText, id, index) => {
+    let {respuestas, values} =  this.state;
+    if ( respuestas[id] !== null ) {
+      const res = respuestas[id].split(' -> ')
+
+      respuestas[id] = inputText
+      values[id] = inputText
+
+      this.setState({respuestas, values},this.setStorage)
+    }
+  }
+
+  handleTextChangeNormal = (inputText, id, index) => {
+    let {respuestas, values} =  this.state;
+
+    respuestas[id] = inputText;
+    values[id] = inputText;
+
+    this.setState({respuestas, values},this.setStorage)
   }
 
   addMedida = () => {
@@ -106,8 +127,12 @@ export default class App extends Component<Props> {
       clr[r] = null;
     }
 
-    console.log(clr);
-    this.setState({respuestas : clr, values:clr }, ()=>{
+    let clv={};
+    for (const r in values) {
+      clv[r] = null;
+    }
+
+    this.setState({respuestas : clr, values:clv }, ()=>{
       this.setStorage();
     })
   }
@@ -170,6 +195,7 @@ export default class App extends Component<Props> {
       console.log("error storage", e);
     }
   }
+
   setReadyFormulario= async (rf) => {
     try {
       await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )
@@ -195,42 +221,68 @@ export default class App extends Component<Props> {
         />
 
         <ScrollView style={styles.form}>
-          <Select
-            id = {79}
-            options = {
-              [
-                [0,"Norte"],
-                [1,"Sur"],
-                [2,"Oriente"],
-                [3,"Poniente"],
-                [4,"Nororiente"],
-                [5,"Norponiente"],
-                [6,"Suroriente"],
-                [7,"Surponiente"],
-                [8,"Este"],
-                [9,"Oeste"],
-                [10,"Noreste"],
-                [11,"Noroeste"],
-                [12,"Sureste"],
-                [13,"Suroeste"],
-                [14,"Sureste"],
-                [15,"Suroeste"],
-                [16,"Arriba"],
-                [17,"Abajo"]
-              ]
-            }
-            value = {
+          <View>
+            <InputText
+              id = {78}
+              handleTextChange = {this.handleTextChangeNormal}
+              pholder = "Calle"
+              label = "Calle"
+              value= {
+                values[78]
+              ? values[78]
+              : null}
+            />
+            <Select
+              id = {79}
+              options = {
+                [
+                  [0,"Norte"],
+                  [1,"Sur"],
+                  [2,"Oriente"],
+                  [3,"Poniente"],
+                  [4,"Nororiente"],
+                  [5,"Norponiente"],
+                  [6,"Suroriente"],
+                  [7,"Surponiente"],
+                  [8,"Este"],
+                  [9,"Oeste"],
+                  [10,"Noreste"],
+                  [11,"Noroeste"],
+                  [12,"Sureste"],
+                  [13,"Suroeste"],
+                  [14,"Sureste"],
+                  [15,"Suroeste"],
+                  [16,"Arriba"],
+                  [17,"Abajo"]
+                ]
+              }
+              value = "Orientación"
+              label = "Orientación"
+              buttonSelected = { this.buttonSelected }
+            />
+            {
               values[79]
-              ? values[79]
-              : "Orientación"
+              ? <InputText
+                id = {79}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Medida"
+                label = "Medida"
+                value= {
+                  values[79]
+                ? values[79]
+                : null}
+              />
+              :null
             }
-            label = "Orientación"
-            buttonSelected = { this.buttonSelected }
-          />
+
+
+          </View>
 
           {
             i1
-            ?<Select
+            ?
+            <View>
+            <Select
               id = {201}
               options = {
                 [
@@ -254,20 +306,32 @@ export default class App extends Component<Props> {
                   [17,"Abajo"]
                 ]
               }
-              value = {
-                values[201]
-                ? values[201]
-                : "Orientación"
-              }
+              value = "Orientación"
               label = "Orientación"
               buttonSelected = { this.buttonSelected }
             />
+            {
+              values[201]
+              ? <InputText
+                id = {201}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Medida"
+                label = "Medida"
+                value= {
+                  values[201]
+                ? values[201]
+                : null}
+              />
+              :null
+            }
+            </View>
             :null
           }
 
           {
             i2
-            ?<Select
+            ?<View>
+            <Select
               id = {202}
               options = {
                 [
@@ -291,20 +355,32 @@ export default class App extends Component<Props> {
                   [17,"Abajo"]
                 ]
               }
-              value = {
-                values[202]
-                ? values[202]
-                : "Orientación"
-              }
+              value = "Orientación"
               label = "Orientación"
               buttonSelected = { this.buttonSelected }
             />
+            {
+              values[202]
+              ? <InputText
+                id = {202}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Medida"
+                label = "Medida"
+                value= {
+                  values[202]
+                ? values[202]
+                : null}
+              />
+              :null
+            }
+            </View>
             :null
           }
 
           {
             i3
-            ?<Select
+            ?<View>
+            <Select
               id = {203}
               options = {
                 [
@@ -328,20 +404,32 @@ export default class App extends Component<Props> {
                   [17,"Abajo"]
                 ]
               }
-              value = {
-                values[203]
-                ? values[203]
-                : "Orientación"
-              }
+              value = "Orientación"
               label = "Orientación"
               buttonSelected = { this.buttonSelected }
             />
+            {
+              values[203]
+              ? <InputText
+                id = {203}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Medida"
+                label = "Medida"
+                value= {
+                  values[203]
+                ? values[203]
+                : null}
+              />
+              :null
+            }
+            </View>
             :null
           }
 
           {
             i4
-            ?<Select
+            ?<View>
+            <Select
               id = {204}
               options = {
                 [
@@ -365,20 +453,32 @@ export default class App extends Component<Props> {
                   [17,"Abajo"]
                 ]
               }
-              value = {
-                values[204]
-                ? values[204]
-                : "Orientación"
-              }
+              value = "Orientación"
               label = "Orientación"
               buttonSelected = { this.buttonSelected }
             />
+            {
+              values[204]
+              ? <InputText
+                id = {204}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Medida"
+                label = "Medida"
+                value= {
+                  values[204]
+                ? values[204]
+                : null}
+              />
+              :null
+            }
+            </View>
             :null
           }
 
           {
             i5
-            ?<Select
+            ?<View>
+            <Select
               id = {205}
               options = {
                 [
@@ -402,14 +502,25 @@ export default class App extends Component<Props> {
                   [17,"Abajo"]
                 ]
               }
-              value = {
-                values[205]
-                ? values[205]
-                : "Orientación"
-              }
+              value ="Orientación"
               label = "Orientación"
               buttonSelected = { this.buttonSelected }
             />
+            {
+              values[205]
+              ? <InputText
+                id = {205}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Medida"
+                label = "Medida"
+                value= {
+                  values[205]
+                ? values[205]
+                : null}
+              />
+              :null
+            }
+            </View>
             :null
           }
 

@@ -187,58 +187,65 @@ export default class App extends Component<Props> {
 
       console.log('PIC', pics);
 
-      pics.map((pic, index) => {
+      if (pics) {
+        pics.map((pic, index) => {
 
-        const data = {
-        	"user": user.pk,
-        	"encoding": pic,
-        	"archive": null,
-        	"process": null,
-        	"items": null,
-        	"label": p.label,
-        	"appraisal": 1
-        }
-
-        const conf = {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `jwt ${user.token}`,
+          const data = {
+            "user": user.pk,
+            "encoding": pic,
+            "archive": null,
+            "process": null,
+            "items": null,
+            "label": p.label,
+            "appraisal": 1
           }
-        }
 
-        console.log(data);
+          const conf = {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `jwt ${user.token}`,
+            }
+          }
 
-        axios.post('http://18.219.244.117/pictures/', data, conf)
-        .then((response) => {
-          console.log('AXIOS OK -> ',response);
-          this.setReadyPictures();
-          Alert.alert(
-            'Listo',
-            readResponseServer(response.status),
-            [
-              {text: 'OK'},
-            ],
-            {cancelable: false},
-          );
-          //docs[id] = archive;
-          //this.setState({docs}, this.setDogsStorage);
+          console.log(data);
+
+          axios.post('http://18.219.244.117/pictures/', data, conf)
+          .then((response) => {
+            console.log('AXIOS OK -> ',response);
+            this.setReadyPictures();
+            Alert.alert(
+              'Listo',
+              readResponseServer(response.status),
+              [
+                {text: 'OK'},
+              ],
+              {cancelable: false},
+            );
+            //docs[id] = archive;
+            //this.setState({docs}, this.setDogsStorage);
+          })
+          .catch((error) => {
+
+            Alert.alert(
+              'Error',
+              readResponseServer(error.response.status),
+              [
+                {text: 'OK'},
+              ],
+              {cancelable: false},
+            );
+
+            //docs[id] = false;
+            //this.setState({docs}, this.setDogsStorage);
+          });
+
         })
-        .catch((error) => {
+      }
+      else{
+        Alert.alert('Faltan datos');
+      }
 
-          Alert.alert(
-            'Error',
-            readResponseServer(error.response.status),
-            [
-              {text: 'OK'},
-            ],
-            {cancelable: false},
-          );
 
-          //docs[id] = false;
-          //this.setState({docs}, this.setDogsStorage);
-        });
-
-      })
     }
   }
 
