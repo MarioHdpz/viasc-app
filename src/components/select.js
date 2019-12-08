@@ -48,7 +48,6 @@ export default class ModalTester extends Component {
         </Text>
         <Image style={styles.icon} source={require('../assets/icono_flechaabajo/icono_flechaabajo.png')}/>
       </TouchableOpacity>
-
         <Modal isVisible={this.state.isModalVisible}>
           <View style={styles.modal}>
           <ScrollView

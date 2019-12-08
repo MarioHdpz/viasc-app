@@ -36,6 +36,23 @@ export default class App extends Component<Props> {
     i10:false,
     index:0,
   }
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft:(
+        <TouchableOpacity
+          onPress={()=>{navigation.navigate('InitAvaluo')}}
+        >
+          <Image
+            style={{
+              width:30,
+              height:30
+            }}
+            source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
+          />
+        </TouchableOpacity>
+      ),
+    }
+  }
 
   componentDidMount = () => {
     this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
@@ -176,7 +193,7 @@ export default class App extends Component<Props> {
       console.log("error storage", e);
     }
   }
-  
+
   setReadyFormulario= async (rf) => {
     try {
       await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )

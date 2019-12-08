@@ -33,12 +33,30 @@ export default class App extends Component<Props> {
   componentDidMount = () => {
     const {navigation} = this.props;
 
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('InitAvaluo') });
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
     this.getStorage()
   }
 
   componentWillUnmount = () => {
     this.backHandler.remove()
+  }
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft:(
+        <TouchableOpacity
+          onPress={()=>{navigation.navigate('InitAvaluo')}}
+        >
+          <Image
+            style={{
+              width:30,
+              height:30
+            }}
+            source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
+          />
+        </TouchableOpacity>
+      ),
+    }
   }
 
   buttonSelected = (index, id, data) => {

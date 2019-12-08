@@ -32,6 +32,23 @@ export default class App extends Component<Props> {
     i4:false,
     i5:false,
   }
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft:(
+        <TouchableOpacity
+          onPress={()=>{navigation.navigate('InitAvaluo')}}
+        >
+          <Image
+            style={{
+              width:30,
+              height:30
+            }}
+            source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
+          />
+        </TouchableOpacity>
+      ),
+    }
+  }
 
   componentDidMount = () => {
     this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
