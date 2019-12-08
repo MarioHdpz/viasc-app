@@ -27,13 +27,29 @@ export default class App extends Component<Props> {
     }
   }
 
+  getStorage = async () => {
+    console.log('inicia getStorage');
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if(value !== null) {
+        const user = JSON.parse(value);
+        console.log('getUser',user);
+        this.setState({user})
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
+  }
+
   componentDidMount = () => {
+    this.getStorage();
     this.getDocsStorage();
 
-    const user = this.props.navigation.getParam('user');
+
+    /*const user = this.props.navigation.getParam('user');
     this.setState({user},()=>{
       console.log('ADJUNTARDOCUMENTOS:',user);
-    });
+    });*/
   }
 
   getDocsStorage = async () => {
