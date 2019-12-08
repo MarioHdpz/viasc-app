@@ -150,15 +150,15 @@ export default class App extends Component<Props> {
   readyFormulario = async () => {
     try {
       const value = await AsyncStorage.getItem('readyFormulario');
-      if(value !== null) {
-        const rf = JSON.parse(value);
+      let rf = null;
+      if (value) {
+        rf = JSON.parse(value);
         rf['MedidasColindancias'] = true
       }
-      else {
-        const rf = {};
+      else{
+        rf = {};
         rf['MedidasColindancias'] = true;
       }
-
       this.setReadyFormulario(rf);
 
     } catch(e) {

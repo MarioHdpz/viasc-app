@@ -42,7 +42,7 @@ export default class App extends Component<Props> {
           email:email,
           pass:pass
         }
-
+        this.storeData( 'user', JSON.stringify(user) )
         this.props.navigation.navigate('Init', {user:user});
       })
       .catch((error) => {

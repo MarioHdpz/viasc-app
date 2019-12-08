@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageBackground
 } from 'react-native';
+import SplashScreen from 'react-native-splash-screen'
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationEvents } from 'react-navigation';
 import ButtonLarge from '../components/buttonLarge';
@@ -17,6 +18,10 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
+    if (Platform.OS === 'android') {
+      SplashScreen.hide();
+    }
+
     const user = this.props.navigation.getParam('user');
     this.setState({user},()=>{
       console.log('INIT USER:',user);

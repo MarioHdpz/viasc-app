@@ -11,6 +11,7 @@ import {
   ScrollView
 } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {readResponseServer} from '../functions'
 
@@ -87,10 +88,20 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    const user = this.props.navigation.getParam('user');
-    this.setState({user},()=>{
-      console.log('CAPTURADEFOTOS:',user);
-    });
+    this.getStorage();
+  }
+
+  getStorage = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user');
+      if(value !== null) {
+        const user = JSON.parse(value);
+        console.log('getUser',user);
+        this.setState({user})
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
   }
 
   buttonSelected = (index,id, data) => {
@@ -200,6 +211,7 @@ export default class App extends Component<Props> {
         axios.post('http://18.219.244.117/pictures/', data, conf)
         .then((response) => {
           console.log('AXIOS OK -> ',response);
+          this.setReadyPictures();
           Alert.alert(
             'Listo',
             readResponseServer(response.status),
@@ -249,6 +261,14 @@ export default class App extends Component<Props> {
       ],
       {cancelable: false},
     );
+  }
+
+  setReadyPictures = async () => {
+    try {
+      await AsyncStorage.setItem('readyPictures', 'true' )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
   }
 
   moveCarrusel = (dir) => {
@@ -385,9 +405,7 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
     height:height+10,
-    paddingTop:35,
-    justifyContent:'center',
-    alignItems:'center',
+    paddingTop:'20%',
   },
   area:{
     height:height-100,

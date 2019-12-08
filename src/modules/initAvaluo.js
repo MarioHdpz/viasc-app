@@ -29,8 +29,8 @@ export default class App extends Component<Props> {
     form : null,
     pics : null,
 
-    okformulario:true,
-    okfotos:true,
+    okformulario:false,
+    okfotos:false,
 
     respuestas: null,
   }
@@ -80,30 +80,34 @@ export default class App extends Component<Props> {
     }
 
     //VALIDAMOS FORMULARIO
-    const buttons = _.filter(db, {inputType:'button'});
-    const formulario = Object.keys(db).length;
-    const totalRespuestas = formulario - buttons.length
-
     try {
-      let {form, okfotos, respuestas} = this.state;
-      const value = await AsyncStorage.getItem('respuestas')
-
+      let {form, okfotos,} = this.state;
+      const value = await AsyncStorage.getItem('readyFormulario')
+      console.log('1readyFormulario', value);
       if(value !== null) {
-        respuestas = JSON.parse(value)
-        const okRespuestas = Object.keys(JSON.parse(value)).length;
-        if (totalRespuestas === okRespuestas) {
-          form = true;
-          okfotos = true;
+        rf = JSON.parse(value)
+        console.log('readyFormulario',rf);
+
+        if (rf['DatosDelSolicitante'] && rf['Ubicacion'] && rf['DatosGenerales'] && rf['InformacionGeneral'] ) {
+            this.setState({form:true,okfotos:true})
         }
 
-        this.setState({ form, okfotos, respuestas });
       }
     } catch(e) {
       console.log("error storage", e);
     }
 
     //VALIDAMOS FOTOGRAFÍAS.
-    //Función de Validación
+    try {
+      let {form, okfotos,} = this.state;
+      const value = await AsyncStorage.getItem('readyPictures')
+      console.log('1readyFormulario', value);
+      if(value) {
+        this.setState({pics:true});
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
   }
 
   cancelar = () => {
@@ -129,13 +133,22 @@ export default class App extends Component<Props> {
     console.warn("limpiando");
     try {
       await AsyncStorage.clear();
+
+      this.setState({
+        docs : null,
+        form : null,
+        pics : null,
+
+        okformulario:false,
+        okfotos:false,
+      })
+
     } catch(e) {
       console.log('error clear', e);
     }
   }
 
   sendAll = () =>{
-
     Alert.alert(
       'Envíar gestión',
       '¿Desea envíar la gestión?',
@@ -146,8 +159,7 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si envíar', onPress: () => {
-          this.redirectEndPoints();
-
+          this.clearAll();
         }},
       ],
       {cancelable: false},
@@ -232,7 +244,7 @@ export default class App extends Component<Props> {
             disabled = {okformulario}
           />
           <ButtonLarge
-            iconPrimary = {require('../assets/icono_camara/icono_camara.png')}
+            iconPrimary = {require('../assets/icono_iniciarformulario/icono_iniciarformulario.png')}
             icon = {require('../assets/icono_acierto/icono_acierto.png')}
             iconError = {require('../assets/icono_errorblanco/icono_errorblanco.png')}
             text = "Captura de fotos"
