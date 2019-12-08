@@ -8,7 +8,9 @@ import {
   Dimensions,
   Switch,
   TouchableOpacity,
-  Image
+  Image,
+  Alert,
+  BackHandler
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen'
@@ -28,6 +30,10 @@ export default class App extends Component<Props> {
 
     const user = this.props.navigation.getParam('user');
     this.setState({user});
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
+  }
+  componentWillUnmount = () => {
+    this.backHandler.remove()
   }
 
   render = () => {

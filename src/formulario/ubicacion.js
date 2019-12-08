@@ -10,7 +10,8 @@ import {
   TouchableOpacity,
   Image,
   Alert,
-  PermissionsAndroid
+  PermissionsAndroid,
+  BackHandler
 } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import MapView, { Callout, Marker,
@@ -36,7 +37,11 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
     this.getStorage()
+  }
+  componentWillUnmount = () => {
+    this.backHandler.remove()
   }
 
   goToInitialLocation = () => {

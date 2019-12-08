@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { Button, View, Image } from 'react-native';
 
 import Login from '../modules/login';
-import Init from '../modules/init';
+import Iniciar from '../modules/init';
 import InitAvaluo from '../modules/initAvaluo';
 import Avaluos from '../modules/avaluos';
 import WorkSpace from '../modules/workspace';
@@ -44,9 +44,9 @@ const AuthStack = createStackNavigator({
   },
 });
 
-const AppNavigator = createStackNavigator({
-  Init: {
-    screen: Init,
+const Init = createStackNavigator({
+  Iniciar: {
+    screen: Iniciar,
     navigationOptions: {
       headerTransparent:true,
       headerTitle: () => (
@@ -59,7 +59,9 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
+});
 
+const AppNavigator = createStackNavigator({
   InitAvaluo: {
     screen: InitAvaluo,
     navigationOptions: {
@@ -74,7 +76,6 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-
   FInicio: {
     screen: FormInicio,
     navigationOptions: {
@@ -91,7 +92,6 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-
   AdjuntarDocs: {
     screen: AdjuntarDocs,
     navigationOptions: {
@@ -502,7 +502,11 @@ const rutas = createSwitchNavigator({
   AuthStack:{
     screen:AuthStack,
   },
-  
+
+  Init:{
+    screen:Init,
+  },
+
   AppNavigator: {
     screen: AppNavigator,
   },

@@ -9,7 +9,8 @@ import {
   Switch,
   TouchableOpacity,
   Image,
-  Alert
+  Alert,
+  BackHandler
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -29,7 +30,12 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
     this.getStorage();
+  }
+
+  componentWillUnmount = () => {
+    this.backHandler.remove()
   }
 
   setStorage = async () => {

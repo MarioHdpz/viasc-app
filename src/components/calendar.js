@@ -23,8 +23,16 @@ export default class Calendar extends Component {
 
     const d = new Date(date);
     const y = d.getFullYear();
-    const m = d.getMonth();
-    const n = d.getDate();
+    let m = d.getMonth() + 1;
+    let n = d.getDate();
+
+    if (m<10) {
+      m = '0'+ m
+    }
+
+    if (n<10) {
+      n = '0'+ n
+    }
 
     this.props.dateChange(index, id,`${n}-${m}-${y}`);
     this.setModalVisible(!this.state.modalVisible);

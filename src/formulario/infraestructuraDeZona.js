@@ -9,7 +9,8 @@ import {
   Switch,
   TouchableOpacity,
   Image,
-  Alert
+  Alert,
+  BackHandler
 } from 'react-native';
 
 import ButtonBack from '../components/buttonBack'
@@ -26,8 +27,12 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
     const user = this.props.navigation.getParam('user');
     this.setState({user});
+  }
+  componentWillUnmount = () => {
+    this.backHandler.remove()
   }
 
   render = () => {

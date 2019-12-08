@@ -141,6 +141,8 @@ const styles = StyleSheet.create({
     color:'white',
     fontSize:16,
     textAlign:'center',
+    height:40,
+    width:width,
   },
   icon:{
     width:20,
