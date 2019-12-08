@@ -185,7 +185,7 @@ export default class App extends Component<Props> {
             buttonSelected = { this.buttonSelected }
           />
           {
-            values[31]
+            respuestas[31] && respuestas[31]>0
             ? this.cConstruccion(respuestas[31])
             : null
           }
@@ -244,16 +244,400 @@ export default class App extends Component<Props> {
           </View>
         break;
       case 4:
-        return  <InputText
-                  id = {24}
-                  handleTextChange = {this.handleTextChange}
-                  pholder = "Superficie de Construcción"
-                  label = "Superficie de Construcción"
-                  value= {
-                    values[24]
-                  ? values[24]
-                  : null}
-                />
+        return  <View>
+          <Select
+            id = {40}
+            options = {
+              [
+                [0,"0"],
+                [1,"1"],
+                [2,"2"],
+                [3,"3"],
+                [4,"4"],
+                [5,"5"]
+              ]
+            }
+            value = {
+              values[40]
+              ? values[40]
+              : "Closets"
+            }
+            label = "Closets"
+            buttonSelected = { this.buttonSelected }
+          />
+          <Select
+            id = {41}
+            options = {
+              [
+                [0,"0"],
+                [1,"1"],
+                [2,"2"],
+                [3,"3"],
+                [4,"4"],
+                [5,"5"]
+              ]
+            }
+            value = {
+              values[41]
+              ? values[41]
+              : "Cocina integral"
+            }
+            label = "Cocina integral"
+            buttonSelected = { this.buttonSelected }
+          />
+          {
+            respuestas[41]>0
+            ? <Select
+              id = {42}
+              options = {
+                [
+                  [1,"Lujo"],
+                  [2,"Muy buena"],
+                  [3,"Buena"],
+                ]
+              }
+              value = {
+                values[42]
+                ? values[42]
+                : "Cocina integral Calidad"
+              }
+              label = "Cocina integral Calidad"
+              buttonSelected = { this.buttonSelected }
+            />
+            : null
+          }
+          <Select
+            id = {43}
+            options = {
+              [
+                [1,"1"],
+                [2,"2"],
+                [3,"3"],
+              ]
+            }
+            value = {
+              values[43]
+              ? values[43]
+              : "Número de niveles del departamento"
+            }
+            label = "Número de niveles del departamento"
+            buttonSelected = { this.buttonSelected }
+          />
+          <Select
+            id = {45}
+            options = {
+              [
+                [0,"0"],
+                [1,"1"],
+                [2,"2"],
+                [3,"3"],
+                [4,"4"],
+                [5,"5"],
+              ]
+            }
+            value = {
+              values[45]
+              ? values[45]
+              : "Escaleras"
+            }
+            label = "Escaleras"
+            buttonSelected = { this.buttonSelected }
+          />
+          <Select
+            id = {47}
+            options = {
+              [
+                [0,"0"],
+                [1,"1"],
+                [2,"2"],
+                [3,"3"],
+                [4,"4"],
+                [5,"5"],
+              ]
+            }
+            value = {
+              values[47]
+              ? values[47]
+              : "Alberca"
+            }
+            label = "Alberca"
+            buttonSelected = { this.buttonSelected }
+          />
+          {
+            respuestas[47] > 0
+            ? <InputNumber
+                id = {48}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Alberca m2"
+                label = "Alberca m2"
+                value= {
+                  values[48]
+                ? values[48]
+                : null}
+              />
+            : null
+          }
+          {
+            respuestas[47] > 1
+            ? <InputNumber
+                id = {161}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Alberca m2"
+                label = "Alberca m2"
+                value= {
+                  values[161]
+                ? values[161]
+                : null}
+              />
+            : null
+          }
+          {
+            respuestas[47] > 2
+            ? <InputNumber
+                id = {162}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Alberca m2"
+                label = "Alberca m2"
+                value= {
+                  values[162]
+                ? values[162]
+                : null}
+              />
+            : null
+          }
+          {
+            respuestas[47] > 3
+            ? <InputNumber
+                id = {163}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Alberca m2"
+                label = "Alberca m2"
+                value= {
+                  values[163]
+                ? values[163]
+                : null}
+              />
+            : null
+          }
+          {
+            respuestas[47] > 4
+            ? <InputNumber
+                id = {164}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Alberca m2"
+                label = "Alberca m2"
+                value= {
+                  values[164]
+                ? values[164]
+                : null}
+              />
+            : null
+          }
+          <Select
+            id = {49}
+            options = {
+              [
+                [0,"0"],
+                [1,"1"],
+                [2,"2"],
+                [3,"3"],
+                [4,"4"],
+                [5,"5"],
+              ]
+            }
+            value = {
+              values[49]
+              ? values[49]
+              : "Canchas deportivas"
+            }
+            label = "Canchas deportivas"
+            buttonSelected = { this.buttonSelected }
+          />
+          {
+            respuestas[49] > 0
+            ? <InputText
+                id = {50}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Nombre cancha 1"
+                label = "Nombre cancha 1"
+                value= {
+                  values[50]
+                ? values[50]
+                : null}
+              />
+            : null
+          }
+          {
+            respuestas[49] > 1
+            ? <InputText
+                id = {51}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Nombre cancha 2"
+                label = "Nombre cancha 2"
+                value= {
+                  values[51]
+                ? values[51]
+                : null}
+              />
+            : null
+          }
+          {
+            respuestas[49] > 2
+            ? <InputText
+                id = {52}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Nombre cancha 3"
+                label = "Nombre cancha 3"
+                value= {
+                  values[52]
+                ? values[52]
+                : null}
+              />
+            : null
+          }
+          {
+            respuestas[49] > 3
+            ? <InputText
+                id = {53}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Nombre cancha 4"
+                label = "Nombre cancha 4"
+                value= {
+                  values[53]
+                ? values[53]
+                : null}
+              />
+            : null
+          }
+          {
+            respuestas[49] > 4
+            ? <InputText
+                id = {54}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Nombre cancha 5"
+                label = "Nombre cancha 5"
+                value= {
+                  values[54]
+                ? values[54]
+                : null}
+              />
+            : null
+          }
+          <Select
+            id = {31}
+            options = {
+              [
+                [0,"No aplica"],
+                [1,"Mínima"],
+                [2,"Económica"],
+                [3,"Interés Social"],
+                [4,"Media"],
+                [5,"Semilujo"],
+                [6,"Lujo"],
+                [7,"Residencial"],
+                [8,"Residencial Plus"],
+                [9,"Residencial Plus +"],
+                [10,"Única"],
+                [11,"Nueva"],
+                [12,"Usada"],
+              ]
+            }
+            value = {
+              values[31]
+              ? values[31]
+              : "Clase de Construcción"
+            }
+            label = "Clase de Construcción"
+            buttonSelected = { this.buttonSelected }
+          />
+          {
+            respuestas[31] && respuestas[31]>0
+            ? this.cConstruccion(respuestas[31])
+            : null
+          }
+          <Select
+            id = {57}
+            options = {
+              [
+                [0,"0"],
+                [1,"1"],
+                [2,"2"],
+                [3,"3"],
+                [4,"4"],
+                [5,"5"],
+              ]
+            }
+            value = {
+              values[57]
+              ? values[57]
+              : "Sala"
+            }
+            label = "Sala"
+            buttonSelected = { this.buttonSelected }
+          />
+          <Select
+            id = {58}
+            options = {
+              [
+                ['Si',"Si"],
+                ['No',"No"],
+              ]
+            }
+            value = {
+              values[58]
+              ? values[58]
+              : "Cajón de estacionamiento"
+            }
+            label = "Cajón de estacionamiento"
+            buttonSelected = { this.buttonSelected }
+          />
+          <Select
+            id = {59}
+            options = {
+              [
+                ['Si',"Si"],
+                ['No',"No"],
+              ]
+            }
+            value = {
+              values[59]
+              ? values[59]
+              : "Bodega"
+            }
+            label = "Bodega"
+            buttonSelected = { this.buttonSelected }
+          />
+          {
+            values[59] === 'Si'
+            ? <InputNumber
+                id = {60}
+                handleTextChange = {this.handleTextChange}
+                pholder = "Bodega m2"
+                label = "Bodega m2"
+                value= {
+                  values[60]
+                ? values[60]
+                : null}
+              />
+            : null
+          }
+          <Select
+            id = {61}
+            options = {
+              [
+                ['Nuevo',"Nuevo"],
+                ['Usado',"Usado"],
+              ]
+            }
+            value = {
+              values[61]
+              ? values[61]
+              : "Estado del departamento"
+            }
+            label = "Estado del departamento"
+            buttonSelected = { this.buttonSelected }
+          />
+        </View>
         break;
       default: null
 
