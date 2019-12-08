@@ -5385,6 +5385,13 @@ react-native-camera@^3.9.0:
   dependencies:
     prop-types "^15.6.2"
 
+react-native-check-box@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-check-box/-/react-native-check-box-2.1.7.tgz#f349d3505a13c15d19949ec4cec40c7adc4f3626"
+  integrity sha512-dPVOoz4jKs2je2HSHp7+XJXNyZFq8Kij7IHutigrQKzB550Dko6ZAQu/1mG1FzdUMFxxkZ2nX59KmbR0Co0T8Q==
+  dependencies:
+    prop-types "^15.5.7"
+
 react-native-document-picker@^3.2.4:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/react-native-document-picker/-/react-native-document-picker-3.2.4.tgz#8e1801ba9b81f42f928e8e5e519c3d8e1320cfab"

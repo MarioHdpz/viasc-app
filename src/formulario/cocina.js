@@ -29,19 +29,7 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    const user = this.props.navigation.getParam('user');
-    this.setState({user});
-
     this.getStorage();
-  }
-
-  buttonSelected = (index, id, data) => {
-    let {respuestas, values} =  this.state;
-
-    respuestas[id] = data[0];
-    values[id] = data[1];
-
-    this.setState({respuestas, values},this.setStorage)
   }
 
   setStorage = async () => {
@@ -61,7 +49,6 @@ export default class App extends Component<Props> {
   getStorage = async () => {
     try {
       const value = await AsyncStorage.getItem('respuestas');
-      console.log('GETSTORAGE', value);
       if(value !== null) {
         const respuestas = JSON.parse(value);
         console.log(respuestas);
@@ -70,15 +57,31 @@ export default class App extends Component<Props> {
     } catch(e) {
       console.log("error storage", e);
     }
+
+    try {
+      const value = await AsyncStorage.getItem('values');
+      if(value !== null) {
+        const values = JSON.parse(value);
+        console.log(values);
+        this.setState({values})
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
   }
 
-  handleTextChange = (inputText, id, index) => {
+  clear = () => {
     let {respuestas, values} =  this.state;
 
-    respuestas[id] = inputText;
-    values[id] = inputText;
+    let clr={};
+    for (const r in respuestas) {
+      clr[r] = null;
+    }
 
-    this.setState({respuestas, values})
+    console.log(clr);
+    this.setState({respuestas : clr, values:clr }, ()=>{
+      this.setStorage();
+    })
   }
 
   fCancelar = () => {
@@ -92,7 +95,7 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si, cancelar', onPress: () => {
-          this.setState({respuestas : {}, values:{}})
+          this.clear()
         }},
       ],
       {cancelable: false},
@@ -110,11 +113,31 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si, enviar', onPress: () => {
-          this.setState({respuestas : {}, values:{}})
+          //Aquí -> Axios a server
+          //despúes:
+          this.clear();
         }},
       ],
       {cancelable: false},
     );
+  }
+
+  buttonSelected = (index, id, data) => {
+    let {respuestas, values} =  this.state;
+
+    respuestas[id] = data[0];
+    values[id] = data[1];
+
+    this.setState({respuestas, values},this.setStorage)
+  }
+
+  handleTextChange = (inputText, id, index) => {
+    let {respuestas, values} =  this.state;
+
+    respuestas[id] = inputText;
+    values[id] = inputText;
+
+    this.setState({respuestas, values},this.setStorage)
   }
 
   cConstruccion = (respuesta) => {
@@ -641,6 +664,26 @@ export default class App extends Component<Props> {
             ? this.cConstruccion( respuestas[22] )
             :null
           }
+
+          <View style={styles.fixToText}>
+            <TouchableOpacity onPress={this.fCancelar}>
+              <Image
+                style={{
+                  width:100,
+                }}
+                source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={this.fSend}>
+              <Image
+                style={{
+                  width:100,
+                }}
+                source={require('../assets/btn_guardar/btn_guardar.png')}
+              />
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </ImageBackground>
     )

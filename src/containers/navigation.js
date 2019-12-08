@@ -45,6 +45,22 @@ const AuthStack = createStackNavigator({
 });
 
 const AppNavigator = createStackNavigator({
+  FInicio: {
+    screen: FormInicio,
+    navigationOptions: {
+      headerTransparent:true,
+      headerTitle: () => (
+        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <Image
+            style = {{width:50, height:50}}
+            source={require('../assets/logotipo_vias/logotipo_vias.png')}
+          />
+
+
+        </View>
+      ),
+    },
+  },
   Init: {
     screen: Init,
     navigationOptions: {
@@ -69,23 +85,6 @@ const AppNavigator = createStackNavigator({
             style = {{width:50, height:50}}
             source={require('../assets/logotipo_vias/logotipo_vias.png')}
           />
-        </View>
-      ),
-    },
-  },
-
-  FInicio: {
-    screen: FormInicio,
-    navigationOptions: {
-      headerTransparent:true,
-      headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
-          <Image
-            style = {{width:50, height:50}}
-            source={require('../assets/logotipo_vias/logotipo_vias.png')}
-          />
-
-
         </View>
       ),
     },
@@ -119,7 +118,6 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-
   WorkSpace: {
     screen: WorkSpace,
     navigationOptions: {
@@ -499,13 +497,15 @@ const ElementosAdicionales = createStackNavigator(
 
 
 const rutas = createSwitchNavigator({
+  AppNavigator: {
+    screen: AppNavigator,
+  },
+
   AuthStack:{
     screen:AuthStack,
   },
 
-  AppNavigator: {
-    screen: AppNavigator,
-  },
+
 
   DatosGenerales: {
     screen: DatosGenerales,
@@ -582,7 +582,6 @@ const rutas = createSwitchNavigator({
   ElementosAdicionales:{
     screen: ElementosAdicionales,
   },
-
 });
 
 export default createAppContainer(rutas);

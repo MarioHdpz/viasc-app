@@ -11,6 +11,7 @@ import {
   Image,
   Alert
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
@@ -36,8 +37,7 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    const user = this.props.navigation.getParam('user');
-    this.setState({user});
+    this.getStorage()
   }
 
   handleTextChange = (inputText, id, index) => {
@@ -46,7 +46,7 @@ export default class App extends Component<Props> {
     respuestas[id] = inputText;
     values[id] = inputText;
 
-    this.setState({respuestas, values})
+    this.setState({respuestas, values}, this.setStorage)
   }
   addMedida = () => {
     let {index} = this.state;
@@ -57,6 +57,58 @@ export default class App extends Component<Props> {
     this.setState({
       index,
       [`i${index}`]:true
+    })
+  }
+
+  setStorage = async () => {
+    try {
+      await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+
+    try {
+      await AsyncStorage.setItem('values', JSON.stringify(this.state.values) )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+  }
+
+  getStorage = async () => {
+    try {
+      const value = await AsyncStorage.getItem('respuestas');
+      if(value !== null) {
+        const respuestas = JSON.parse(value);
+        console.log(respuestas);
+        this.setState({respuestas})
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
+
+    try {
+      const value = await AsyncStorage.getItem('values');
+      if(value !== null) {
+        const values = JSON.parse(value);
+        console.log(values);
+        this.setState({values})
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
+  }
+
+  clear = () => {
+    let {respuestas, values} =  this.state;
+
+    let clr={};
+    for (const r in respuestas) {
+      clr[r] = null;
+    }
+
+    console.log(clr);
+    this.setState({respuestas : clr, values:clr }, ()=>{
+      this.setStorage();
     })
   }
 
@@ -71,7 +123,7 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si, cancelar', onPress: () => {
-          this.setState({respuestas : {}, values:{}})
+          this.clear()
         }},
       ],
       {cancelable: false},
@@ -89,7 +141,9 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si, enviar', onPress: () => {
-          this.setState({respuestas : {}, values:{}})
+          //Aquí -> Axios a server
+          //despúes:
+          this.clear();
         }},
       ],
       {cancelable: false},

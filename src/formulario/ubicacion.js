@@ -17,6 +17,7 @@ import MapView, { Callout, Marker,
   AnimatedRegion, PROVIDER_DEFAULT } from 'react-native-maps';
 import axios from 'axios';
 import isEqual from 'lodash/isEqual';
+import AsyncStorage from '@react-native-community/async-storage';
 import {readResponseServer} from '../functions';
 
 import ButtonBack from '../components/buttonBack'
@@ -35,8 +36,7 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    const user = this.props.navigation.getParam('user');
-    this.setState({user});
+    this.getStorage()
   }
 
   goToInitialLocation = () => {
@@ -163,7 +163,7 @@ export default class App extends Component<Props> {
       respuestas[19] = myPosition.latitude.toString()
       respuestas[20] = myPosition.altitude.toString()
 
-      this.setState({values, respuestas});
+      this.setState({values, respuestas},()=>{ this.setStorage() });
     })
     .catch((error) => {
       Alert.alert(
@@ -187,6 +187,58 @@ export default class App extends Component<Props> {
     this.setState({respuestas, values})
   }
 
+  setStorage = async () => {
+    try {
+      await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+
+    try {
+      await AsyncStorage.setItem('values', JSON.stringify(this.state.values) )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+  }
+
+  getStorage = async () => {
+    try {
+      const value = await AsyncStorage.getItem('respuestas');
+      if(value !== null) {
+        const respuestas = JSON.parse(value);
+        console.log(respuestas);
+        this.setState({respuestas})
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
+
+    try {
+      const value = await AsyncStorage.getItem('values');
+      if(value !== null) {
+        const values = JSON.parse(value);
+        console.log(values);
+        this.setState({values})
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
+  }
+
+  clear = () => {
+    let {respuestas, values} =  this.state;
+
+    let clr={};
+    for (const r in respuestas) {
+      clr[r] = null;
+    }
+
+    console.log(clr);
+    this.setState({respuestas : clr, values:clr }, ()=>{
+      this.setStorage();
+    })
+  }
+
   fCancelar = () => {
     Alert.alert(
       'Cancelar',
@@ -198,7 +250,7 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si, cancelar', onPress: () => {
-          this.setState({respuestas : {}, values:{}})
+          this.clear()
         }},
       ],
       {cancelable: false},
@@ -216,7 +268,9 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si, enviar', onPress: () => {
-          this.setState({respuestas : {}, values:{}})
+          //Aquí -> Axios a server
+          //despúes:
+          this.clear();
         }},
       ],
       {cancelable: false},
