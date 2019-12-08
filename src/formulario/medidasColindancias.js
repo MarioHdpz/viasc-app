@@ -132,7 +132,14 @@ export default class App extends Component<Props> {
       clv[r] = null;
     }
 
-    this.setState({respuestas : clr, values:clv }, ()=>{
+    this.setState({respuestas : clr, values:clv,
+      index:0,
+      i1:false,
+      i2:false,
+      i3:false,
+      i4:false,
+      i5:false,
+     }, ()=>{
       this.setStorage();
     })
   }

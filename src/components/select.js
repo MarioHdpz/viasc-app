@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
   modal:{
     backgroundColor:'black',
     borderRadius: 20,
+    maxHeight:height-50
   },
   options:{
     height:30,
