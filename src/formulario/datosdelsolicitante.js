@@ -120,6 +120,8 @@ export default class App extends Component<Props> {
         },
         {text: 'Si, enviar', onPress: () => {
           //Aquí -> Axios a server
+          //Confirmo que todo esta bien
+          this.readyFormulario();
           //despúes:
           this.clear();
         }},
@@ -127,6 +129,34 @@ export default class App extends Component<Props> {
       {cancelable: false},
     );
   }
+
+  readyFormulario = async () => {
+    try {
+      const value = await AsyncStorage.getItem('readyFormulario');
+      if(value !== null) {
+        const rf = JSON.parse(value);
+        rf['DatosDelSolicitante'] = true
+      }
+      else {
+        const rf = {};
+        rf['DatosDelSolicitante'] = true;
+      }
+
+      this.setReadyFormulario(rf);
+
+    } catch(e) {
+      console.log("error storage", e);
+    }
+  }
+  setReadyFormulario= async (rf) => {
+    try {
+      await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+  }
+
+
 
   render = () => {
     const {values} = this.state;

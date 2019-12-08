@@ -8,7 +8,8 @@ import {
   Dimensions,
   Switch,
   TouchableOpacity,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -350,6 +351,32 @@ export default class App extends Component<Props> {
     )
   }
 
+  readyFormulario = async () => {
+    try {
+      const value = await AsyncStorage.getItem('readyFormulario');
+      if(value !== null) {
+        const rf = JSON.parse(value);
+        rf['DatosGenerales'] = true
+      }
+      else {
+        const rf = {};
+        rf['DatosGenerales'] = true;
+      }
+
+      this.setReadyFormulario(rf);
+
+    } catch(e) {
+      console.log("error storage", e);
+    }
+  }
+  setReadyFormulario= async (rf) => {
+    try {
+      await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+  }
+
   setStorage = async () => {
     try {
       await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
@@ -432,6 +459,8 @@ export default class App extends Component<Props> {
         },
         {text: 'Si, enviar', onPress: () => {
           //Aquí -> Axios a server
+          //Confirmo que todo esta bien
+          this.readyFormulario();
           //despúes:
           this.clear();
         }},
