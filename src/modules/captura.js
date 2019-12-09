@@ -259,7 +259,7 @@ export default class App extends Component<Props> {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'Si, limpiar', onPress: () => {
+        {text: 'Si, cancelar', onPress: () => {
           this.setState({
             respuestas:{},
             active:null,
