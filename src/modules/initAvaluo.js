@@ -25,7 +25,7 @@ export default class App extends Component<Props> {
   state = {
     user:null,
 
-    docs : true,
+    docs : null,
     form : null,
     pics : null,
 
