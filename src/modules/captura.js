@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
     height:height+10,
-    paddingTop:'20%',
+    paddingTop:'30%',
   },
   area:{
     height:height-100,
