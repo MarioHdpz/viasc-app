@@ -74,6 +74,7 @@ const AppNavigator = createStackNavigator({
           />
         </View>
       ),
+      headerLeft:(<Image style={{height:50, width:50}}/>),
     },
   },
   FInicio: {
@@ -134,7 +135,17 @@ const AppNavigator = createStackNavigator({
       ),
     },
   },
-});
+},
+{
+    initialRouteName: 'InitAvaluo',
+    /* The header config from HomeScreen is now here */
+    defaultNavigationOptions: {
+      headerRight:(
+        <Image style={{height:50, width:50}}/>
+      ),
+    },
+  }
+);
 
 const DatosGenerales = createStackNavigator(
   {
@@ -149,6 +160,9 @@ const DatosGenerales = createStackNavigator(
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
+        ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
         ),
       },
     },
@@ -169,6 +183,9 @@ const DatosDelSolicitante = createStackNavigator(
             />
           </View>
         ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
+        ),
       },
     },
   },
@@ -187,6 +204,9 @@ const InformacionGeneral = createStackNavigator(
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
+        ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
         ),
       },
     },
@@ -207,6 +227,9 @@ const InfraestructuraDeZona = createStackNavigator(
             />
           </View>
         ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
+        ),
       },
     },
   },
@@ -226,6 +249,9 @@ const InfraestructuraDisponible = createStackNavigator(
             />
           </View>
         ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
+        ),
       },
     },
   },
@@ -244,6 +270,9 @@ const EquipamientoUrbano = createStackNavigator(
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
+        ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
         ),
       },
     },
@@ -340,6 +369,9 @@ const EstanciaComedor = createStackNavigator(
             />
           </View>
         ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
+        ),
       },
     },
   },
@@ -358,6 +390,9 @@ const Banios = createStackNavigator(
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
+        ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
         ),
       },
     },
@@ -378,6 +413,9 @@ const Escaleras = createStackNavigator(
             />
           </View>
         ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
+        ),
       },
     },
   },
@@ -396,6 +434,9 @@ const Cocina = createStackNavigator(
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
+        ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
         ),
       },
     },
@@ -416,6 +457,9 @@ const PatioServicio = createStackNavigator(
             />
           </View>
         ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
+        ),
       },
     },
   },
@@ -434,6 +478,9 @@ const Estacionamiento = createStackNavigator(
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
+        ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
         ),
       },
     },
@@ -454,6 +501,9 @@ const Fachada = createStackNavigator(
             />
           </View>
         ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
+        ),
       },
     },
   },
@@ -473,6 +523,9 @@ const TerrenoID = createStackNavigator(
             />
           </View>
         ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
+        ),
       },
     },
   },
@@ -491,6 +544,9 @@ const ElementosAdicionales = createStackNavigator(
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
+        ),
+        headerRight:(
+            <Image style={{height:50, width:50}}/>
         ),
       },
     },
