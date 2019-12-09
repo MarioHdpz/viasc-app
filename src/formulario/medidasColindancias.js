@@ -246,16 +246,6 @@ export default class App extends Component<Props> {
 
         <ScrollView style={styles.form}>
           <View>
-            <InputText
-              id = {78}
-              handleTextChange = {this.handleTextChangeNormal}
-              pholder = "Calle"
-              label = "Calle"
-              value= {
-                values[78]
-              ? values[78]
-              : null}
-            />
             <Select
               id = {79}
               options = {
