@@ -396,6 +396,7 @@ export default class App extends Component<Props> {
             handleTextChange = {this.handleTextChange}
             pholder = "Estado"
             label = "Estado"
+            validation = "caracter"
             value= {
               values[16]
             ? values[16]

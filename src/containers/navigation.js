@@ -608,6 +608,10 @@ const ElementosAdicionales = createStackNavigator(
 
 
 const rutas = createSwitchNavigator({
+  FInicio: {
+    screen: FInicio,
+  },
+  
   AuthStack:{
     screen:AuthStack,
   },
@@ -620,9 +624,7 @@ const rutas = createSwitchNavigator({
     screen: AppNavigator,
   },
 
-  FInicio: {
-    screen: FInicio,
-  },
+
 
   DatosGenerales: {
     screen: DatosGenerales,

@@ -268,7 +268,7 @@ export default class App extends Component<Props> {
     const {values, respuestas} = this.state
     switch (respuesta) {
       case 1:
-        return  <InputText
+        return  <InputNumber
                   id = {24}
                   handleTextChange = {this.handleTextChange}
                   pholder = "Superficie de Construcción"
@@ -318,7 +318,7 @@ export default class App extends Component<Props> {
             label = "Tipo de Construcción"
             buttonSelected = { this.buttonSelected }
           />
-          <InputText
+          <InputNumber
             id = {160}
             handleTextChange = {this.handleTextChange}
             pholder = "Superficie"

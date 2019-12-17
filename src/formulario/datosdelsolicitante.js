@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
 import InputText from '../components/inputText';
+import InputNumber from '../components/inputNumber';
 import ButtonForm from '../components/buttonForm'
 
 export default class App extends Component<Props> {
@@ -214,6 +215,7 @@ export default class App extends Component<Props> {
             handleTextChange = {this.handleTextChange}
             pholder = "Apellido Paterno"
             label = "Apellido Paterno"
+            validation = "caracter"
             value= {
               values[3]
             ? values[3]
@@ -224,6 +226,7 @@ export default class App extends Component<Props> {
             handleTextChange = {this.handleTextChange}
             pholder = "Apellido Materno"
             label = "Apellido Materno"
+            validation = "caracter"
             value= {
               values[4]
             ? values[4]
@@ -234,6 +237,7 @@ export default class App extends Component<Props> {
             handleTextChange = {this.handleTextChange}
             pholder = "Nombre"
             label = "Nombre"
+            validation = "caracter"
             value= {
               values[5]
             ? values[5]
@@ -269,7 +273,7 @@ export default class App extends Component<Props> {
             ? values[8]
             : null}
           />
-          <InputText
+          <InputNumber
             id = {9}
             handleTextChange = {this.handleTextChange}
             pholder = "Código Postal"

@@ -678,7 +678,6 @@ export default class App extends Component<Props> {
         </View>
         break;
       default: null
-
     }
   }
 
