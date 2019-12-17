@@ -73,6 +73,7 @@ export default class App extends Component<Props> {
             icon = {require('../assets/icono_flechader/icono_flechader.png')}
             text = "Infraestructura Disponible"
             disabled = {true}
+            status = {null}
             onClickButton = {()=>{
               console.log('Infraestructura Disponible');
               this.props.navigation.navigate('InfraestructuraDisponible', {user:this.state.user})
@@ -82,6 +83,7 @@ export default class App extends Component<Props> {
             icon = {require('../assets/icono_flechader/icono_flechader.png')}
             text = "Equipamiento Urbano"
             disabled = {true}
+            status = {null}
             onClickButton = {()=>{
               console.log('Equipamiento Urbano');
               this.props.navigation.navigate('EquipamientoUrbano', {user:this.state.user})

@@ -85,10 +85,10 @@ export default class App extends Component<Props> {
       const value = await AsyncStorage.getItem('readyFormulario')
       console.log('1readyFormulario', value);
       if(value !== null) {
-        rf = JSON.parse(value)
+        const rf = JSON.parse(value)
         console.log('readyFormulario',rf);
 
-        if (rf['DatosDelSolicitante'] && rf['Ubicacion'] && rf['DatosGenerales'] && rf['InformacionGeneral'] ) {
+        if (rf['DatosDelSolicitante'] && rf['Ubicacion'] && rf['TipoDeInmueble'] && rf['InformacionGeneral'] ) {
             this.setState({form:true,okfotos:true})
         }
 

@@ -13,7 +13,6 @@ import {
   BackHandler
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { NavigationActions } from 'react-navigation';
 
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
@@ -29,18 +28,6 @@ export default class App extends Component<Props> {
     respuestas : {},
     values:{},
   }
-
-  componentDidMount = () => {
-    const {navigation} = this.props;
-
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
-    this.getStorage()
-  }
-
-  componentWillUnmount = () => {
-    this.backHandler.remove()
-  }
-
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft:(
@@ -59,16 +46,22 @@ export default class App extends Component<Props> {
     }
   }
 
+  componentDidMount = () => {
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
+    this.getStorage()
+  }
+
+  componentWillUnmount = () => {
+    this.backHandler.remove()
+  }
+
   buttonSelected = (index, id, data) => {
     let {respuestas, values} =  this.state;
 
     respuestas[id] = data[0];
     values[id] = data[1];
 
-    //console.log('buttonSelected id:', id, 'data0',data[0],'data1', data[1]);
-    console.log('buttonSelected', respuestas[id], 'data', data, 'respuestas', respuestas, 'values', values);
-
-    this.setState({respuestas, values},this.setStorage)
+    this.setState({respuestas, values}, this.setStorage )
   }
 
   handleTextChange = (inputText, id, index) => {
@@ -89,8 +82,189 @@ export default class App extends Component<Props> {
     this.setState({respuestas, values}, this.setStorage)
   }
 
+  setStorage = async () => {
+    try {
+      await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+
+    try {
+      await AsyncStorage.setItem('values', JSON.stringify(this.state.values) )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+  }
+
+  getStorage = async () => {
+    try {
+      const value = await AsyncStorage.getItem('respuestas');
+      if(value !== null) {
+        const respuestas = JSON.parse(value);
+        console.log(respuestas);
+        this.setState({respuestas})
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
+
+    try {
+      const value = await AsyncStorage.getItem('values');
+      if(value !== null) {
+        const values = JSON.parse(value);
+        console.log(values);
+        this.setState({values})
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
+  }
+
+  clear = () => {
+    let {respuestas, values} =  this.state;
+
+    respuestas[22] = null;
+    respuestas[24] = null;
+    respuestas[26] = null;
+    respuestas[27] = null;
+    respuestas[160] = null;
+    respuestas[28] = null;
+    respuestas[29] = null;
+    respuestas[31] = null;
+    respuestas[32] = null;
+    respuestas[35] = null;
+    respuestas[36] = null;
+    respuestas[37] = null;
+    respuestas[40] = null;
+    respuestas[41] = null;
+    respuestas[42] = null;
+    respuestas[43] = null;
+    respuestas[45] = null;
+    respuestas[47] = null;
+    respuestas[48] = null;
+    respuestas[161] = null;
+    respuestas[162] = null;
+    respuestas[163] = null;
+    respuestas[164] = null;
+    respuestas[49] = null;
+    respuestas[50] = null;
+    respuestas[51] = null;
+    respuestas[52] = null;
+    respuestas[53] = null;
+    respuestas[54] = null;
+    respuestas[31] = null;
+    respuestas[57] = null;
+    respuestas[58] = null;
+    respuestas[59] = null;
+    respuestas[60] = null;
+    respuestas[61] = null;
+    respuestas[37] = null;
+
+    values[22] = null;
+    values[24] = null;
+    values[26] = null;
+    values[27] = null;
+    values[160] = null;
+    values[28] = null;
+    values[29] = null;
+    values[31] = null;
+    values[32] = null;
+    values[35] = null;
+    values[36] = null;
+    values[37] = null;
+    values[40] = null;
+    values[41] = null;
+    values[42] = null;
+    values[43] = null;
+    values[45] = null;
+    values[47] = null;
+    values[48] = null;
+    values[161] = null;
+    values[162] = null;
+    values[163] = null;
+    values[164] = null;
+    values[49] = null;
+    values[50] = null;
+    values[51] = null;
+    values[52] = null;
+    values[53] = null;
+    values[54] = null;
+    values[31] = null;
+    values[57] = null;
+    values[58] = null;
+    values[59] = null;
+    values[60] = null;
+    values[61] = null;
+    values[37] = null;
+
+    this.setState({respuestas, values }, this.setStorage)
+  }
+
+  fCancelar = () => {
+    Alert.alert(
+      'Cancelar',
+      '¿Desea cancelar?',
+      [
+        {
+          text: 'No, continuar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Si, cancelar', onPress: () => {
+          this.clear()
+        }},
+      ],
+      {cancelable: false},
+    );
+  }
+
+  fSend = () => {
+    Alert.alert(
+      'Enviar',
+      '¿Desea enviar su información?',
+      [
+        {
+          text: 'No, continuar',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Si, enviar', onPress: () => {
+          //Aquí -> Axios a server
+          //Confirmo que todo esta bien
+          this.readyFormulario();
+        }},
+      ],
+      {cancelable: false},
+    );
+  }
+
+  readyFormulario = async () => {
+    try {
+      const value = await AsyncStorage.getItem('readyFormulario');
+      let rf = null;
+      if (value) {
+        rf = JSON.parse(value);
+        rf['TipoDeInmueble'] = true
+      }
+      else{
+        rf = {};
+        rf['TipoDeInmueble'] = true;
+      }
+      this.setReadyFormulario(rf);
+
+    } catch(e) {
+      console.log("error storage", e);
+    }
+  }
+  setReadyFormulario= async (rf) => {
+    try {
+      await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+  }
+
   elementos = (respuesta) => {
-    console.log('elementos', respuesta );
     const {values, respuestas} = this.state
     switch (respuesta) {
       case 1:
@@ -206,11 +380,6 @@ export default class App extends Component<Props> {
             label = "Clase de Construcción"
             buttonSelected = { this.buttonSelected }
           />
-          {
-            respuestas[31] && respuestas[31]>0
-            ? this.cConstruccion(respuestas[31])
-            : null
-          }
           <Select
             id = {32}
             options = {
@@ -588,11 +757,6 @@ export default class App extends Component<Props> {
             label = "Clase de Construcción"
             buttonSelected = { this.buttonSelected }
           />
-          {
-            respuestas[31] && respuestas[31]>0
-            ? this.cConstruccion(respuestas[31])
-            : null
-          }
           <Select
             id = {57}
             options = {
@@ -716,232 +880,68 @@ export default class App extends Component<Props> {
     }
   }
 
-  cConstruccion = (respuesta) => {
-    let {values, respuestas} = this.state
-    return(
-      <View>
-        <ButtonForm
-          icon = {require('../assets/icono_flechader/icono_flechader.png')}
-          text = "Recámaras"
-          disabled = {true}
-          onClickButton = {()=>{ this.props.navigation.navigate('Recamaras') }}
-        />
-
-        <ButtonForm
-          icon = {require('../assets/icono_flechader/icono_flechader.png')}
-          text = "Estancia Comedor"
-          disabled = {true}
-          onClickButton = {()=>{ this.props.navigation.navigate('EstanciaComedor') }}
-        />
-
-        <ButtonForm
-          icon = {require('../assets/icono_flechader/icono_flechader.png')}
-          text = "Baños"
-          disabled = {true}
-          onClickButton = {()=>{ this.props.navigation.navigate('Banios') }}
-        />
-
-        <ButtonForm
-          icon = {require('../assets/icono_flechader/icono_flechader.png')}
-          text = "Escaleras"
-          disabled = {true}
-          onClickButton = {()=>{ this.props.navigation.navigate('Escaleras') }}
-        />
-
-        <ButtonForm
-          icon = {require('../assets/icono_flechader/icono_flechader.png')}
-          text = "Cocina"
-          disabled = {true}
-          onClickButton = {()=>{ this.props.navigation.navigate('Cocina') }}
-        />
-
-        <ButtonForm
-          icon = {require('../assets/icono_flechader/icono_flechader.png')}
-          text = "Patio Servicio"
-          disabled = {true}
-          onClickButton = {()=>{ this.props.navigation.navigate('PatioServicio') }}
-        />
-
-        <ButtonForm
-          icon = {require('../assets/icono_flechader/icono_flechader.png')}
-          text = "Estacionamiento"
-          disabled = {true}
-          onClickButton = {()=>{ this.props.navigation.navigate('Estacionamiento') }}
-        />
-
-        <ButtonForm
-          icon = {require('../assets/icono_flechader/icono_flechader.png')}
-          text = "Fachada"
-          disabled = {true}
-          onClickButton = {()=>{ this.props.navigation.navigate('Fachada') }}
-        />
-      </View>
-    )
-  }
-
-  readyFormulario = async () => {
-    try {
-      const value = await AsyncStorage.getItem('readyFormulario');
-      let rf = null;
-      if (value) {
-        rf = JSON.parse(value);
-        rf['DatosGenerales'] = true
-      }
-      else{
-        rf = {};
-        rf['DatosGenerales'] = true;
-      }
-      this.setReadyFormulario(rf);
-
-    } catch(e) {
-      console.log("error storage", e);
-    }
-  }
-  setReadyFormulario= async (rf) => {
-    try {
-      await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )
-    } catch (e) {
-      console.log("error de almacenaje");
-    }
-  }
-
-  setStorage = async () => {
-    try {
-      await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
-    } catch (e) {
-      console.log("error de almacenaje");
-    }
-
-    try {
-      await AsyncStorage.setItem('values', JSON.stringify(this.state.values) )
-    } catch (e) {
-      console.log("error de almacenaje");
-    }
-  }
-
-  getStorage = async () => {
-    try {
-      const value = await AsyncStorage.getItem('respuestas');
-      if(value !== null) {
-        const respuestas = JSON.parse(value);
-        console.log(respuestas);
-        this.setState({respuestas})
-      }
-    } catch(e) {
-      console.log("error storage", e);
-    }
-
-    try {
-      const value = await AsyncStorage.getItem('values');
-      if(value !== null) {
-        const values = JSON.parse(value);
-        console.log(values);
-        this.setState({values})
-      }
-    } catch(e) {
-      console.log("error storage", e);
-    }
-  }
-
-  clear = () => {
-    let {respuestas, values} =  this.state;
-
-    let clr={};
-    for (const r in respuestas) {
-      clr[r] = null;
-    }
-
-    let clv={};
-    for (const r in values) {
-      clv[r] = null;
-    }
-
-    this.setState({respuestas : clr, values:clv }, ()=>{
-      this.setStorage();
-    })
-  }
-
-  fCancelar = () => {
-    Alert.alert(
-      'Cancelar',
-      '¿Desea cancelar?',
-      [
-        {
-          text: 'No, continuar',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'Si, cancelar', onPress: () => {
-          this.clear()
-        }},
-      ],
-      {cancelable: false},
-    );
-  }
-
-  fSend = () => {
-    Alert.alert(
-      'Enviar',
-      '¿Desea enviar su información?',
-      [
-        {
-          text: 'No, continuar',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'Si, enviar', onPress: () => {
-          //Aquí -> Axios a server
-          //Confirmo que todo esta bien
-          this.readyFormulario();
-          //despúes:
-          this.clear();
-        }},
-      ],
-      {cancelable: false},
-    );
-  }
-
   render = () => {
     const {values, respuestas} = this.state;
-
-    console.log('values[22]',respuestas[22]);
-
     return(
       <ImageBackground
         source={require('../assets/bg_app/bg_app.png')}
         style={styles.container}
       >
 
-      <ButtonBack
-        backForm={()=>{this.props.navigation.navigate('FInicio', {user:this.state.user})}}
-      />
-
-      <TitleForm
-        label="Datos generales"
-      />
-
-      <ScrollView style={styles.form}>
-        <ButtonForm
-          icon = {require('../assets/icono_flechader/icono_flechader.png')}
-          text = "Datos del solicitante"
-          disabled = {true}
-          status = {null}
-          onClickButton = {()=>{
-              this.props.navigation.navigate('DatosDelSolicitante', {user:this.state.user})
-            }}
+        <ButtonBack
+          backForm={()=>{this.props.navigation.navigate('FInicio', {user:this.state.user})}}
         />
 
-        <ButtonForm
-          icon = {require('../assets/icono_flechader/icono_flechader.png')}
-          text = "Ubicación"
-          disabled = {true}
-          status = {null}
-          onClickButton = {()=>{
-            this.props.navigation.navigate('Ubicacion', {user:this.state.user})
-          }}
+        <TitleForm
+          label="Tipo de inmueble"
         />
-      </ScrollView>
 
+        <ScrollView style={styles.form}>
+          <Select
+            id = {22}
+            options = {
+              [
+                [1,"Terreno"],
+                [2,"Casa habitación"],
+                [3,"Casa en condominio"],
+                [4,"Departamento en condominio"]
+              ]
+            }
+            value = {
+              values[22]
+              ? values[22]
+              : "Tipo de inmueble"
+            }
+            label = "Tipo de inmueble"
+            buttonSelected = { this.buttonSelected }
+          />
+
+          {
+            respuestas[22]
+            ? this.elementos( respuestas[22] )
+            :null
+          }
+
+          <View style={styles.fixToText}>
+            <TouchableOpacity onPress={this.fCancelar}>
+              <Image
+                style={{
+                  width:100,
+                }}
+                source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={this.fSend}>
+              <Image
+                style={{
+                  width:100,
+                }}
+                source={require('../assets/btn_guardar/btn_guardar.png')}
+              />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </ImageBackground>
     )
   }

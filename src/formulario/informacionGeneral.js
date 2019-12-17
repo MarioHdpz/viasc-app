@@ -26,6 +26,7 @@ export default class App extends Component<Props> {
     respuestas : {},
     values:{},
   }
+  
   static navigationOptions = ({ navigation }) => {
     return {
       headerLeft:(
@@ -59,7 +60,7 @@ export default class App extends Component<Props> {
     respuestas[id] = data[0];
     values[id] = data[1];
 
-    this.setState({respuestas, values})
+    this.setState({respuestas, values}, this.setStorage)
   }
 
   setStorage = async () => {
@@ -103,13 +104,10 @@ export default class App extends Component<Props> {
   clear = () => {
     let {respuestas, values} =  this.state;
 
-    let clr={};
-    for (const r in respuestas) {
-      clr[r] = null;
-    }
+    respuestas[63] = null
+    values[63] = null
 
-    console.log(clr);
-    this.setState({respuestas : clr, values:clr }, ()=>{
+    this.setState({ respuestas, values }, ()=>{
       this.setStorage();
     })
   }
@@ -146,8 +144,6 @@ export default class App extends Component<Props> {
           //Aquí -> Axios a server
           //Confirmo que todo esta bien
           this.readyFormulario();
-          //despúes:
-          this.clear();
         }},
       ],
       {cancelable: false},
@@ -172,6 +168,7 @@ export default class App extends Component<Props> {
       console.log("error storage", e);
     }
   }
+
   setReadyFormulario= async (rf) => {
     try {
       await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )

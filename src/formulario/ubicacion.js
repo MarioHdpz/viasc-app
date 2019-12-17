@@ -81,27 +81,6 @@ export default class App extends Component<Props> {
     } else {
       this.watchLocation();
     }
-
-
-    /*const {lon, lat} = this.props;
-    let {myPosition} = this.state;
-    if (lon && lat ) {
-      console.log('props existen', lat, lon);
-
-      myPosition = {
-        latitude:parseFloat(lat),
-        longitude:parseFloat(lon),
-        latitudeDelta:0.0005,
-        longitudeDelta:0.0005,
-      }
-
-      this.mapRef.animateToRegion(myPosition);
-      this.setState({myPosition})
-    }
-    else{
-
-    }
-    */
   }
 
   watchLocation = () => {
@@ -115,8 +94,6 @@ export default class App extends Component<Props> {
             myPosition["latitudeDelta"] = 0.0005;
             myPosition["longitudeDelta"] = 0.0005;
           }
-
-          console.log('myPosition', myPosition);
 
           this.mapRef.animateToRegion(myPosition, 1500);
 
@@ -150,8 +127,7 @@ export default class App extends Component<Props> {
 
   getAddres = () => {
     let {myPosition} = this.state;
-    //const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM';//NUEVA API KEY
-    const myApiKey = 'AIzaSyBoOou-XcFaKlNGocLLuGT5BF8igrNtLEo'; //MI API
+    const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM';//NUEVA API KEY
     const url  = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${myPosition.latitude},${myPosition.longitude}&key=${myApiKey}`;
 
     console.log(url);
@@ -206,7 +182,7 @@ export default class App extends Component<Props> {
     respuestas[id] = inputText;
     values[id] = inputText;
 
-    this.setState({respuestas, values})
+    this.setState({respuestas, values},()=>{ this.setStorage() })
   }
 
   setStorage = async () => {
@@ -250,13 +226,27 @@ export default class App extends Component<Props> {
   clear = () => {
     let {respuestas, values} =  this.state;
 
-    let clr={};
-    for (const r in respuestas) {
-      clr[r] = null;
-    }
+    respuestas[12] = null
+    respuestas[13] = null
+    respuestas[14] = null
+    respuestas[15] = null
+    respuestas[16] = null
+    respuestas[17] = null
+    respuestas[18] = null
+    respuestas[19] = null
+    respuestas[20] = null
 
-    console.log(clr);
-    this.setState({respuestas : clr, values:clr }, ()=>{
+    values[12] = null
+    values[13] = null
+    values[14] = null
+    values[15] = null
+    values[16] = null
+    values[17] = null
+    values[18] = null
+    values[19] = null
+    values[20] = null
+
+    this.setState({respuestas, values}, ()=>{
       this.setStorage();
     })
   }
@@ -294,7 +284,7 @@ export default class App extends Component<Props> {
           //Confirmo que todo esta bien
           this.readyFormulario();
           //despúes:
-          this.clear();
+          //this.clear();
         }},
       ],
       {cancelable: false},

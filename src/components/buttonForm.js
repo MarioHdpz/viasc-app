@@ -15,7 +15,11 @@ export default class ButtonForm extends Component<Props> {
     const {disabled} = this.props;
     return (
       <TouchableOpacity
-      style={styles.button}
+      style={
+        this.props.status === false
+        ? styles.no
+        : styles.button
+      }
       onPress={
         disabled
         ? ()=>{this.props.onClickButton(this.props.id)}
@@ -24,13 +28,18 @@ export default class ButtonForm extends Component<Props> {
       activeOpacity={disabled ? 1 : 0.7}
       >
         <View style={styles.v1}>
-
           <Text style={styles.text}>
             {this.props.text}
           </Text>
-
         </View>
-        <Image style={styles.image} source={this.props.icon}/>
+        {
+          this.props.status === null
+          ? <Image style={styles.image} source={this.props.icon}/>
+          : this.props.status
+            ? <Image style={styles.image} source={require('../assets/icono_acierto/icono_acierto.png')}/>
+            : <Image style={styles.image} source={require('../assets/icono_errorblanco/icono_errorblanco.png')}/>
+
+        }
       </TouchableOpacity>
     );
   }
@@ -44,6 +53,17 @@ const styles = StyleSheet.create({
     margin:15,
     padding:0,
     borderBottomColor:'#76bc21',
+    borderBottomWidth:2,
+    alignItems:'center',
+    justifyContent:'flex-start',
+    flexDirection:'row',
+  },
+  no:{
+    width:width-50,
+    height:40,
+    margin:15,
+    padding:0,
+    borderBottomColor:'rgb(194, 57, 57)',
     borderBottomWidth:2,
     alignItems:'center',
     justifyContent:'flex-start',
@@ -64,20 +84,5 @@ const styles = StyleSheet.create({
     fontSize:16,
     fontWeight: 'bold'
   },
-  ok:{
-    backgroundColor:'rgb(57, 194, 103)',
-    width:60,
-    height:'100%',
-    justifyContent:'center',
-    borderBottomRightRadius:10,
-    borderTopRightRadius:10
-  },
-  no:{
-    backgroundColor:'rgb(194, 57, 57)',
-    width:60,
-    height:'100%',
-    justifyContent:'center',
-    borderBottomRightRadius:10,
-    borderTopRightRadius:10
-  },
+
 });

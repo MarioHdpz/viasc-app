@@ -701,7 +701,7 @@ export default class App extends Component<Props> {
         style={styles.container}
       >
         <ButtonBack
-          backForm={()=>{this.props.navigation.navigate('DatosGenerales', {user:this.state.user})}}
+          backForm={()=>{this.props.navigation.navigate('Construcciones', {user:this.state.user})}}
         />
 
         <TitleForm

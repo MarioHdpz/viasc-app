@@ -36,6 +36,24 @@ export default class App extends Component<Props> {
     this.backHandler.remove()
   }
 
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft:(
+        <TouchableOpacity
+          onPress={()=>{navigation.navigate('InitAvaluo')}}
+        >
+          <Image
+            style={{
+              width:30,
+              height:30
+            }}
+            source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
+          />
+        </TouchableOpacity>
+      ),
+    }
+  }
+
   render = () => {
     return(
       <ImageBackground
@@ -60,9 +78,21 @@ export default class App extends Component<Props> {
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Datos generales"
           disabled = {true}
+          status = {null}
           onClickButton = {()=>{
             console.log('datosgenerales');
-            this.props.navigation.navigate('DatosGenerales', {user:this.state.user})
+            this.props.navigation.navigate('DatosGenerales')
+          }}
+        />
+
+        <ButtonForm
+          icon = {require('../assets/icono_flechader/icono_flechader.png')}
+          text = "Tipo de inmueble"
+          disabled = {true}
+          status = {null}
+          onClickButton = {()=>{
+            console.log('TipoDeInmueble');
+            this.props.navigation.navigate('TipoDeInmueble')
           }}
         />
 
@@ -70,9 +100,10 @@ export default class App extends Component<Props> {
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Información general"
           disabled = {true}
+          status = {null}
           onClickButton = {()=>{
             console.log('InformacionGeneral');
-            this.props.navigation.navigate('InformacionGeneral', {user:this.state.user})
+            this.props.navigation.navigate('InformacionGeneral')
           }}
         />
 
@@ -80,18 +111,31 @@ export default class App extends Component<Props> {
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Infraestructura de zona"
           disabled = {true}
+          status = {null}
           onClickButton = {()=>{
             console.log('InfraestructuraDeZona');
-            this.props.navigation.navigate('InfraestructuraDeZona', {user:this.state.user})
+            this.props.navigation.navigate('InfraestructuraDeZona')
           }}
         />
         <ButtonForm
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Características de inmuebles"
           disabled = {true}
+          status = {null}
           onClickButton = {()=>{
             console.log('CaracteristicasDeInmuebles');
-            this.props.navigation.navigate('CaracteristicasDeInmuebles', {user:this.state.user})
+            this.props.navigation.navigate('CaracteristicasDeInmuebles')
+          }}
+        />
+
+        <ButtonForm
+          icon = {require('../assets/icono_flechader/icono_flechader.png')}
+          text = "Construcciones"
+          disabled = {true}
+          status = {null}
+          onClickButton = {()=>{
+            console.log('Construcciones');
+            this.props.navigation.navigate('Construcciones')
           }}
         />
 
@@ -99,6 +143,7 @@ export default class App extends Component<Props> {
           icon = {require('../assets/icono_flechader/icono_flechader.png')}
           text = "Elementos Adicionales"
           disabled = {true}
+          status = {null}
           onClickButton = {()=>{
             console.log('ElementosAdicionales');
             this.props.navigation.navigate('ElementosAdicionales')

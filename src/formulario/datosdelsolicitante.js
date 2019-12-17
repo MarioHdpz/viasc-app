@@ -100,15 +100,26 @@ export default class App extends Component<Props> {
   }
 
   clear = () => {
-    let {respuestas, values} =  this.state;
+    let {respuestas,values} = this.state;
+    respuestas[3] = null
+    respuestas[4] = null
+    respuestas[5] = null
+    respuestas[6] = null
+    respuestas[7] = null
+    respuestas[8] = null
+    respuestas[9] = null
+    respuestas[10] = null
 
-    let clr={};
-    for (const r in respuestas) {
-      clr[r] = null;
-    }
+    values[3] = null
+    values[4] = null
+    values[5] = null
+    values[6] = null
+    values[7] = null
+    values[8] = null
+    values[9] = null
+    values[10] = null
 
-    console.log(clr);
-    this.setState({respuestas : clr, values:clr }, ()=>{
+    this.setState({respuestas : respuestas, values:values }, ()=>{
       this.setStorage();
     })
   }
@@ -146,7 +157,7 @@ export default class App extends Component<Props> {
           //Confirmo que todo esta bien
           this.readyFormulario();
           //despúes:
-          this.clear();
+          //this.clear();
         }},
       ],
       {cancelable: false},

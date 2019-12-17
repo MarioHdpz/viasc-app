@@ -8,10 +8,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen'
 import {readResponseServer} from '../functions'
 
+//email:'gibran.aguilar@lytica.ai',
 type Props = {};
 export default class App extends Component<Props> {
   state={
-    email:'gibran.aguilar@lytica.ai',
+    email:'jess.monter@lytica.ai',
     pass:'admin',
     text:'',
   }
@@ -28,7 +29,8 @@ export default class App extends Component<Props> {
     if (email && pass) {
       //before url: http://167.172.197.238:3000/rest-auth/login/
       //new url: http://18.219.244.117/rest-auth/login/
-      const url = 'http://18.219.244.117/rest-auth/login/';
+      //const url = 'http://18.219.244.117/rest-auth/login/';
+      const url = 'http://167.172.197.238:3000/rest-auth/login/';
       const obj = {
         email:email,
         password:pass

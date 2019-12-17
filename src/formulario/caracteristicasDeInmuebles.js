@@ -117,6 +117,7 @@ export default class App extends Component<Props> {
             icon = {require('../assets/icono_flechader/icono_flechader.png')}
             text = "Medidas colindancias"
             disabled = {true}
+            status = {null}
             onClickButton = {()=>{
               console.log('InformacionGeneral');
               this.props.navigation.navigate('MedidasColindancias', {user:this.state.user})
@@ -127,6 +128,7 @@ export default class App extends Component<Props> {
             icon = {require('../assets/icono_flechader/icono_flechader.png')}
             text = "Terreno ID "
             disabled = {true}
+            status = {null}
             onClickButton = {()=>{
               console.log('InfraestructuraDeZona');
               this.props.navigation.navigate('TerrenoID', {user:this.state.user})
