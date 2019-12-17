@@ -608,16 +608,13 @@ const ElementosAdicionales = createStackNavigator(
 
 
 const rutas = createSwitchNavigator({
-
-  Init:{
-    screen:Init,
-  },
-  
   AuthStack:{
     screen:AuthStack,
   },
 
-
+  Init:{
+    screen:Init,
+  },
 
   AppNavigator: {
     screen: AppNavigator,
