@@ -27,7 +27,7 @@ export default class App extends Component<Props> {
       console.log('INIT USER:',user);
     });
 
-    //this.getAllKeys()
+    this.getAllKeys()
   }
 
   onClickButton = () => {
@@ -35,13 +35,6 @@ export default class App extends Component<Props> {
   }
 
   getAllKeys = async () => {
-
-    /*
-    <NavigationEvents
-      onWillFocus={payload => {this.getAllKeys()}}
-    />
-    */
-
     let keys = []
     try {
       keys = await AsyncStorage.getAllKeys()
@@ -49,7 +42,16 @@ export default class App extends Component<Props> {
       // read key error
     }
 
-    if (keys.length>0) {
+
+    let k = false;
+    keys.map((d,i)=>{
+      if (d === 'respuestas' ) {
+        k = true
+        return null;
+      }
+    })
+
+    if (k) {
       this.setState({label:'Continuar Avalúo'})
     }
     else{
