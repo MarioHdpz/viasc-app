@@ -276,7 +276,7 @@ export default class App extends Component<Props> {
                   value= {
                     values[24]
                   ? values[24]
-                  : null}
+                  : ""}
                 />
         break;
       case 2:
@@ -326,7 +326,7 @@ export default class App extends Component<Props> {
             value= {
               values[160]
             ? values[160]
-            : null}
+            : ""}
           />
           <Calendar
             id = {28}
@@ -429,7 +429,7 @@ export default class App extends Component<Props> {
               value= {
                 values[36]
               ? values[36]
-              : null}
+              : ""}
             />
 
             <Select
@@ -580,7 +580,7 @@ export default class App extends Component<Props> {
                 value= {
                   values[48]
                 ? values[48]
-                : null}
+                : ""}
               />
             : null
           }
@@ -594,7 +594,7 @@ export default class App extends Component<Props> {
                 value= {
                   values[161]
                 ? values[161]
-                : null}
+                : ""}
               />
             : null
           }
@@ -608,7 +608,7 @@ export default class App extends Component<Props> {
                 value= {
                   values[162]
                 ? values[162]
-                : null}
+                : ""}
               />
             : null
           }
@@ -622,7 +622,7 @@ export default class App extends Component<Props> {
                 value= {
                   values[163]
                 ? values[163]
-                : null}
+                : ""}
               />
             : null
           }
@@ -636,7 +636,7 @@ export default class App extends Component<Props> {
                 value= {
                   values[164]
                 ? values[164]
-                : null}
+                : ""}
               />
             : null
           }

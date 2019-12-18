@@ -219,7 +219,7 @@ export default class App extends Component<Props> {
             value= {
               values[3]
             ? values[3]
-            : null}
+            : ""}
           />
           <InputText
             id = {4}
@@ -241,7 +241,7 @@ export default class App extends Component<Props> {
             value= {
               values[5]
             ? values[5]
-            : null}
+            : ""}
           />
           <InputText
             id = {6}
@@ -281,7 +281,7 @@ export default class App extends Component<Props> {
             value= {
               values[9]
             ? values[9]
-            : null}
+            : ""}
           />
           <InputText
             id = {10}

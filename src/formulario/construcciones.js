@@ -96,7 +96,7 @@ export default class App extends Component<Props> {
       <ScrollView style={{flex:1, marginTop:40}}>
 
         {
-          respuestas[22] === 1
+          respuestas[22] === 1 || !respuestas[22]
           ? null
           : <View>
 

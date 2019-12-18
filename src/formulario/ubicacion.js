@@ -24,6 +24,7 @@ import {readResponseServer} from '../functions';
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
 import InputText from '../components/inputText';
+import InputNumber from '../components/inputNumber';
 import ButtonForm from '../components/buttonForm'
 
 export default class App extends Component<Props> {
@@ -412,7 +413,7 @@ export default class App extends Component<Props> {
             ? values[17]
             : null}
           />
-          <InputText
+          <InputNumber
             id = {18}
             handleTextChange = {this.handleTextChange}
             pholder = "Longitud"
@@ -420,9 +421,9 @@ export default class App extends Component<Props> {
             value= {
               values[18]
             ? values[18]
-            : null}
+            : ""}
           />
-          <InputText
+          <InputNumber
             id = {19}
             handleTextChange = {this.handleTextChange}
             pholder = "Latitud"
@@ -430,9 +431,9 @@ export default class App extends Component<Props> {
             value= {
               values[19]
             ? values[19]
-            : null}
+            : ""}
           />
-          <InputText
+          <InputNumber
             id = {20}
             handleTextChange = {this.handleTextChange}
             pholder = "Altitud"
@@ -440,7 +441,7 @@ export default class App extends Component<Props> {
             value= {
               values[20]
             ? values[20]
-            : null}
+            : ""}
           />
 
           <View style={styles.fixToText}>

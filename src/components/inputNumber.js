@@ -3,6 +3,12 @@ import { TextInput, StyleSheet, View, Text, Dimensions } from 'react-native';
 
 export default class InputNumber extends Component {
 
+  validar = (texto) => {
+    const formato = texto.replace(/[abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi,'')
+    console.log(formato);
+    this.props.handleTextChange(formato,this.props.id)
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -11,8 +17,8 @@ export default class InputNumber extends Component {
         </Text>
         <TextInput
           style={styles.textInputStyle}
-          onChangeText={(texto)=>{this.props.handleTextChange(texto,this.props.id)}}
-          placeholder="000"
+          onChangeText={(texto)=>{this.validar(texto)}}
+          placeholder="0000"
           placeholderTextColor="#f2f2f2"
           keyboardType="numeric"
           value = {this.props.value}

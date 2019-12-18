@@ -53,7 +53,7 @@ export default class ModalTester extends Component {
           <ScrollView
             style={styles.scroll}
           >
-          <View style={{alignItems:'center'}}>
+          <View style={styles.titleModal}>
             <Text
               style={styles.label}
             >
@@ -128,14 +128,21 @@ const styles = StyleSheet.create({
   v1:{
     margin:15,
   },
+  titleModal:{
+    alignItems:'center',
+    justifyContent:'center',
+    borderBottomColor:'#73DB1D',
+    borderBottomWidth:3,
+    height:40,
+    marginLeft:'12%',
+    marginRight:'12%',
+  },
   label : {
     color:'white',
     fontSize:16,
     fontWeight: 'bold',
     marginLeft: 0,
     textAlign:'center',
-    borderBottomColor:'#73DB1D',
-    borderBottomWidth:3,
   },
   labelExit : {
     color:'white',
