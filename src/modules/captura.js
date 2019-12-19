@@ -281,10 +281,10 @@ export default class App extends Component<Props> {
   moveCarrusel = (dir) => {
     let {respuestas, active, picActive} = this.state;
 
-    if (dir === 'der' && picActive > 0) {
+    if (dir === 'izq' && picActive > 0) {
       picActive = picActive - 1;
     }
-    if ( dir === 'izq' && (respuestas[active]['b64'].length - 1) > picActive ){
+    if ( dir === 'der' && (respuestas[active]['b64'].length - 1) > picActive ){
       picActive = picActive + 1;
     }
 

@@ -139,14 +139,14 @@ export default class App extends Component<Props> {
   clear = () => {
     let {respuestas, values} =  this.state;
 
-    respuestas[79] = null
+    respuestas[72] = null
     respuestas[201] = null
     respuestas[202] = null
     respuestas[203] = null
     respuestas[204] = null
     respuestas[225] = null
 
-    values[79] = null
+    values[72] = null
     values[201] = null
     values[202] = null
     values[203] = null
@@ -251,7 +251,7 @@ export default class App extends Component<Props> {
         <ScrollView style={styles.form}>
           <View>
             <Select
-              id = {79}
+              id = {72}
               options = {
                 [
                   [0,"Norte"],
@@ -279,15 +279,15 @@ export default class App extends Component<Props> {
               buttonSelected = { this.buttonSelected }
             />
             {
-              values[79]
+              values[72]
               ? <InputText
-                id = {79}
+                id = {72}
                 handleTextChange = {this.handleTextChange}
                 pholder = "Medida"
                 label = "Medida"
                 value= {
-                  values[79]
-                ? values[79]
+                  values[72]
+                ? values[72]
                 : null}
               />
               :null

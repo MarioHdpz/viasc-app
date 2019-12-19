@@ -36,12 +36,22 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    const user = this.props.navigation.getParam('user');
-    this.setState({user});
     this.validarFromStorage();
   }
 
   validarFromStorage = async () => {
+    //GET USER
+    try {
+      const value = await AsyncStorage.getItem('user')
+      if(value !== null) {
+        this.setState({user:JSON.parse(value)}, ()=>{
+          console.log('user', JSON.parse(value) );
+        })
+      }
+    } catch(e) {
+      console.log("error storage", e);
+    }
+
     //VALIDAMOS DOCUMENTOS
     try {
       const value = await AsyncStorage.getItem('docs')
@@ -129,10 +139,21 @@ export default class App extends Component<Props> {
     );
   }
 
+  storeData = async (item,data) => {
+    try {
+      await AsyncStorage.setItem(item, data)
+    } catch (e) {
+      console.log("error de almacenaje");
+    }
+  }
+
   clearAll = async () => {
-    console.warn("limpiando");
+
     try {
       await AsyncStorage.clear();
+
+      console.warn("limpiando", JSON.stringify(this.state.user));
+      this.storeData('user', JSON.stringify(this.state.user) )
 
       this.setState({
         docs : null,

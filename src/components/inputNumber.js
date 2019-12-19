@@ -4,7 +4,7 @@ import { TextInput, StyleSheet, View, Text, Dimensions } from 'react-native';
 export default class InputNumber extends Component {
 
   validar = (texto) => {
-    const formato = texto.replace(/[abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~!@#$%^&*()_|+\=?;:'",.<>\{\}\[\]\\\/]/gi,'')
+    const formato = texto.replace(/[abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~!@#$%^&*()_|+\=?;:'",<>\{\}\[\]\\\/]/gi,'')
     console.log(formato);
     this.props.handleTextChange(formato,this.props.id)
   }
