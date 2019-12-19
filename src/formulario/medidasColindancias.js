@@ -233,7 +233,7 @@ export default class App extends Component<Props> {
   }
 
   render = () => {
-    const {values, i1, i2, i3, i4, i5} = this.state;
+    const {values, i1, i2, i3, i4, i5, respuestas} = this.state;
     return(
       <ImageBackground
         source={require('../assets/bg_app/bg_app.png')}
@@ -297,7 +297,7 @@ export default class App extends Component<Props> {
           </View>
 
           {
-            i1
+            i1 || respuestas[201]
             ?
             <View>
             <Select
@@ -347,7 +347,7 @@ export default class App extends Component<Props> {
           }
 
           {
-            i2
+            i2 || respuestas[202]
             ?<View>
             <Select
               id = {202}
@@ -396,7 +396,7 @@ export default class App extends Component<Props> {
           }
 
           {
-            i3
+            i3 || respuestas[203]
             ?<View>
             <Select
               id = {203}
@@ -445,7 +445,7 @@ export default class App extends Component<Props> {
           }
 
           {
-            i4
+            i4 || respuestas[204]
             ?<View>
             <Select
               id = {204}
@@ -494,7 +494,7 @@ export default class App extends Component<Props> {
           }
 
           {
-            i5
+            i5 || respuestas[225]
             ?<View>
             <Select
               id = {205}

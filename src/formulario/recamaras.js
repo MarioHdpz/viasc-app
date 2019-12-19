@@ -709,8 +709,8 @@ export default class App extends Component<Props> {
 
         <ScrollView style={styles.form}>
           {
-            respuestas[22]
-            ? this.cConstruccion( respuestas[22] )
+            respuestas[31]
+            ? this.cConstruccion( respuestas[31] )
             :null
           }
 

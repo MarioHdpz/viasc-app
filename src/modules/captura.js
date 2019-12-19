@@ -114,7 +114,7 @@ export default class App extends Component<Props> {
   }
 
   getPhoto = (index, id, data, b64) => {
-    let { respuestas, active } = this.state;
+    let { respuestas, active, picActive } = this.state;
 
     if (!respuestas[active]['b64']) {
       console.log('creando arrays vacíos');
@@ -127,7 +127,8 @@ export default class App extends Component<Props> {
 
     respuestas[active]['b64'].push(b64);
     respuestas[active]['encoding'].push(data);
-    this.setState({respuestas});
+    picActive++;
+    this.setState({respuestas, picActive});
   }
 
   delPhoto = (index, id) => {

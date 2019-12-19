@@ -745,8 +745,6 @@ export default class App extends Component<Props> {
                 [8,"Residencial Plus"],
                 [9,"Residencial Plus +"],
                 [10,"Única"],
-                [11,"Nueva"],
-                [12,"Usada"],
               ]
             }
             value = {
