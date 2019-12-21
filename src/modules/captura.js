@@ -127,7 +127,11 @@ export default class App extends Component<Props> {
 
     respuestas[active]['b64'].push(b64);
     respuestas[active]['encoding'].push(data);
-    picActive++;
+
+    if (respuestas[active]['b64'].length>1) {
+      picActive++;
+    }
+
     this.setState({respuestas, picActive});
   }
 
@@ -290,6 +294,24 @@ export default class App extends Component<Props> {
     }
 
     this.setState({picActive});
+  }
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft:(
+        <TouchableOpacity
+          onPress={()=>{navigation.navigate('InitAvaluo')}}
+        >
+          <Image
+            style={{
+              width:30,
+              height:30
+            }}
+            source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
+          />
+        </TouchableOpacity>
+      ),
+    }
   }
 
   render = () => {

@@ -13,6 +13,7 @@ import {
   BackHandler
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
@@ -208,7 +209,7 @@ export default class App extends Component<Props> {
         <TitleForm
           label="Datos del solicitante"
         />
-
+        <KeyboardAwareScrollView>
         <ScrollView style={styles.form}>
           <InputText
             id = {3}
@@ -278,6 +279,7 @@ export default class App extends Component<Props> {
             handleTextChange = {this.handleTextChange}
             pholder = "Código Postal"
             label = "Código Postal"
+            validation = "entero"
             value= {
               values[9]
             ? values[9]
@@ -315,6 +317,7 @@ export default class App extends Component<Props> {
           </View>
 
         </ScrollView>
+        </KeyboardAwareScrollView>
       </ImageBackground>
     )
   }

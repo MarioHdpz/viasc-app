@@ -5,7 +5,9 @@ import {
   StyleSheet,
   ImageBackground,
   ScrollView,
-  Alert
+  Alert,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 import axios from 'axios';
 import {readResponseServer} from '../functions'
@@ -24,6 +26,24 @@ export default class App extends Component<Props> {
       "INE Propietario":null,
       "Recibos":null,
       "Plano vivienda":null,
+    }
+  }
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft:(
+        <TouchableOpacity
+          onPress={()=>{navigation.navigate('InitAvaluo')}}
+        >
+          <Image
+            style={{
+              width:30,
+              height:30
+            }}
+            source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
+          />
+        </TouchableOpacity>
+      ),
     }
   }
 
