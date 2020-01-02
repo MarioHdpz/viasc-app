@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -9,15 +9,15 @@ import {
   Image,
   Alert,
   ScrollView
-} from 'react-native';
-import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
+} from 'react-native'
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import {readResponseServer} from '../functions'
 
-import TitleForm from '../components/titleForm';
-import Select from '../components/select';
-import Camara from '../components/camara';
+import TitleForm from '../components/titleForm'
+import Select from '../components/select'
+import Camara from '../components/camara'
 
 const selectEtiquetas = {
   0:[],
@@ -77,8 +77,7 @@ const selectEtiquetas = {
   ],
 }
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     respuestas:{},
     active:null,
@@ -88,66 +87,72 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    this.getStorage();
+    this.getStorage()
   }
 
   getStorage = async () => {
     try {
-      const value = await AsyncStorage.getItem('user');
+      const value = await AsyncStorage.getItem('user')
       if(value !== null) {
-        const user = JSON.parse(value);
-        console.log('getUser',user);
+        const user = JSON.parse(value)
+        console.log('getUser',user)
         this.setState({user})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
 
   buttonSelected = (index,id, data) => {
-    let { respuestas } = this.state;
-    respuestas[id] = {};
-    respuestas[id]['value'] = data[0];
-    respuestas[id]['label'] = data[1];
+    let { respuestas } = this.state
+    respuestas[id] = {}
+    respuestas[id]['value'] = data[0]
+    respuestas[id]['label'] = data[1]
 
-    this.setState({respuestas, active:id});
+    this.setState({respuestas, active:id})
   }
 
   getPhoto = (index, id, data, b64) => {
-    let { respuestas, active, picActive } = this.state;
+    let { respuestas, active, picActive } = this.state
+
+
 
     if (!respuestas[active]['b64']) {
-      console.log('creando arrays vacíos');
-      respuestas[active]['b64'] = [];
-      respuestas[active]['encoding'] = [];
+      console.log('creando arrays vacíos')
+      respuestas[active]['b64'] = []
+      respuestas[active]['encoding'] = []
     }
     else{
-      console.log('active b64 existe', respuestas[active]);
+      console.log('active b64 existe', respuestas[active])
     }
 
-    respuestas[active]['b64'].push(b64);
-    respuestas[active]['encoding'].push(data);
+    /*if (respuestas[active]['b64'].length>1) {
+      picActive++
+    }*/
 
-    if (respuestas[active]['b64'].length>1) {
-      picActive++;
-    }
+    respuestas[active]['b64'].push(b64)
+    respuestas[active]['encoding'].push(data)
 
-    this.setState({respuestas, picActive});
+    picActive = respuestas[active]['b64'].length - 1;
+
+    //console.log('pics', active, picActive, respuestas[active]['b64'].length);
+
+    this.setState({respuestas, picActive})
   }
 
   delPhoto = (index, id) => {
-    let { respuestas } = this.state;
-    respuestas[id] = null;
-    this.setState({respuestas});
+    let { respuestas } = this.state
+    respuestas[id] = null
+    this.setState({respuestas})
   }
 
   buttonSelectedEtiquetas = (index,id, data) => {
-    let { respuestas } = this.state;
-    respuestas[id]['etiquetas'] = data[1];
+    let { respuestas } = this.state
+    respuestas[id]['etiquetas'] = data[1]
 
-    console.log(respuestas);
+    console.log(respuestas)
 
-    this.setState({respuestas});
+    this.setState({respuestas})
   }
 
   saveConfirm = () => {
@@ -162,11 +167,11 @@ export default class App extends Component<Props> {
             style: 'cancel',
           },
           {text: 'Si, Enviar', onPress: () => {
-            this.send();
+            this.send()
           }},
         ],
         {cancelable: false},
-      );
+      )
     }
     else{
       Alert.alert(
@@ -177,20 +182,20 @@ export default class App extends Component<Props> {
           {text: 'Aceptar', onPress: () => {}},
         ],
         {cancelable: false},
-      );
+      )
     }
   }
 
   hashCode = s => s.split('').reduce((a,b) => (((a << 5) - a) + b.charCodeAt(0))|0, 0)
 
   send = () => {
-    const { respuestas, user } = this.state;
+    const { respuestas, user } = this.state
     for(let item in respuestas){
-      const p = respuestas[item];
+      const p = respuestas[item]
 
       const pics = p.encoding
 
-      console.log('PIC', pics);
+      console.log('PIC', pics)
 
       if (pics) {
         pics.map((pic, index) => {
@@ -212,12 +217,12 @@ export default class App extends Component<Props> {
             }
           }
 
-          console.log(data);
+          console.log(data)
 
           axios.post('http://18.219.244.117/pictures/', data, conf)
           .then((response) => {
-            console.log('AXIOS OK -> ',response);
-            this.setReadyPictures();
+            console.log('AXIOS OK -> ',response)
+            this.setReadyPictures()
             Alert.alert(
               'Listo',
               readResponseServer(response.status),
@@ -225,9 +230,9 @@ export default class App extends Component<Props> {
                 {text: 'OK'},
               ],
               {cancelable: false},
-            );
-            //docs[id] = archive;
-            //this.setState({docs}, this.setDogsStorage);
+            )
+            //docs[id] = archive
+            //this.setState({docs}, this.setDogsStorage)
           })
           .catch((error) => {
 
@@ -238,16 +243,16 @@ export default class App extends Component<Props> {
                 {text: 'OK'},
               ],
               {cancelable: false},
-            );
+            )
 
-            //docs[id] = false;
-            //this.setState({docs}, this.setDogsStorage);
-          });
+            //docs[id] = false
+            //this.setState({docs}, this.setDogsStorage)
+          })
 
         })
       }
       else{
-        Alert.alert('Faltan datos');
+        Alert.alert('Faltan datos')
       }
 
 
@@ -268,32 +273,32 @@ export default class App extends Component<Props> {
           this.setState({
             respuestas:{},
             active:null,
-          });
+          })
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   setReadyPictures = async () => {
     try {
       await AsyncStorage.setItem('readyPictures', 'true' )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
   moveCarrusel = (dir) => {
-    let {respuestas, active, picActive} = this.state;
+    let {respuestas, active, picActive} = this.state
 
     if (dir === 'izq' && picActive > 0) {
-      picActive = picActive - 1;
+      picActive = picActive - 1
     }
     if ( dir === 'der' && (respuestas[active]['b64'].length - 1) > picActive ){
-      picActive = picActive + 1;
+      picActive = picActive + 1
     }
 
-    this.setState({picActive});
+    this.setState({picActive})
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -303,10 +308,7 @@ export default class App extends Component<Props> {
           onPress={()=>{navigation.navigate('InitAvaluo')}}
         >
           <Image
-            style={{
-              width:30,
-              height:30
-            }}
+            style={styles.back}
             source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
           />
         </TouchableOpacity>
@@ -315,14 +317,16 @@ export default class App extends Component<Props> {
   }
 
   render = () => {
-    const {respuestas, active, picActive} = this.state;
+    const {respuestas, active, picActive} = this.state
 
-    let arrayPic = null;
+    let arrayPic = []
     if (respuestas[active]) {
       if (respuestas[active]['b64']) {
-        arrayPic = respuestas[active]['b64'];
+        arrayPic = respuestas[active]['b64']
       }
     }
+
+    console.log('PRINT:', arrayPic[picActive]);
 
 
     let sin = null
@@ -403,17 +407,13 @@ export default class App extends Component<Props> {
           <View style={styles.buttonsBottom}>
             <TouchableOpacity onPress={this.clear}>
               <Image
-                style={{
-                  width:100,
-                }}
+                style={styles.touch}
                 source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={this.saveConfirm}>
               <Image
-                style={{
-                  width:100,
-                }}
+                style={styles.touch}
                 source={require('../assets/btn_guardar/btn_guardar.png')}
               />
             </TouchableOpacity>
@@ -422,11 +422,11 @@ export default class App extends Component<Props> {
         </View>
         </ScrollView>
       </ImageBackground>
-    );
+    )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   ScrollView:{
     flex:1,
@@ -448,4 +448,11 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-around',
   },
-});
+  touch:{
+    width:100,
+  },
+  back:{
+    width:30,
+    height:30
+  }
+})

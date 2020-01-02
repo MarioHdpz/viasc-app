@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -11,15 +11,15 @@ import {
   Image,
   Alert,
   BackHandler
-} from 'react-native';
+} from 'react-native'
 
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
-import InputText from '../components/inputText';
+import InputText from '../components/inputText'
 import ButtonForm from '../components/buttonForm'
-import Select from '../components/select';
+import Select from '../components/select'
 
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     user:null,
     respuestas : {},
@@ -44,16 +44,16 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
-    const user = this.props.navigation.getParam('user');
-    this.setState({user});
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') })
+    const user = this.props.navigation.getParam('user')
+    this.setState({user})
   }
   componentWillUnmount = () => {
     this.backHandler.remove()
   }
 
   render = () => {
-    const {values} = this.state;
+    const {values} = this.state
     return(
       <ImageBackground
         source={require('../assets/bg_app/bg_app.png')}
@@ -75,7 +75,7 @@ export default class App extends Component<Props> {
             disabled = {true}
             status = {null}
             onClickButton = {()=>{
-              console.log('Infraestructura Disponible');
+              console.log('Infraestructura Disponible')
               this.props.navigation.navigate('InfraestructuraDisponible', {user:this.state.user})
             }}
           />
@@ -85,7 +85,7 @@ export default class App extends Component<Props> {
             disabled = {true}
             status = {null}
             onClickButton = {()=>{
-              console.log('Equipamiento Urbano');
+              console.log('Equipamiento Urbano')
               this.props.navigation.navigate('EquipamientoUrbano', {user:this.state.user})
             }}
           />
@@ -95,7 +95,7 @@ export default class App extends Component<Props> {
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -114,4 +114,4 @@ const styles = StyleSheet.create({
     padding:15,
     paddingRight:30,
   },
-});
+})

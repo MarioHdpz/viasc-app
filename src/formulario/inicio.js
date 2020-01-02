@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -11,26 +11,26 @@ import {
   Image,
   Alert,
   BackHandler
-} from 'react-native';
+} from 'react-native'
 
 import SplashScreen from 'react-native-splash-screen'
 
 import TitleForm from '../components/titleForm'
 import ButtonForm from '../components/buttonForm'
 
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     user:null,
   }
 
   componentDidMount = () => {
     if (Platform.OS === 'android') {
-      SplashScreen.hide();
+      SplashScreen.hide()
     }
 
-    const user = this.props.navigation.getParam('user');
-    this.setState({user});
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
+    const user = this.props.navigation.getParam('user')
+    this.setState({user})
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') })
   }
   componentWillUnmount = () => {
     this.backHandler.remove()
@@ -80,7 +80,7 @@ export default class App extends Component<Props> {
           disabled = {true}
           status = {null}
           onClickButton = {()=>{
-            console.log('datosgenerales');
+            console.log('datosgenerales')
             this.props.navigation.navigate('DatosGenerales')
           }}
         />
@@ -91,7 +91,7 @@ export default class App extends Component<Props> {
           disabled = {true}
           status = {null}
           onClickButton = {()=>{
-            console.log('TipoDeInmueble');
+            console.log('TipoDeInmueble')
             this.props.navigation.navigate('TipoDeInmueble')
           }}
         />
@@ -102,7 +102,7 @@ export default class App extends Component<Props> {
           disabled = {true}
           status = {null}
           onClickButton = {()=>{
-            console.log('InformacionGeneral');
+            console.log('InformacionGeneral')
             this.props.navigation.navigate('InformacionGeneral')
           }}
         />
@@ -113,7 +113,7 @@ export default class App extends Component<Props> {
           disabled = {true}
           status = {null}
           onClickButton = {()=>{
-            console.log('InfraestructuraDeZona');
+            console.log('InfraestructuraDeZona')
             this.props.navigation.navigate('InfraestructuraDeZona')
           }}
         />
@@ -123,7 +123,7 @@ export default class App extends Component<Props> {
           disabled = {true}
           status = {null}
           onClickButton = {()=>{
-            console.log('CaracteristicasDeInmuebles');
+            console.log('CaracteristicasDeInmuebles')
             this.props.navigation.navigate('CaracteristicasDeInmuebles')
           }}
         />
@@ -134,7 +134,7 @@ export default class App extends Component<Props> {
           disabled = {true}
           status = {null}
           onClickButton = {()=>{
-            console.log('Construcciones');
+            console.log('Construcciones')
             this.props.navigation.navigate('Construcciones')
           }}
         />
@@ -145,7 +145,7 @@ export default class App extends Component<Props> {
           disabled = {true}
           status = {null}
           onClickButton = {()=>{
-            console.log('ElementosAdicionales');
+            console.log('ElementosAdicionales')
             this.props.navigation.navigate('ElementosAdicionales')
           }}
         />
@@ -156,7 +156,7 @@ export default class App extends Component<Props> {
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -170,4 +170,4 @@ const styles = StyleSheet.create({
     height:20,
     alignItems:'flex-end'
   }
-});
+})

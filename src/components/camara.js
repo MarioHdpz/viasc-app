@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -10,35 +10,35 @@ import {
   Dimensions,
   ScrollView,
   Alert,
-} from 'react-native';
-import { RNCamera } from 'react-native-camera';
-import { sha256 } from 'react-native-sha256';
+} from 'react-native'
+import { RNCamera } from 'react-native-camera'
+import { sha256 } from 'react-native-sha256'
 import Select from './select'
 
 
-type Props = {};
-export default class Camara extends Component<Props> {
+
+export default class Camara extends Component{
   state = {
     modalVisible: false,
     pic:null,
-  };
+  }
 
   setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
+    this.setState({modalVisible: visible})
   }
 
   takePicture = async() => {
     const {index, id}= this.props
     if (this.camera) {
-      const options = { quality: 0.5, base64: true, orientation:'portrait', forceUpOrientation: true };
-      const data = await this.camera.takePictureAsync(options);
+      const options = { quality: 0.5, base64: true, orientation:'portrait', forceUpOrientation: true }
+      const data = await this.camera.takePictureAsync(options)
 
       sha256(data.base64).then(hash => {
         this.props.getPhoto(index, id, hash, data.base64 )
         this.setModalVisible(!this.state.modalVisible)
-      });
+      })
     }
-  };
+  }
 
   delpic = () =>{
     const {index, id}= this.props
@@ -56,15 +56,16 @@ export default class Camara extends Component<Props> {
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   render = () => {
 
-    let cantFotos = 0;
+    let cantFotos = 0
     if (this.props.modulo) {
       if (this.props.modulo['b64']) {
-        cantFotos = this.props.modulo['b64'].length;
+        cantFotos = this.props.modulo['b64'].length
+
       }
     }
 
@@ -77,14 +78,11 @@ export default class Camara extends Component<Props> {
               this.props.modulo && cantFotos < 6
               ? <TouchableOpacity
                   onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
+                    this.setModalVisible(!this.state.modalVisible)
                   }}
                 >
                   <Image
-                    style={{
-                      width:40,
-                      height:40,
-                    }}
+                    style={styles.flechasCarrusel}
                     source={require('../assets/icono_camara/icono_camara.png')}
                   />
                 </TouchableOpacity>
@@ -101,7 +99,7 @@ export default class Camara extends Component<Props> {
                     onPress={()=>{this.props.moveCarrusel('izq')}}
                   >
                     <Image
-                      style={{width:40, height:40}}
+                      style={styles.flechasCarrusel}
                       source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
                     />
                   </TouchableOpacity>
@@ -120,7 +118,7 @@ export default class Camara extends Component<Props> {
                     onPress={()=>{this.props.moveCarrusel('der')}}
                   >
                     <Image
-                      style={{width:40, height:40}}
+                      style={styles.flechasCarrusel}
                       source={require('../assets/icono_flechader/icono_flechader.png')}
                     />
                   </TouchableOpacity>
@@ -135,12 +133,12 @@ export default class Camara extends Component<Props> {
             transparent={false}
             visible={this.state.modalVisible}
             onRequestClose={() => {
-              this.setModalVisible(!this.state.modalVisible);
+              this.setModalVisible(!this.state.modalVisible)
             }}>
             <View>
               <RNCamera
                 ref={ref => {
-                  this.camera = ref;
+                  this.camera = ref
                 }}
                 style={styles.preview}
                 type={RNCamera.Constants.Type.back}
@@ -158,45 +156,44 @@ export default class Camara extends Component<Props> {
                   buttonNegative: 'Cancel',
                 }}
                 onGoogleVisionBarcodesDetected={({ barcodes }) => {
-                  console.log(barcodes);
+                  console.log(barcodes)
                 }}
               />
 
               <View style={styles.buttonsModal}>
-                <TouchableOpacity onPress={this.takePicture.bind(this)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible)
+                  }}
+                >
                   <Image
-                    style={{
-                      width:100,
-                    }}
-                    source={require('../assets/btn_guardar/btn_guardar.png')}
+                    style={styles.touch}
+                    source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
                   />
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
-                  }}
-                >
-                <Image
-                  style={{
-                    width:100,
-                  }}
-                  source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
-                />
+                <TouchableOpacity onPress={this.takePicture.bind(this)}>
+                  <Image
+                    style={styles.touch}
+                    source={require('../assets/btn_guardar/btn_guardar.png')}
+                  />
                 </TouchableOpacity>
               </View>
             </View>
           </Modal>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
 
-const {height, width} = Dimensions.get('window');
-const ratio = width/541;
+const {height, width} = Dimensions.get('window')
+const ratio = width/541
 const styles = StyleSheet.create({
+  touch:{
+    width:100,
+  },
   container:{
     justifyContent: 'center',
     alignItems: 'center',
@@ -242,4 +239,8 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
   },
-});
+  flechasCarrusel:{
+    width:40,
+    height:40
+  },
+})

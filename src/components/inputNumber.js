@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { TextInput, StyleSheet, View, Text, Dimensions } from 'react-native';
+import React, { Component } from 'react'
+import { TextInput, StyleSheet, View, Text, Dimensions } from 'react-native'
 
 export default class InputNumber extends Component {
 
   validar = (texto) => {
-    let formato;
+    let formato
 
     switch (this.props.validation) {
       case 'entero':
         formato = texto.replace(/[abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~!@#$%^&*()_-|+\=?;:'",.<>\{\}\[\]\\\/]/gi,'')
-      break;
+      break
 
       default:
         formato = texto.replace(/[abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ`~!@#$%^&*()_|+\=?;:'",<>\{\}\[\]\\\/]/gi,'')
-      break;
+      break
     }
 
     this.props.handleTextChange(formato,this.props.id)
@@ -33,13 +33,14 @@ export default class InputNumber extends Component {
           placeholderTextColor="#f2f2f2"
           keyboardType="numeric"
           value = {this.props.value}
+          multiline={true}
         />
       </View>
-    );
+    )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flexDirection:'row',

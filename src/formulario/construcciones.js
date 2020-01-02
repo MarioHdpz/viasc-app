@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -11,15 +11,15 @@ import {
   Image,
   Alert,
   BackHandler
-} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import SplashScreen from 'react-native-splash-screen'
 
-import ButtonBack from '../components/buttonBack';
+import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
 import ButtonForm from '../components/buttonForm'
 
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     user:null,
     respuestas : {},
@@ -28,7 +28,7 @@ export default class App extends Component<Props> {
 
   componentDidMount = () => {
 
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') })
     this.getStorage()
   }
   componentWillUnmount = () => {
@@ -37,25 +37,25 @@ export default class App extends Component<Props> {
 
   getStorage = async () => {
     try {
-      const value = await AsyncStorage.getItem('respuestas');
+      const value = await AsyncStorage.getItem('respuestas')
       if(value !== null) {
-        const respuestas = JSON.parse(value);
-        console.log(respuestas);
+        const respuestas = JSON.parse(value)
+        console.log(respuestas)
         this.setState({respuestas})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
 
     try {
-      const value = await AsyncStorage.getItem('values');
+      const value = await AsyncStorage.getItem('values')
       if(value !== null) {
-        const values = JSON.parse(value);
-        console.log(values);
+        const values = JSON.parse(value)
+        console.log(values)
         this.setState({values})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
 
@@ -174,7 +174,7 @@ export default class App extends Component<Props> {
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -186,4 +186,4 @@ const styles = StyleSheet.create({
     height:20,
     alignItems:'flex-end'
   }
-});
+})

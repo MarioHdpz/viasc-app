@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -8,15 +8,14 @@ import {
   Alert,
   TouchableOpacity,
   Image,
-} from 'react-native';
-import axios from 'axios';
+} from 'react-native'
+import axios from 'axios'
 import {readResponseServer} from '../functions'
 
 import File from '../components/file'
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage'
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     user:null,
     docs:{
@@ -36,10 +35,7 @@ export default class App extends Component<Props> {
           onPress={()=>{navigation.navigate('InitAvaluo')}}
         >
           <Image
-            style={{
-              width:30,
-              height:30
-            }}
+            style={styles.back}
             source={require('../assets/icono_flechaizq/icono_flechaizq.png')}
           />
         </TouchableOpacity>
@@ -48,42 +44,42 @@ export default class App extends Component<Props> {
   }
 
   getStorage = async () => {
-    console.log('inicia getStorage');
+    console.log('inicia getStorage')
     try {
-      const value = await AsyncStorage.getItem('user');
+      const value = await AsyncStorage.getItem('user')
       if(value !== null) {
-        const user = JSON.parse(value);
-        console.log('getUser',user);
+        const user = JSON.parse(value)
+        console.log('getUser',user)
         this.setState({user})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
 
   componentDidMount = () => {
-    this.getStorage();
-    this.getDocsStorage();
+    this.getStorage()
+    this.getDocsStorage()
 
 
-    /*const user = this.props.navigation.getParam('user');
+    /*const user = this.props.navigation.getParam('user')
     this.setState({user},()=>{
-      console.log('ADJUNTARDOCUMENTOS:',user);
-    });*/
+      console.log('ADJUNTARDOCUMENTOS:',user)
+    })*/
   }
 
   getDocsStorage = async () => {
     try {
       const value = await AsyncStorage.getItem('docs')
       if(value !== null) {
-        const json = JSON.parse(value);
-        let {docs} = this.state;
+        const json = JSON.parse(value)
+        let {docs} = this.state
 
         for (i in json) {
           docs[i]=json[i]
         }
-        console.log('getDocsStorage',docs);
-        this.setState({docs});
+        console.log('getDocsStorage',docs)
+        this.setState({docs})
       }
 
 
@@ -96,16 +92,16 @@ export default class App extends Component<Props> {
     try {
       await AsyncStorage.setItem('docs', JSON.stringify(this.state.docs) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
   getData = async (id, archive) => {
-    let {docs, user} = this.state;
+    let {docs, user} = this.state
 
     /*
-    docs[id] = false;
-    this.setState({docs}, this.setDogsStorage);
+    docs[id] = false
+    this.setState({docs}, this.setDogsStorage)
     */
 
 
@@ -128,13 +124,13 @@ export default class App extends Component<Props> {
 
       axios.post('http://18.219.244.117/documents/', data, conf)
       .then((response) => {
-        console.log('AXIOS OK -> ',response);
-        docs[id] = archive;
-        this.setState({docs}, this.setDogsStorage);
+        console.log('AXIOS OK -> ',response)
+        docs[id] = archive
+        this.setState({docs}, this.setDogsStorage)
       })
       .catch((error) => {
-        docs[id] = false;
-        this.setState({docs}, this.setDogsStorage);
+        docs[id] = false
+        this.setState({docs}, this.setDogsStorage)
 
 
         Alert.alert(
@@ -144,15 +140,15 @@ export default class App extends Component<Props> {
             {text: 'OK'},
           ],
           {cancelable: false},
-        );
+        )
 
-      });
+      })
 
     }
     else{
-      //console.log('NO HAY ARCHIVO');
-      docs[id] = archive;//false
-      this.setState({docs}, this.setDogsStorage);
+      //console.log('NO HAY ARCHIVO')
+      docs[id] = archive//false
+      this.setState({docs}, this.setDogsStorage)
     }
 
   }
@@ -215,7 +211,7 @@ export default class App extends Component<Props> {
           </View>
         </ScrollView>
       </ImageBackground>
-    );
+    )
   }
 }
 
@@ -228,5 +224,9 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     alignItems:'center',
     justifyContent:'center',
+  },
+  back:{
+    width:30,
+    height:30
   }
-});
+})

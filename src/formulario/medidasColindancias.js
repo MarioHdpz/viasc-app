@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -11,16 +11,16 @@ import {
   Image,
   Alert,
   BackHandler
-} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
-import InputText from '../components/inputText';
+import InputText from '../components/inputText'
 import ButtonForm from '../components/buttonForm'
-import Select from '../components/select';
+import Select from '../components/select'
 
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     user:null,
     respuestas : {},
@@ -51,7 +51,7 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') })
     this.getStorage()
   }
   componentWillUnmount = () => {
@@ -59,16 +59,16 @@ export default class App extends Component<Props> {
   }
 
   buttonSelected = (index, id, data) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[id] = data[1] + ' -> ';
-    values[id] = data[1] + ' -> ';
+    respuestas[id] = data[1] + ' -> '
+    values[id] = data[1] + ' -> '
 
     this.setState({respuestas, values}, this.setStorage)
   }
 
   handleTextChange = (inputText, id, index) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
     if ( respuestas[id] !== null ) {
       const res = respuestas[id].split(' -> ')
 
@@ -80,17 +80,17 @@ export default class App extends Component<Props> {
   }
 
   handleTextChangeNormal = (inputText, id, index) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[id] = inputText;
-    values[id] = inputText;
+    respuestas[id] = inputText
+    values[id] = inputText
 
     this.setState({respuestas, values},this.setStorage)
   }
 
   addMedida = () => {
-    let {index} = this.state;
-    index = index+1;
+    let {index} = this.state
+    index = index+1
 
     this.setState({
       index,
@@ -102,42 +102,42 @@ export default class App extends Component<Props> {
     try {
       await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
 
     try {
       await AsyncStorage.setItem('values', JSON.stringify(this.state.values) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
   getStorage = async () => {
     try {
-      const value = await AsyncStorage.getItem('respuestas');
+      const value = await AsyncStorage.getItem('respuestas')
       if(value !== null) {
-        const respuestas = JSON.parse(value);
-        console.log(respuestas);
+        const respuestas = JSON.parse(value)
+        console.log(respuestas)
         this.setState({respuestas})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
 
     try {
-      const value = await AsyncStorage.getItem('values');
+      const value = await AsyncStorage.getItem('values')
       if(value !== null) {
-        const values = JSON.parse(value);
-        console.log(values);
+        const values = JSON.parse(value)
+        console.log(values)
         this.setState({values})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
 
   clear = () => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
     respuestas[72] = null
     respuestas[201] = null
@@ -161,7 +161,7 @@ export default class App extends Component<Props> {
       i4:false,
       i5:false,
      }, ()=>{
-      this.setStorage();
+      this.setStorage()
     })
   }
 
@@ -180,7 +180,7 @@ export default class App extends Component<Props> {
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   fSend = () => {
@@ -196,31 +196,31 @@ export default class App extends Component<Props> {
         {text: 'Si, enviar', onPress: () => {
           //Aquí -> Axios a server
           //Confirmo que todo esta bien
-          this.readyFormulario();
+          this.readyFormulario()
           //despúes:
-          //this.clear();
+          //this.clear()
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   readyFormulario = async () => {
     try {
-      const value = await AsyncStorage.getItem('readyFormulario');
-      let rf = null;
+      const value = await AsyncStorage.getItem('readyFormulario')
+      let rf = null
       if (value) {
-        rf = JSON.parse(value);
+        rf = JSON.parse(value)
         rf['MedidasColindancias'] = true
       }
       else{
-        rf = {};
-        rf['MedidasColindancias'] = true;
+        rf = {}
+        rf['MedidasColindancias'] = true
       }
-      this.setReadyFormulario(rf);
+      this.setReadyFormulario(rf)
 
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
 
@@ -228,12 +228,12 @@ export default class App extends Component<Props> {
     try {
       await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
   render = () => {
-    const {values, i1, i2, i3, i4, i5, respuestas} = this.state;
+    const {values, i1, i2, i3, i4, i5, respuestas} = this.state
     return(
       <ImageBackground
         source={require('../assets/bg_app/bg_app.png')}
@@ -581,7 +581,7 @@ export default class App extends Component<Props> {
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -600,4 +600,4 @@ const styles = StyleSheet.create({
     padding:15,
     paddingRight:30,
   },
-});
+})

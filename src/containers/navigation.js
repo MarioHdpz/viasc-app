@@ -1,19 +1,16 @@
-import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { Button, View, Image, TouchableOpacity } from 'react-native';
+import React from 'react'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import {  View, Image, StyleSheet } from 'react-native'
 
-import Login from '../modules/login';
-import Iniciar from '../modules/init';
-import InitAvaluo from '../modules/initAvaluo';
-import Avaluos from '../modules/avaluos';
-import WorkSpace from '../modules/workspace';
-import AdjuntarDocs from '../modules/adjuntarDocs';
-import Captura from '../modules/captura';
+import Login from '../modules/login'
+import Iniciar from '../modules/init'
+import InitAvaluo from '../modules/initAvaluo'
+import AdjuntarDocs from '../modules/adjuntarDocs'
+import Captura from '../modules/captura'
 
-
-import FormInicio from '../formulario/inicio';
-import DGenerales from '../formulario/datosgenerales';
+import FormInicio from '../formulario/inicio'
+import DGenerales from '../formulario/datosgenerales'
 import DDSolicitante from '../formulario/datosdelsolicitante'
 import Ubi from '../formulario/ubicacion'
 import IGeneral from '../formulario/informacionGeneral'
@@ -23,19 +20,31 @@ import EUrbano from '../formulario/equipamientoUrbano'
 import CDInmuebles from '../formulario/caracteristicasDeInmuebles'
 import MColindancia from '../formulario/medidasColindancias'
 import TId from '../formulario/terrenoID'
-import TInmueble from '../formulario/tipoDeInmueble';
-import Cnt from '../formulario/construcciones';
+import TInmueble from '../formulario/tipoDeInmueble'
+import Cnt from '../formulario/construcciones'
 
 import EDCRecamaras from '../formulario/recamaras'
-import EComedor from '../formulario/estanciaComedor';
-import Ban from '../formulario/banios';
-import Esc from '../formulario/escaleras';
-import Coc from '../formulario/cocina';
-import PServicio from '../formulario/patioServicio';
-import Est from '../formulario/estacionamiento';
-import Fach from '../formulario/fachada';
+import EComedor from '../formulario/estanciaComedor'
+import Ban from '../formulario/banios'
+import Esc from '../formulario/escaleras'
+import Coc from '../formulario/cocina'
+import PServicio from '../formulario/patioServicio'
+import Est from '../formulario/estacionamiento'
+import Fach from '../formulario/fachada'
 
 import EAdicionales from '../formulario/elementosAdicionales'
+
+const styles = StyleSheet.create({
+  image: {
+    width:50,
+    height:50
+  },
+  title:{
+    justifyContent:'center',
+    alignItems:'center',
+    flex:1
+  }
+})
 
 const AuthStack = createStackNavigator({
   Login: {
@@ -44,7 +53,7 @@ const AuthStack = createStackNavigator({
       headerTransparent:true,
     }
   },
-});
+})
 
 const Init = createStackNavigator({
   Iniciar: {
@@ -52,16 +61,16 @@ const Init = createStackNavigator({
     navigationOptions: {
       headerTransparent:true,
       headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+        <View style={styles.title}>
           <Image
-            style = {{width:50, height:50}}
+            style = {styles.image}
             source={require('../assets/logotipo_vias/logotipo_vias.png')}
           />
         </View>
       ),
     },
   },
-});
+})
 
 const AppNavigator = createStackNavigator({
   InitAvaluo: {
@@ -69,14 +78,14 @@ const AppNavigator = createStackNavigator({
     navigationOptions: {
       headerTransparent:true,
       headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+        <View style={styles.title}>
           <Image
-            style = {{width:50, height:50}}
+            style = {styles.image}
             source={require('../assets/logotipo_vias/logotipo_vias.png')}
           />
         </View>
       ),
-      headerLeft:(<Image style={{height:50, width:50}}/>),
+      headerLeft:(<Image style={styles.image}/>),
     },
   },
 
@@ -85,9 +94,9 @@ const AppNavigator = createStackNavigator({
     navigationOptions: {
       headerTransparent:true,
       headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+        <View style={styles.title}>
           <Image
-            style = {{width:50, height:50}}
+            style = {styles.image}
             source={require('../assets/logotipo_vias/logotipo_vias.png')}
           />
         </View>
@@ -99,23 +108,9 @@ const AppNavigator = createStackNavigator({
     navigationOptions: {
       headerTransparent:true,
       headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+        <View style={styles.title}>
           <Image
-            style = {{width:50, height:50}}
-            source={require('../assets/logotipo_vias/logotipo_vias.png')}
-          />
-        </View>
-      ),
-    },
-  },
-  WorkSpace: {
-    screen: WorkSpace,
-    navigationOptions: {
-      headerTransparent:true,
-      headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
-          <Image
-            style = {{width:50, height:50}}
+            style = {styles.image}
             source={require('../assets/logotipo_vias/logotipo_vias.png')}
           />
         </View>
@@ -128,11 +123,11 @@ const AppNavigator = createStackNavigator({
     /* The header config from HomeScreen is now here */
     defaultNavigationOptions: {
       headerRight:(
-        <Image style={{height:50, width:50}}/>
+        <Image style={styles.image}/>
       ),
     },
   }
-);
+)
 
 const FInicio = createStackNavigator(
 {
@@ -141,15 +136,15 @@ const FInicio = createStackNavigator(
     navigationOptions: {
       headerTransparent:true,
       headerTitle: () => (
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+        <View style={styles.title}>
           <Image
-            style = {{width:50, height:50}}
+            style = {styles.image}
             source={require('../assets/logotipo_vias/logotipo_vias.png')}
           />
         </View>
       ),
       headerRight:(
-          <Image style={{height:50, width:50}}/>
+          <Image style={styles.image}/>
       ),
     },
   },
@@ -163,20 +158,20 @@ const DatosGenerales = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const Construcciones = createStackNavigator(
   {
@@ -185,20 +180,20 @@ const Construcciones = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const DatosDelSolicitante = createStackNavigator(
   {
@@ -207,20 +202,20 @@ const DatosDelSolicitante = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const TipoDeInmueble = createStackNavigator(
   {
@@ -229,20 +224,20 @@ const TipoDeInmueble = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const InformacionGeneral = createStackNavigator(
   {
@@ -251,20 +246,20 @@ const InformacionGeneral = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const InfraestructuraDeZona = createStackNavigator(
   {
@@ -273,20 +268,20 @@ const InfraestructuraDeZona = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const InfraestructuraDisponible = createStackNavigator(
   {
@@ -295,20 +290,20 @@ const InfraestructuraDisponible = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const EquipamientoUrbano = createStackNavigator(
   {
@@ -317,20 +312,20 @@ const EquipamientoUrbano = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const Ubicacion = createStackNavigator(
   {
@@ -339,9 +334,9 @@ const Ubicacion = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
@@ -349,7 +344,7 @@ const Ubicacion = createStackNavigator(
       },
     },
   },
-);
+)
 
 const CaracteristicasDeInmuebles = createStackNavigator(
   {
@@ -358,9 +353,9 @@ const CaracteristicasDeInmuebles = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
@@ -368,7 +363,7 @@ const CaracteristicasDeInmuebles = createStackNavigator(
       },
     },
   },
-);
+)
 
 const MedidasColindancias = createStackNavigator(
   {
@@ -377,9 +372,9 @@ const MedidasColindancias = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
@@ -387,7 +382,7 @@ const MedidasColindancias = createStackNavigator(
       },
     },
   },
-);
+)
 
 const Recamaras = createStackNavigator(
   {
@@ -396,9 +391,9 @@ const Recamaras = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
@@ -406,7 +401,7 @@ const Recamaras = createStackNavigator(
       },
     },
   },
-);
+)
 
 const EstanciaComedor = createStackNavigator(
   {
@@ -415,20 +410,20 @@ const EstanciaComedor = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const Banios = createStackNavigator(
   {
@@ -437,20 +432,20 @@ const Banios = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const Escaleras = createStackNavigator(
   {
@@ -459,20 +454,20 @@ const Escaleras = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const Cocina = createStackNavigator(
   {
@@ -481,20 +476,20 @@ const Cocina = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const PatioServicio = createStackNavigator(
   {
@@ -503,20 +498,20 @@ const PatioServicio = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const Estacionamiento = createStackNavigator(
   {
@@ -525,20 +520,20 @@ const Estacionamiento = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const Fachada = createStackNavigator(
   {
@@ -547,20 +542,20 @@ const Fachada = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const TerrenoID = createStackNavigator(
   {
@@ -569,20 +564,20 @@ const TerrenoID = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 const ElementosAdicionales = createStackNavigator(
   {
@@ -591,20 +586,20 @@ const ElementosAdicionales = createStackNavigator(
       navigationOptions: {
         headerTransparent:true,
         headerTitle: () => (
-          <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <View style={styles.title}>
             <Image
-              style = {{width:50, height:50}}
+              style = {styles.image}
               source={require('../assets/logotipo_vias/logotipo_vias.png')}
             />
           </View>
         ),
         headerRight:(
-            <Image style={{height:50, width:50}}/>
+            <Image style={styles.image}/>
         ),
       },
     },
   },
-);
+)
 
 
 const rutas = createSwitchNavigator({
@@ -707,6 +702,6 @@ const rutas = createSwitchNavigator({
   ElementosAdicionales:{
     screen: ElementosAdicionales,
   },
-});
+})
 
-export default createAppContainer(rutas);
+export default createAppContainer(rutas)

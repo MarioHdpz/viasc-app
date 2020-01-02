@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { TextInput, StyleSheet, View, Text, Dimensions } from 'react-native';
-//import CheckBox from '@react-native-community/checkbox';
+import React, { Component } from 'react'
+import { TextInput, StyleSheet, View, Text, Dimensions } from 'react-native'
+//import CheckBox from '@react-native-community/checkbox'
 import CheckBox from 'react-native-check-box'
 
 export default class InputBoolean extends Component {
@@ -13,7 +13,7 @@ export default class InputBoolean extends Component {
       <View style={styles.container}>
 
         <CheckBox
-            style={{flex: 1, padding: 10}}
+            style={styles.check}
             onClick={()=>{
               this.props.booleanCheck(!this.props.value, this.props.id)
             }}
@@ -24,11 +24,11 @@ export default class InputBoolean extends Component {
         />
 
       </View>
-    );
+    )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     borderBottomColor: '#73DB1D',
@@ -42,5 +42,9 @@ const styles = StyleSheet.create({
     fontSize:16,
     fontWeight: 'bold',
     textAlign:'left'
+  },
+  check:{
+    flex: 1,
+    padding: 10
   }
 })

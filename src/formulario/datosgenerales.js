@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -11,19 +11,19 @@ import {
   Image,
   Alert,
   BackHandler
-} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import { NavigationActions } from 'react-navigation';
+} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
+import { NavigationActions } from 'react-navigation'
 
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
 import ButtonForm from '../components/buttonForm'
-import Select from '../components/select';
-import InputText from '../components/inputText';
-import InputNumber from '../components/inputNumber';
-import Calendar from '../components/calendar';
+import Select from '../components/select'
+import InputText from '../components/inputText'
+import InputNumber from '../components/inputNumber'
+import Calendar from '../components/calendar'
 
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     user:null,
     respuestas : {},
@@ -31,9 +31,9 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    const {navigation} = this.props;
+    const {navigation} = this.props
 
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') })
     this.getStorage()
   }
 
@@ -60,37 +60,37 @@ export default class App extends Component<Props> {
   }
 
   buttonSelected = (index, id, data) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[id] = data[0];
-    values[id] = data[1];
+    respuestas[id] = data[0]
+    values[id] = data[1]
 
-    //console.log('buttonSelected id:', id, 'data0',data[0],'data1', data[1]);
-    console.log('buttonSelected', respuestas[id], 'data', data, 'respuestas', respuestas, 'values', values);
+    //console.log('buttonSelected id:', id, 'data0',data[0],'data1', data[1])
+    console.log('buttonSelected', respuestas[id], 'data', data, 'respuestas', respuestas, 'values', values)
 
     this.setState({respuestas, values},this.setStorage)
   }
 
   handleTextChange = (inputText, id, index) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[id] = inputText;
-    values[id] = inputText;
+    respuestas[id] = inputText
+    values[id] = inputText
 
     this.setState({respuestas, values},this.setStorage)
   }
 
   dateChange = (index, id, data) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[id] = data;
-    values[id] = data;
+    respuestas[id] = data
+    values[id] = data
 
     this.setState({respuestas, values}, this.setStorage)
   }
 
   elementos = (respuesta) => {
-    console.log('elementos', respuesta );
+    console.log('elementos', respuesta )
     const {values, respuestas} = this.state
     switch (respuesta) {
       case 1:
@@ -104,7 +104,7 @@ export default class App extends Component<Props> {
                   ? values[24]
                   : null}
                 />
-        break;
+        break
       case 2:
         return  <View>
           <Select
@@ -228,7 +228,7 @@ export default class App extends Component<Props> {
             buttonSelected = { this.buttonSelected }
           />
         </View>
-        break;
+        break
       case 3:
         return  <View>
           <Select
@@ -280,7 +280,7 @@ export default class App extends Component<Props> {
               buttonSelected = { this.buttonSelected }
             />
           </View>
-        break;
+        break
       case 4:
         return  <View>
           <Select
@@ -676,7 +676,7 @@ export default class App extends Component<Props> {
             buttonSelected = { this.buttonSelected }
           />
         </View>
-        break;
+        break
       default: null
     }
   }
@@ -780,27 +780,27 @@ export default class App extends Component<Props> {
 
   readyFormulario = async () => {
     try {
-      const value = await AsyncStorage.getItem('readyFormulario');
-      let rf = null;
+      const value = await AsyncStorage.getItem('readyFormulario')
+      let rf = null
       if (value) {
-        rf = JSON.parse(value);
+        rf = JSON.parse(value)
         rf['DatosGenerales'] = true
       }
       else{
-        rf = {};
-        rf['DatosGenerales'] = true;
+        rf = {}
+        rf['DatosGenerales'] = true
       }
-      this.setReadyFormulario(rf);
+      this.setReadyFormulario(rf)
 
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
   setReadyFormulario= async (rf) => {
     try {
       await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
@@ -808,55 +808,55 @@ export default class App extends Component<Props> {
     try {
       await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
 
     try {
       await AsyncStorage.setItem('values', JSON.stringify(this.state.values) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
   getStorage = async () => {
     try {
-      const value = await AsyncStorage.getItem('respuestas');
+      const value = await AsyncStorage.getItem('respuestas')
       if(value !== null) {
-        const respuestas = JSON.parse(value);
-        console.log(respuestas);
+        const respuestas = JSON.parse(value)
+        console.log(respuestas)
         this.setState({respuestas})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
 
     try {
-      const value = await AsyncStorage.getItem('values');
+      const value = await AsyncStorage.getItem('values')
       if(value !== null) {
-        const values = JSON.parse(value);
-        console.log(values);
+        const values = JSON.parse(value)
+        console.log(values)
         this.setState({values})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
 
   clear = () => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    let clr={};
+    let clr={}
     for (const r in respuestas) {
-      clr[r] = null;
+      clr[r] = null
     }
 
-    let clv={};
+    let clv={}
     for (const r in values) {
-      clv[r] = null;
+      clv[r] = null
     }
 
     this.setState({respuestas : clr, values:clv }, ()=>{
-      this.setStorage();
+      this.setStorage()
     })
   }
 
@@ -875,7 +875,7 @@ export default class App extends Component<Props> {
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   fSend = () => {
@@ -891,19 +891,19 @@ export default class App extends Component<Props> {
         {text: 'Si, enviar', onPress: () => {
           //Aquí -> Axios a server
           //Confirmo que todo esta bien
-          this.readyFormulario();
+          this.readyFormulario()
           //despúes:
-          this.clear();
+          this.clear()
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   render = () => {
-    const {values, respuestas} = this.state;
+    const {values, respuestas} = this.state
 
-    console.log('values[22]',respuestas[22]);
+    console.log('values[22]',respuestas[22])
 
     return(
       <ImageBackground
@@ -946,7 +946,7 @@ export default class App extends Component<Props> {
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -965,4 +965,4 @@ const styles = StyleSheet.create({
     padding:15,
     paddingRight:30,
   },
-});
+})

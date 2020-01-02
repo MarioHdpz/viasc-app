@@ -1,10 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import { StatusBar, StyleSheet, View} from 'react-native'
-import AppNavigator from './src/containers/navigation';
+import AppNavigator from './src/containers/navigation'
 
-
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>

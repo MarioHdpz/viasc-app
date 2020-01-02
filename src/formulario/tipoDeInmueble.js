@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -11,18 +11,18 @@ import {
   Image,
   Alert,
   BackHandler
-} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
 import ButtonForm from '../components/buttonForm'
-import Select from '../components/select';
-import InputText from '../components/inputText';
-import InputNumber from '../components/inputNumber';
-import Calendar from '../components/calendar';
+import Select from '../components/select'
+import InputText from '../components/inputText'
+import InputNumber from '../components/inputNumber'
+import Calendar from '../components/calendar'
 
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     user:null,
     respuestas : {},
@@ -47,7 +47,7 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') })
     this.getStorage()
   }
 
@@ -56,28 +56,28 @@ export default class App extends Component<Props> {
   }
 
   buttonSelected = (index, id, data) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[id] = data[0];
-    values[id] = data[1];
+    respuestas[id] = data[0]
+    values[id] = data[1]
 
     this.setState({respuestas, values}, this.setStorage )
   }
 
   handleTextChange = (inputText, id, index) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[id] = inputText;
-    values[id] = inputText;
+    respuestas[id] = inputText
+    values[id] = inputText
 
     this.setState({respuestas, values},this.setStorage)
   }
 
   dateChange = (index, id, data) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[id] = data;
-    values[id] = data;
+    respuestas[id] = data
+    values[id] = data
 
     this.setState({respuestas, values}, this.setStorage)
   }
@@ -86,116 +86,116 @@ export default class App extends Component<Props> {
     try {
       await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
 
     try {
       await AsyncStorage.setItem('values', JSON.stringify(this.state.values) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
   getStorage = async () => {
     try {
-      const value = await AsyncStorage.getItem('respuestas');
+      const value = await AsyncStorage.getItem('respuestas')
       if(value !== null) {
-        const respuestas = JSON.parse(value);
-        console.log(respuestas);
+        const respuestas = JSON.parse(value)
+        console.log(respuestas)
         this.setState({respuestas})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
 
     try {
-      const value = await AsyncStorage.getItem('values');
+      const value = await AsyncStorage.getItem('values')
       if(value !== null) {
-        const values = JSON.parse(value);
-        console.log(values);
+        const values = JSON.parse(value)
+        console.log(values)
         this.setState({values})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
 
   clear = () => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[22] = null;
-    respuestas[24] = null;
-    respuestas[26] = null;
-    respuestas[27] = null;
-    respuestas[160] = null;
-    respuestas[28] = null;
-    respuestas[29] = null;
-    respuestas[31] = null;
-    respuestas[32] = null;
-    respuestas[35] = null;
-    respuestas[36] = null;
-    respuestas[37] = null;
-    respuestas[40] = null;
-    respuestas[41] = null;
-    respuestas[42] = null;
-    respuestas[43] = null;
-    respuestas[45] = null;
-    respuestas[47] = null;
-    respuestas[48] = null;
-    respuestas[161] = null;
-    respuestas[162] = null;
-    respuestas[163] = null;
-    respuestas[164] = null;
-    respuestas[49] = null;
-    respuestas[50] = null;
-    respuestas[51] = null;
-    respuestas[52] = null;
-    respuestas[53] = null;
-    respuestas[54] = null;
-    respuestas[31] = null;
-    respuestas[57] = null;
-    respuestas[58] = null;
-    respuestas[59] = null;
-    respuestas[60] = null;
-    respuestas[61] = null;
-    respuestas[37] = null;
+    respuestas[22] = null
+    respuestas[24] = null
+    respuestas[26] = null
+    respuestas[27] = null
+    respuestas[160] = null
+    respuestas[28] = null
+    respuestas[29] = null
+    respuestas[31] = null
+    respuestas[32] = null
+    respuestas[35] = null
+    respuestas[36] = null
+    respuestas[37] = null
+    respuestas[40] = null
+    respuestas[41] = null
+    respuestas[42] = null
+    respuestas[43] = null
+    respuestas[45] = null
+    respuestas[47] = null
+    respuestas[48] = null
+    respuestas[161] = null
+    respuestas[162] = null
+    respuestas[163] = null
+    respuestas[164] = null
+    respuestas[49] = null
+    respuestas[50] = null
+    respuestas[51] = null
+    respuestas[52] = null
+    respuestas[53] = null
+    respuestas[54] = null
+    respuestas[31] = null
+    respuestas[57] = null
+    respuestas[58] = null
+    respuestas[59] = null
+    respuestas[60] = null
+    respuestas[61] = null
+    respuestas[37] = null
 
-    values[22] = null;
-    values[24] = null;
-    values[26] = null;
-    values[27] = null;
-    values[160] = null;
-    values[28] = null;
-    values[29] = null;
-    values[31] = null;
-    values[32] = null;
-    values[35] = null;
-    values[36] = null;
-    values[37] = null;
-    values[40] = null;
-    values[41] = null;
-    values[42] = null;
-    values[43] = null;
-    values[45] = null;
-    values[47] = null;
-    values[48] = null;
-    values[161] = null;
-    values[162] = null;
-    values[163] = null;
-    values[164] = null;
-    values[49] = null;
-    values[50] = null;
-    values[51] = null;
-    values[52] = null;
-    values[53] = null;
-    values[54] = null;
-    values[31] = null;
-    values[57] = null;
-    values[58] = null;
-    values[59] = null;
-    values[60] = null;
-    values[61] = null;
-    values[37] = null;
+    values[22] = null
+    values[24] = null
+    values[26] = null
+    values[27] = null
+    values[160] = null
+    values[28] = null
+    values[29] = null
+    values[31] = null
+    values[32] = null
+    values[35] = null
+    values[36] = null
+    values[37] = null
+    values[40] = null
+    values[41] = null
+    values[42] = null
+    values[43] = null
+    values[45] = null
+    values[47] = null
+    values[48] = null
+    values[161] = null
+    values[162] = null
+    values[163] = null
+    values[164] = null
+    values[49] = null
+    values[50] = null
+    values[51] = null
+    values[52] = null
+    values[53] = null
+    values[54] = null
+    values[31] = null
+    values[57] = null
+    values[58] = null
+    values[59] = null
+    values[60] = null
+    values[61] = null
+    values[37] = null
 
     this.setState({respuestas, values }, this.setStorage)
   }
@@ -215,7 +215,7 @@ export default class App extends Component<Props> {
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   fSend = () => {
@@ -231,36 +231,36 @@ export default class App extends Component<Props> {
         {text: 'Si, enviar', onPress: () => {
           //Aquí -> Axios a server
           //Confirmo que todo esta bien
-          this.readyFormulario();
+          this.readyFormulario()
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   readyFormulario = async () => {
     try {
-      const value = await AsyncStorage.getItem('readyFormulario');
-      let rf = null;
+      const value = await AsyncStorage.getItem('readyFormulario')
+      let rf = null
       if (value) {
-        rf = JSON.parse(value);
+        rf = JSON.parse(value)
         rf['TipoDeInmueble'] = true
       }
       else{
-        rf = {};
-        rf['TipoDeInmueble'] = true;
+        rf = {}
+        rf['TipoDeInmueble'] = true
       }
-      this.setReadyFormulario(rf);
+      this.setReadyFormulario(rf)
 
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
   setReadyFormulario= async (rf) => {
     try {
       await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
@@ -278,7 +278,7 @@ export default class App extends Component<Props> {
                   ? values[24]
                   : ""}
                 />
-        break;
+        break
       case 2:
         return  <View>
           <Select
@@ -397,7 +397,7 @@ export default class App extends Component<Props> {
             buttonSelected = { this.buttonSelected }
           />
         </View>
-        break;
+        break
       case 3:
         return  <View>
           <Select
@@ -449,7 +449,7 @@ export default class App extends Component<Props> {
               buttonSelected = { this.buttonSelected }
             />
           </View>
-        break;
+        break
       case 4:
         return  <View>
           <Select
@@ -838,7 +838,7 @@ export default class App extends Component<Props> {
             buttonSelected = { this.buttonSelected }
           />
         </View>
-        break;
+        break
       default: null
 
     }
@@ -879,7 +879,7 @@ export default class App extends Component<Props> {
   }
 
   render = () => {
-    const {values, respuestas} = this.state;
+    const {values, respuestas} = this.state
     return(
       <ImageBackground
         source={require('../assets/bg_app/bg_app.png')}
@@ -945,7 +945,7 @@ export default class App extends Component<Props> {
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -964,4 +964,4 @@ const styles = StyleSheet.create({
     padding:15,
     paddingRight:30,
   },
-});
+})
