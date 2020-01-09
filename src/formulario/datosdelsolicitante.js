@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -11,16 +11,17 @@ import {
   Image,
   Alert,
   BackHandler
-} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
-import InputText from '../components/inputText';
-import InputNumber from '../components/inputNumber';
+import InputText from '../components/inputText'
+import InputNumber from '../components/inputNumber'
 import ButtonForm from '../components/buttonForm'
 
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     user:null,
     respuestas : {},
@@ -45,7 +46,7 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') })
     this.getStorage()
   }
 
@@ -54,10 +55,10 @@ export default class App extends Component<Props> {
   }
 
   handleTextChange = (inputText, id, index) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[id] = inputText;
-    values[id] = inputText;
+    respuestas[id] = inputText
+    values[id] = inputText
 
     this.setState({respuestas, values},()=>{this.setStorage()})
   }
@@ -66,42 +67,42 @@ export default class App extends Component<Props> {
     try {
       await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
 
     try {
       await AsyncStorage.setItem('values', JSON.stringify(this.state.values) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
   getStorage = async () => {
     try {
-      const value = await AsyncStorage.getItem('respuestas');
+      const value = await AsyncStorage.getItem('respuestas')
       if(value !== null) {
-        const respuestas = JSON.parse(value);
-        console.log(respuestas);
+        const respuestas = JSON.parse(value)
+        console.log(respuestas)
         this.setState({respuestas})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
 
     try {
-      const value = await AsyncStorage.getItem('values');
+      const value = await AsyncStorage.getItem('values')
       if(value !== null) {
-        const values = JSON.parse(value);
-        console.log(values);
+        const values = JSON.parse(value)
+        console.log(values)
         this.setState({values})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
 
   clear = () => {
-    let {respuestas,values} = this.state;
+    let {respuestas,values} = this.state
     respuestas[3] = null
     respuestas[4] = null
     respuestas[5] = null
@@ -121,7 +122,7 @@ export default class App extends Component<Props> {
     values[10] = null
 
     this.setState({respuestas : respuestas, values:values }, ()=>{
-      this.setStorage();
+      this.setStorage()
     })
   }
 
@@ -140,7 +141,7 @@ export default class App extends Component<Props> {
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   fSend = () => {
@@ -156,45 +157,45 @@ export default class App extends Component<Props> {
         {text: 'Si, enviar', onPress: () => {
           //Aquí -> Axios a server
           //Confirmo que todo esta bien
-          this.readyFormulario();
+          this.readyFormulario()
           //despúes:
-          //this.clear();
+          //this.clear()
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   readyFormulario = async () => {
     try {
-      const value = await AsyncStorage.getItem('readyFormulario');
-      let rf = null;
+      const value = await AsyncStorage.getItem('readyFormulario')
+      let rf = null
       if (value) {
-        rf = JSON.parse(value);
+        rf = JSON.parse(value)
         rf['DatosDelSolicitante'] = true
       }
       else{
-        rf = {};
-        rf['DatosDelSolicitante'] = true;
+        rf = {}
+        rf['DatosDelSolicitante'] = true
       }
-      this.setReadyFormulario(rf);
+      this.setReadyFormulario(rf)
 
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
   setReadyFormulario= async (rf) => {
     try {
       await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
 
 
   render = () => {
-    const {values} = this.state;
+    const {values} = this.state
     return(
       <ImageBackground
         source={require('../assets/bg_app/bg_app.png')}
@@ -208,7 +209,7 @@ export default class App extends Component<Props> {
         <TitleForm
           label="Datos del solicitante"
         />
-
+        <KeyboardAwareScrollView>
         <ScrollView style={styles.form}>
           <InputText
             id = {3}
@@ -278,6 +279,7 @@ export default class App extends Component<Props> {
             handleTextChange = {this.handleTextChange}
             pholder = "Código Postal"
             label = "Código Postal"
+            validation = "entero"
             value= {
               values[9]
             ? values[9]
@@ -315,12 +317,13 @@ export default class App extends Component<Props> {
           </View>
 
         </ScrollView>
+        </KeyboardAwareScrollView>
       </ImageBackground>
     )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -339,4 +342,4 @@ const styles = StyleSheet.create({
     padding:15,
     paddingRight:30,
   },
-});
+})

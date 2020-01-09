@@ -1,19 +1,19 @@
-import React, {Component}  from 'react';
+import React, {Component}  from 'react'
 import {
   StyleSheet, Text, View,
   PermissionsAndroid, Platform, Dimensions,
   BackHandler, Alert
-} from 'react-native';
-import isEqual from 'lodash/isEqual';
-import PropTypes from 'prop-types';
-import Geolocation from '@react-native-community/geolocation';
+} from 'react-native'
+import isEqual from 'lodash/isEqual'
+import PropTypes from 'prop-types'
+import Geolocation from '@react-native-community/geolocation'
 import MapView, { Callout, Marker,
-  AnimatedRegion, PROVIDER_DEFAULT } from 'react-native-maps';
-import axios from 'axios';
-import {readResponseServer} from '../functions';
-import InputText from './inputText';
+  AnimatedRegion, PROVIDER_DEFAULT } from 'react-native-maps'
+import axios from 'axios'
+import {readResponseServer} from '../functions'
+import InputText from './inputText'
 
-type Props = {};
+type Props = {}
 export default class Mapa extends Component<Props> {
   state = {
     myPosition: null,
@@ -21,10 +21,10 @@ export default class Mapa extends Component<Props> {
   }
 
   goToInitialLocation = () => {
-    const {lon, lat} = this.props;
-    let {myPosition} = this.state;
+    const {lon, lat} = this.props
+    let {myPosition} = this.state
     if (lon && lat ) {
-      console.log('props existen', lat, lon);
+      console.log('props existen', lat, lon)
 
       myPosition = {
         latitude:parseFloat(lat),
@@ -33,13 +33,13 @@ export default class Mapa extends Component<Props> {
         longitudeDelta:0.0005,
       }
 
-      this.mapRef.animateToRegion(myPosition);
+      this.mapRef.animateToRegion(myPosition)
       this.setState({myPosition})
     }
     else{
-      this.mounted = true;
+      this.mounted = true
       if (this.props.coordinate) {
-        return;
+        return
       }
 
       if (Platform.OS === 'android') {
@@ -47,11 +47,11 @@ export default class Mapa extends Component<Props> {
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
         ).then(granted => {
           if (granted && this.mounted) {
-            this.watchLocation();
+            this.watchLocation()
           }
-        });
+        })
       } else {
-        this.watchLocation();
+        this.watchLocation()
       }
     }
   }
@@ -59,48 +59,48 @@ export default class Mapa extends Component<Props> {
   watchLocation = () => {
     this.watchID = Geolocation.watchPosition(
       position => {
-        const myLastPosition = this.state.myPosition;
-        const myPosition = position.coords;
+        const myLastPosition = this.state.myPosition
+        const myPosition = position.coords
         if (!isEqual(myPosition, myLastPosition)) {
           if (!myPosition.latitudeDelta) {
-            myPosition["latitudeDelta"] = 0.0005;
-            myPosition["longitudeDelta"] = 0.0005;
+            myPosition["latitudeDelta"] = 0.0005
+            myPosition["longitudeDelta"] = 0.0005
           }
 
-          this.mapRef.animateToRegion(myPosition, 1500);
+          this.mapRef.animateToRegion(myPosition, 1500)
 
           this.setState({ myPosition },()=>{
             this.getAddres()
-            Geolocation.clearWatch( this.watchID );
-          });
+            Geolocation.clearWatch( this.watchID )
+          })
         }
       },
       null,
       this.props.geolocationOptions
-    );
+    )
   }
 
   onPoiClick = (e) => {
-    const myPosition = e.nativeEvent.coordinate;
+    const myPosition = e.nativeEvent.coordinate
 
-    this.setState({ myPosition });
+    this.setState({ myPosition })
 
     if (!myPosition.latitudeDelta) {
-      myPosition["latitudeDelta"] = 0.005;
-      myPosition["longitudeDelta"] = 0.005;
+      myPosition["latitudeDelta"] = 0.005
+      myPosition["longitudeDelta"] = 0.005
     }
 
-    this.mapRef.animateToRegion(myPosition, 1500);
+    this.mapRef.animateToRegion(myPosition, 1500)
 
     this.setState({ myPosition },()=>{
       this.getAddres()
-    });
+    })
   }
 
   getAddres = () => {
-    let {myPosition} = this.state;
-    const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM';//NUEVA API KEY
-    const url  = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${myPosition.latitude},${myPosition.longitude}&key=${myApiKey}`;
+    let {myPosition} = this.state
+    const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM'//NUEVA API KEY
+    const url  = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${myPosition.latitude},${myPosition.longitude}&key=${myApiKey}`
 
     axios({
       url: url,
@@ -109,20 +109,20 @@ export default class Mapa extends Component<Props> {
     .then((response) => {
       const {myPosition} = this.state
       const dir = response.data.results[0].address_components
-      console.log('AXIOS DIR',this.props.index, dir);
+      console.log('AXIOS DIR',this.props.index, dir)
 
-      this.props.getDataGeo(dir[0].long_name.toString(), 12, this.props.index);
-      this.props.getDataGeo(dir[2].long_name.toString(), 13, this.props.index);
-      this.props.getDataGeo(dir[6].long_name.toString(), 14, this.props.index);
-      this.props.getDataGeo(dir[3].long_name.toString(), 15, this.props.index);
-      this.props.getDataGeo(dir[4].long_name.toString(), 16, this.props.index);
-      this.props.getDataGeo(dir[3].long_name.toString(), 17, this.props.index);
-      this.props.getDataGeo(myPosition.longitude.toString(), 18, this.props.index);
-      this.props.getDataGeo(myPosition.latitude.toString(), 19, this.props.index);
-      this.props.getDataGeo(myPosition.altitude.toString(), 20, this.props.index);
+      this.props.getDataGeo(dir[0].long_name.toString(), 12, this.props.index)
+      this.props.getDataGeo(dir[2].long_name.toString(), 13, this.props.index)
+      this.props.getDataGeo(dir[6].long_name.toString(), 14, this.props.index)
+      this.props.getDataGeo(dir[3].long_name.toString(), 15, this.props.index)
+      this.props.getDataGeo(dir[4].long_name.toString(), 16, this.props.index)
+      this.props.getDataGeo(dir[3].long_name.toString(), 17, this.props.index)
+      this.props.getDataGeo(myPosition.longitude.toString(), 18, this.props.index)
+      this.props.getDataGeo(myPosition.latitude.toString(), 19, this.props.index)
+      this.props.getDataGeo(myPosition.altitude.toString(), 20, this.props.index)
 
 
-      this.setState({dir});
+      this.setState({dir})
     })
     .catch((error) => {
       Alert.alert(
@@ -132,9 +132,9 @@ export default class Mapa extends Component<Props> {
           {text: 'OK'},
         ],
         {cancelable: false},
-      );
-      console.log('MAP ERROR:',error);
-    });
+      )
+      console.log('MAP ERROR:',error)
+    })
   }
 
   render = () => {
@@ -231,7 +231,7 @@ export default class Mapa extends Component<Props> {
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex:1,
@@ -242,4 +242,4 @@ const styles = StyleSheet.create({
     width:width-50,
     height:width-150,
   },
-});
+})

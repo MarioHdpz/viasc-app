@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   Text,
   StyleSheet,
   Image,
   Dimensions,
   View
-} from 'react-native';
+} from 'react-native'
 
-type Props = {};
+type Props = {}
 export default class TitleForm extends Component {
 
   render() {
@@ -22,11 +22,11 @@ export default class TitleForm extends Component {
           {this.props.label}
         </Text>
       </View>
-    );
+    )
   }
 }
 
-const {width} = Dimensions.get('window');
+const {width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   titlePrimary:{
     color:'white',
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
     left:25,
     top:3,
   },
-});
+})

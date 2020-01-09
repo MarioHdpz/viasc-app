@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { TextInput, StyleSheet, View, Text, Dimensions } from 'react-native';
+import React, { Component } from 'react'
+import { TextInput, StyleSheet, View, Text, Dimensions } from 'react-native'
 
 export default class InputText extends Component {
 
@@ -9,10 +9,10 @@ export default class InputText extends Component {
       case 'caracter':
         const formato = texto.replace(/[1234567890`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi,'')
         this.props.handleTextChange(formato,this.props.id)
-        break;
+        break
       default: this.props.handleTextChange(texto,this.props.id)
     }
-    
+
   }
 
   render() {
@@ -25,13 +25,14 @@ export default class InputText extends Component {
           placeholder={this.props.label}
           placeholderTextColor="#f2f2f2"
           value = {this.props.value}
+          multiline={true}
         />
       </View>
-    );
+    )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
   },

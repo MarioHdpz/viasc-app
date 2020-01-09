@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   StyleSheet,
   Text,
@@ -6,25 +6,25 @@ import {
   Modal,
   TouchableHighlight,
   Dimensions
-} from 'react-native';
-import CalendarPicker from 'react-native-calendar-picker';
+} from 'react-native'
+import CalendarPicker from 'react-native-calendar-picker'
 
 export default class Calendar extends Component {
   state = {
     modalVisible: false,
-  };
+  }
 
   setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
+    this.setState({modalVisible: visible})
   }
 
   onDateChange = (date) => {
-    const {index, id} = this.props;
+    const {index, id} = this.props
 
-    const d = new Date(date);
-    const y = d.getFullYear();
-    let m = d.getMonth() + 1;
-    let n = d.getDate();
+    const d = new Date(date)
+    const y = d.getFullYear()
+    let m = d.getMonth() + 1
+    let n = d.getDate()
 
     if (m<10) {
       m = '0'+ m
@@ -34,13 +34,13 @@ export default class Calendar extends Component {
       n = '0'+ n
     }
 
-    this.props.dateChange(index, id,`${n}-${m}-${y}`);
-    this.setModalVisible(!this.state.modalVisible);
+    this.props.dateChange(index, id,`${n}-${m}-${y}`)
+    this.setModalVisible(!this.state.modalVisible)
   }
   render() {
-    const { selectedStartDate } = this.props;
-    console.log('label',this.props.label);
-    const startDate = selectedStartDate ? selectedStartDate.toString() : this.props.label;
+    const { selectedStartDate } = this.props
+    console.log('label',this.props.label)
+    const startDate = selectedStartDate ? selectedStartDate.toString() : this.props.label
     return (
       <View style={styles.container}>
         <Modal
@@ -48,14 +48,14 @@ export default class Calendar extends Component {
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
+            Alert.alert('Modal has been closed.')
           }}>
           <View style={styles.modal}>
             <View>
               <TouchableHighlight
 
                 onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
+                  this.setModalVisible(!this.state.modalVisible)
                 }}>
                 <Text style={{textAlign:'right'}}>
                   ❌
@@ -75,28 +75,22 @@ export default class Calendar extends Component {
           </View>
         </Modal>
 
-        <View style={{
-          borderBottomColor: '#73DB1D',
-          borderBottomWidth: 1,
-          width:width-50,
-          marginLeft:15,
-          paddingTop: 20,
-        }}
+        <View style={styles.text}
         >
         <Text
           style={styles.input}
           onPress={() => {
-            this.setModalVisible(!this.state.modalVisible);
+            this.setModalVisible(!this.state.modalVisible)
           }}>
           { startDate }
         </Text>
         </View>
       </View>
-    );
+    )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   input: {
     color:'white',
@@ -108,6 +102,13 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     flex:1,
+  },
+  text:{
+    borderBottomColor: '#73DB1D',
+    borderBottomWidth: 1,
+    width:width-50,
+    marginLeft:15,
+    paddingTop: 20,
   }
 
-});
+})

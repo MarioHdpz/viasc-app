@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -9,19 +9,16 @@ import {
   Alert,
   TouchableOpacity,
   Image
-} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import { NavigationEvents } from 'react-navigation';
-import _ from 'lodash';
-import axios from 'axios';
+} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
+import { NavigationEvents } from 'react-navigation'
+import _ from 'lodash'
+import axios from 'axios'
 
 import {readResponseServer} from '../functions'
-import db from '../containers/formulario.json';
-import ep from '../containers/endpoints.json';
-import ButtonLarge from '../components/buttonLarge';
+import ButtonLarge from '../components/buttonLarge'
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     user:null,
 
@@ -36,31 +33,41 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    const user = this.props.navigation.getParam('user');
-    this.setState({user});
-    this.validarFromStorage();
+    this.validarFromStorage()
   }
 
   validarFromStorage = async () => {
+    //GET USER
+    try {
+      const value = await AsyncStorage.getItem('user')
+      if(value !== null) {
+        this.setState({user:JSON.parse(value)}, ()=>{
+          console.log('user', JSON.parse(value) )
+        })
+      }
+    } catch(e) {
+      console.log("error storage", e)
+    }
+
     //VALIDAMOS DOCUMENTOS
     try {
       const value = await AsyncStorage.getItem('docs')
-      let { docs, okformulario } = this.state;
+      let { docs, okformulario } = this.state
 
       if(value !== null) {
-        const json = JSON.parse(value);
-        docs = true;
+        const json = JSON.parse(value)
+        docs = true
         for (const d in json ){
-          //console.log('inFor->',json[d]);
+          //console.log('inFor->',json[d])
           if ( json[d] === null ) {
-            //console.log('NULL->',json[d]);
-            docs = null;
-            break;
+            //console.log('NULL->',json[d])
+            docs = null
+            break
           }
           if (json[d] === false) {
-            //console.log('FALSE->',json[d]);
-            docs = false;
-            break;
+            //console.log('FALSE->',json[d])
+            docs = false
+            break
           }
         }
       }
@@ -68,25 +75,25 @@ export default class App extends Component<Props> {
         docs = null
       }
 
-      console.log('VALIDAR DOCUMENTOS', docs);
+      console.log('VALIDAR DOCUMENTOS', docs)
       if (docs) {
         okformulario = true
       }
 
-      this.setState({docs,okformulario});
+      this.setState({docs,okformulario})
 
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
 
     //VALIDAMOS FORMULARIO
     try {
-      let {form, okfotos,} = this.state;
+      let {form, okfotos,} = this.state
       const value = await AsyncStorage.getItem('readyFormulario')
-      console.log('1readyFormulario', value);
+      console.log('1readyFormulario', value)
       if(value !== null) {
         const rf = JSON.parse(value)
-        console.log('readyFormulario',rf);
+        console.log('readyFormulario',rf)
 
         if (rf['DatosDelSolicitante'] && rf['Ubicacion'] && rf['TipoDeInmueble'] && rf['InformacionGeneral'] ) {
             this.setState({form:true,okfotos:true})
@@ -94,19 +101,19 @@ export default class App extends Component<Props> {
 
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
 
     //VALIDAMOS FOTOGRAFÍAS.
     try {
-      let {form, okfotos,} = this.state;
+      let {form, okfotos,} = this.state
       const value = await AsyncStorage.getItem('readyPictures')
-      console.log('1readyFormulario', value);
+      console.log('1readyFormulario', value)
       if(value) {
-        this.setState({pics:true});
+        this.setState({pics:true})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
 
@@ -121,18 +128,29 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si, cancelar', onPress: () => {
-          this.clearAll();
-          this.props.navigation.navigate('Init', {user:this.state.user});
+          this.clearAll()
+          this.props.navigation.navigate('Init', {user:this.state.user})
         }},
       ],
       {cancelable: false},
-    );
+    )
+  }
+
+  storeData = async (item,data) => {
+    try {
+      await AsyncStorage.setItem(item, data)
+    } catch (e) {
+      console.log("error de almacenaje")
+    }
   }
 
   clearAll = async () => {
-    console.warn("limpiando");
+
     try {
-      await AsyncStorage.clear();
+      await AsyncStorage.clear()
+
+      console.warn("limpiando", JSON.stringify(this.state.user))
+      this.storeData('user', JSON.stringify(this.state.user) )
 
       this.setState({
         docs : null,
@@ -144,7 +162,7 @@ export default class App extends Component<Props> {
       })
 
     } catch(e) {
-      console.log('error clear', e);
+      console.log('error clear', e)
     }
   }
 
@@ -159,63 +177,15 @@ export default class App extends Component<Props> {
           style: 'cancel',
         },
         {text: 'Si envíar', onPress: () => {
-          this.clearAll();
+          this.clearAll()
         }},
       ],
       {cancelable: false},
-    );
-  }
-
-  redirectEndPoints = () => {
-    const {respuestas, user} = this.state;
-
-    const keys =  Object.keys(respuestas);
-    let obj = {}
-    keys.map((id, index) =>{
-      const result = _.filter(db, {id:parseInt(id)});
-      if (!obj[ result[0].endpoint ]) {
-        obj[ result[0].endpoint ] = {}
-      }
-      obj[ result[0].endpoint ][id] = respuestas[id]
-    });
-
-    const epindex =  Object.keys(obj);
-
-    epindex.map( (index) => {
-      const url = ep[index];
-      const data = obj[index]
-
-      const conf = {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `jwt ${user.token}`,
-        }
-      }
-
-      axios.post(url, data, conf)
-      .then((response) => {
-        console.log('AXIOS OK -> ',response);
-      })
-      .catch((error) => {
-        Alert.alert(
-          'Error',
-          readResponseServer(error.response.status),
-          [
-            {text: 'OK'},
-          ],
-          {cancelable: false},
-        );
-      });
-
-      //LIMPIAMOS TODO Y REGRESAMOS PARA INICIAR UN NUEVO AVALÚO.
-      //this.clearAll();
-      //this.props.navigation.navigate('Init', {user:this.state.user});
-
-    })
+    )
   }
 
   render = () => {
-    const {okformulario, okfotos, docs, form, pics} = this.state;
+    const {okformulario, okfotos, docs, form, pics} = this.state
     return (
       <ImageBackground
         source={require('../assets/bg_home/bg_home.png')}
@@ -257,28 +227,24 @@ export default class App extends Component<Props> {
         <View style={styles.fixToText}>
           <TouchableOpacity onPress={this.cancelar}>
             <Image
-              style={{
-                width:100,
-              }}
+              style={styles.touch}
               source={require('../assets/btNCANCELAR/btNCANCELAR.png')}
             />
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.sendAll}>
             <Image
-              style={{
-                width:100,
-              }}
+              style={styles.touch}
               source={require('../assets/btn_guardar/btn_guardar.png')}
             />
           </TouchableOpacity>
         </View>
       </ImageBackground>
-    );
+    )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -291,4 +257,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom:20,
   },
-});
+  touch:{
+    width:100,
+  }
+})

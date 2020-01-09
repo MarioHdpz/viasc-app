@@ -1,32 +1,32 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   TouchableOpacity,
   Text,
   StyleSheet,
   Image,
   Dimensions
-} from 'react-native';
-import DocumentPicker from 'react-native-document-picker';
+} from 'react-native'
+import DocumentPicker from 'react-native-document-picker'
 
 
-type Props = {};
+type Props = {}
 export default class File extends Component<Props> {
 
   getFile = async () => {
     try {
-        const res = await DocumentPicker.pick({ type: [DocumentPicker.types.pdf], });
+        const res = await DocumentPicker.pick({ type: [DocumentPicker.types.pdf], })
         if (res) {
-          this.props.getData(this.props.id,res);
+          this.props.getData(this.props.id,res)
         }
         else{
-          this.props.getData(this.props.id,false);
+          this.props.getData(this.props.id,false)
         }
       } catch (err) {
 
         if (DocumentPicker.isCancel(err)) {}
         else {
-          this.props.getData(this.props.id,false);
-          throw err;
+          this.props.getData(this.props.id,false)
+          throw err
         }
       }
   }
@@ -57,11 +57,11 @@ export default class File extends Component<Props> {
           {label}
         </Text>
       </TouchableOpacity>
-    );
+    )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     width:width/2.3,
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
     fontSize:16,
     textAlign:'center',
   }
-});
+})

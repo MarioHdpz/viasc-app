@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   Image,
   Text,
@@ -6,34 +6,23 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-} from 'react-native';
-const {height, width} = Dimensions.get('window');
+} from 'react-native'
+const {height, width} = Dimensions.get('window')
 
-type Props = {};
-export default class ButtonLarge extends Component<Props> {
+export default class ButtonLarge extends Component {
 
   render = () => {
-    const {disabled} = this.props;
+    const {disabled} = this.props
     return (
       <TouchableOpacity
-      style={{
-        width:width-50,
-        height:60,
-        margin:15,
-        padding:0,
-        backgroundColor:disabled
-        ?'rgba(0,0,0,0.7)'
-        :'rgba(0,0,0,0.3)'
-        ,
-        borderRadius:15,
-        borderBottomColor:'rgba(255, 136, 13,0.7)',
-        borderRightColor:'rgba(255, 136, 13,0.7)',
-        borderBottomWidth:4,
-        borderRightWidth:5,
-        alignItems:'center',
-        justifyContent:'flex-start',
-        flexDirection:'row',
-      }}
+      style={[
+        styles.click,
+          {
+            backgroundColor:disabled
+            ?'rgba(0,0,0,0.7)'
+            :'rgba(0,0,0,0.3)'
+          }
+        ]}
       onPress={
         disabled
         ? ()=>{this.props.onClickButton(this.props.id)}
@@ -58,7 +47,7 @@ export default class ButtonLarge extends Component<Props> {
             </View>
         }
       </TouchableOpacity>
-    );
+    )
   }
 }
 
@@ -95,4 +84,18 @@ const styles = StyleSheet.create({
     borderBottomRightRadius:10,
     borderTopRightRadius:10
   },
-});
+  click:{
+    width:width-50,
+    height:60,
+    margin:15,
+    padding:0,
+    borderRadius:15,
+    borderBottomColor:'rgba(255, 136, 13,0.7)',
+    borderRightColor:'rgba(255, 136, 13,0.7)',
+    borderBottomWidth:4,
+    borderRightWidth:5,
+    alignItems:'center',
+    justifyContent:'flex-start',
+    flexDirection:'row',
+  }
+})

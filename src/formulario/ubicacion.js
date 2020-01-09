@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
@@ -12,22 +12,22 @@ import {
   Alert,
   PermissionsAndroid,
   BackHandler
-} from 'react-native';
-import Geolocation from '@react-native-community/geolocation';
+} from 'react-native'
+import Geolocation from '@react-native-community/geolocation'
 import MapView, { Callout, Marker,
-  AnimatedRegion, PROVIDER_DEFAULT } from 'react-native-maps';
-import axios from 'axios';
-import isEqual from 'lodash/isEqual';
-import AsyncStorage from '@react-native-community/async-storage';
-import {readResponseServer} from '../functions';
+  AnimatedRegion, PROVIDER_DEFAULT } from 'react-native-maps'
+import axios from 'axios'
+import isEqual from 'lodash/isEqual'
+import AsyncStorage from '@react-native-community/async-storage'
+import {readResponseServer} from '../functions'
 
 import ButtonBack from '../components/buttonBack'
 import TitleForm from '../components/titleForm'
-import InputText from '../components/inputText';
-import InputNumber from '../components/inputNumber';
+import InputText from '../components/inputText'
+import InputNumber from '../components/inputNumber'
 import ButtonForm from '../components/buttonForm'
 
-export default class App extends Component<Props> {
+export default class App extends Component {
   state = {
     user:null,
     respuestas : {},
@@ -55,7 +55,7 @@ export default class App extends Component<Props> {
   }
 
   componentDidMount = () => {
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') });
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress',()=>{ this.props.navigation.navigate('FInicio') })
     this.getStorage()
   }
   componentWillUnmount = () => {
@@ -64,11 +64,11 @@ export default class App extends Component<Props> {
 
   goToInitialLocation = () => {
 
-    console.log('goToInitialLocation');
+    console.log('goToInitialLocation')
 
-    this.mounted = true;
+    this.mounted = true
     if (this.props.coordinate) {
-      return;
+      return
     }
 
     if (Platform.OS === 'android') {
@@ -76,62 +76,62 @@ export default class App extends Component<Props> {
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
       ).then(granted => {
         if (granted && this.mounted) {
-          this.watchLocation();
+          this.watchLocation()
         }
-      });
+      })
     } else {
-      this.watchLocation();
+      this.watchLocation()
     }
   }
 
   watchLocation = () => {
-    console.log('watchLocation');
+    console.log('watchLocation')
     this.watchID = Geolocation.watchPosition(
       position => {
-        const myLastPosition = this.state.myPosition;
-        const myPosition = position.coords;
+        const myLastPosition = this.state.myPosition
+        const myPosition = position.coords
         if (!isEqual(myPosition, myLastPosition)) {
           if (!myPosition.latitudeDelta) {
-            myPosition["latitudeDelta"] = 0.0005;
-            myPosition["longitudeDelta"] = 0.0005;
+            myPosition["latitudeDelta"] = 0.0005
+            myPosition["longitudeDelta"] = 0.0005
           }
 
-          this.mapRef.animateToRegion(myPosition, 1500);
+          this.mapRef.animateToRegion(myPosition, 1500)
 
           this.setState({ myPosition },()=>{
             this.getAddres()
-            Geolocation.clearWatch( this.watchID );
-          });
+            Geolocation.clearWatch( this.watchID )
+          })
         }
       },
       null,
       this.props.geolocationOptions
-    );
+    )
   }
 
   onPoiClick = (e) => {
-    const myPosition = e.nativeEvent.coordinate;
+    const myPosition = e.nativeEvent.coordinate
 
-    this.setState({ myPosition });
+    this.setState({ myPosition })
 
     if (!myPosition.latitudeDelta) {
-      myPosition["latitudeDelta"] = 0.005;
-      myPosition["longitudeDelta"] = 0.005;
+      myPosition["latitudeDelta"] = 0.005
+      myPosition["longitudeDelta"] = 0.005
     }
 
-    this.mapRef.animateToRegion(myPosition, 1500);
+    this.mapRef.animateToRegion(myPosition, 1500)
 
     this.setState({ myPosition },()=>{
       this.getAddres()
-    });
+    })
   }
 
   getAddres = () => {
-    let {myPosition} = this.state;
-    const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM';//NUEVA API KEY
-    const url  = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${myPosition.latitude},${myPosition.longitude}&key=${myApiKey}`;
+    let {myPosition} = this.state
+    const myApiKey = 'AIzaSyDWJENtkoY3yWKJyfZCQ3QovxaMy0wgpeM'//NUEVA API KEY
+    const url  = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${myPosition.latitude},${myPosition.longitude}&key=${myApiKey}`
 
-    console.log(url);
+    console.log(url)
 
     axios({
       url: url,
@@ -140,7 +140,7 @@ export default class App extends Component<Props> {
     .then((response) => {
       let {myPosition, values, respuestas} = this.state
       const dir = response.data.results[0].address_components
-      console.log('AXIOS DIR', dir);
+      console.log('AXIOS DIR', dir)
 
       values[12] = dir[0].long_name.toString()
       values[13] = dir[2].long_name.toString()
@@ -162,7 +162,7 @@ export default class App extends Component<Props> {
       respuestas[19] = myPosition.latitude.toString()
       respuestas[20] = myPosition.altitude.toString()
 
-      this.setState({values, respuestas},()=>{ this.setStorage() });
+      this.setState({values, respuestas},()=>{ this.setStorage() })
     })
     .catch((error) => {
       Alert.alert(
@@ -172,16 +172,16 @@ export default class App extends Component<Props> {
           {text: 'OK'},
         ],
         {cancelable: false},
-      );
-      console.log('MAP ERROR:',error);
-    });
+      )
+      console.log('MAP ERROR:',error)
+    })
   }
 
   handleTextChange = (inputText, id, index) => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
-    respuestas[id] = inputText;
-    values[id] = inputText;
+    respuestas[id] = inputText
+    values[id] = inputText
 
     this.setState({respuestas, values},()=>{ this.setStorage() })
   }
@@ -190,42 +190,42 @@ export default class App extends Component<Props> {
     try {
       await AsyncStorage.setItem('respuestas', JSON.stringify(this.state.respuestas) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
 
     try {
       await AsyncStorage.setItem('values', JSON.stringify(this.state.values) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
   getStorage = async () => {
     try {
-      const value = await AsyncStorage.getItem('respuestas');
+      const value = await AsyncStorage.getItem('respuestas')
       if(value !== null) {
-        const respuestas = JSON.parse(value);
-        console.log(respuestas);
+        const respuestas = JSON.parse(value)
+        console.log(respuestas)
         this.setState({respuestas})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
 
     try {
-      const value = await AsyncStorage.getItem('values');
+      const value = await AsyncStorage.getItem('values')
       if(value !== null) {
-        const values = JSON.parse(value);
-        console.log(values);
+        const values = JSON.parse(value)
+        console.log(values)
         this.setState({values})
       }
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
 
   clear = () => {
-    let {respuestas, values} =  this.state;
+    let {respuestas, values} =  this.state
 
     respuestas[12] = null
     respuestas[13] = null
@@ -248,7 +248,7 @@ export default class App extends Component<Props> {
     values[20] = null
 
     this.setState({respuestas, values}, ()=>{
-      this.setStorage();
+      this.setStorage()
     })
   }
 
@@ -267,7 +267,7 @@ export default class App extends Component<Props> {
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   fSend = () => {
@@ -283,43 +283,43 @@ export default class App extends Component<Props> {
         {text: 'Si, enviar', onPress: () => {
           //Aquí -> Axios a server
           //Confirmo que todo esta bien
-          this.readyFormulario();
+          this.readyFormulario()
           //despúes:
-          //this.clear();
+          //this.clear()
         }},
       ],
       {cancelable: false},
-    );
+    )
   }
 
   readyFormulario = async () => {
     try {
-      const value = await AsyncStorage.getItem('readyFormulario');
-      let rf = null;
+      const value = await AsyncStorage.getItem('readyFormulario')
+      let rf = null
       if (value) {
-        rf = JSON.parse(value);
+        rf = JSON.parse(value)
         rf['Ubicacion'] = true
       }
       else{
-        rf = {};
-        rf['Ubicacion'] = true;
+        rf = {}
+        rf['Ubicacion'] = true
       }
-      this.setReadyFormulario(rf);
+      this.setReadyFormulario(rf)
 
     } catch(e) {
-      console.log("error storage", e);
+      console.log("error storage", e)
     }
   }
   setReadyFormulario= async (rf) => {
     try {
       await AsyncStorage.setItem('readyFormulario', JSON.stringify(rf) )
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
   render = () => {
-    const {values, myPosition} = this.state;
+    const {values, myPosition} = this.state
     return(
       <ImageBackground
         source={require('../assets/bg_app/bg_app.png')}
@@ -470,7 +470,7 @@ export default class App extends Component<Props> {
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -493,4 +493,4 @@ const styles = StyleSheet.create({
     height:width-150,
     marginLeft:15
   },
-});
+})

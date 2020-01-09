@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import {
   View,
   Text,
@@ -10,35 +10,27 @@ import {
   Button,
   Dimensions,
   ScrollView
- } from "react-native";
-import Modal from "react-native-modal";
+ } from "react-native"
+import Modal from "react-native-modal"
 
 export default class ModalTester extends Component {
   state = {
     isModalVisible: false
-  };
+  }
 
   toggleModal = () => {
-    this.setState({ isModalVisible: !this.state.isModalVisible });
-  };
+    this.setState({ isModalVisible: !this.state.isModalVisible })
+  }
 
   render() {
-    const {id, options, value, label} = this.props;
+    const {id, options, value, label} = this.props
     return (
       <View style={styles.v1}>
 
       <TouchableOpacity
-      style={{
-        borderBottomColor: '#73DB1D',
-        borderBottomWidth: 1,
-        width:width-50,
-        padding:0,
-        margin:0,
-        flexDirection:'row',
-        justifyContent:'space-between'
-      }}
+      style={styles.textoinicial}
       onPress={() => {
-        this.toggleModal(!this.state.isModalVisible);
+        this.toggleModal(!this.state.isModalVisible)
       }}
       >
         <Text
@@ -60,7 +52,7 @@ export default class ModalTester extends Component {
               {`${label}`}
             </Text>
           </View>
-          <View style={{width:'100%',height:'auto'}}>
+          <View style={styles.viewModal}>
             {
               options.map((data, index) =>{
                 return(
@@ -85,7 +77,7 @@ export default class ModalTester extends Component {
               <Text
                 style={styles.labelExit}
                 onPress={() => {
-                  this.toggleModal(!this.state.isModalVisible);
+                  this.toggleModal(!this.state.isModalVisible)
                 }}
               >
                 {`❌`}
@@ -94,12 +86,25 @@ export default class ModalTester extends Component {
           </View>
         </Modal>
       </View>
-    );
+    )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
+  textoinicial:{
+    borderBottomColor: '#73DB1D',
+    borderBottomWidth: 1,
+    width:width-50,
+    padding:0,
+    margin:0,
+    flexDirection:'row',
+    justifyContent:'space-between'
+  },
+  viewModal:{
+    width:'100%',
+    height:'auto'
+  },
   textSelect:{
     color:'white',
     fontSize:16,
@@ -155,4 +160,4 @@ const styles = StyleSheet.create({
     width:20,
     height:20
   },
-});
+})

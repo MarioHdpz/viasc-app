@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   Image,
   Text,
   StyleSheet,
   TouchableOpacity,
   View,
-} from 'react-native';
+} from 'react-native'
 
-type Props = {};
-export default class ButtonBack extends Component<Props> {
-
+export default class ButtonBack extends Component {
   render = () => {
     return (
       <View style={styles.container}>
@@ -25,7 +23,7 @@ export default class ButtonBack extends Component<Props> {
           </View>
         </TouchableOpacity>
       </View>
-    );
+    )
   }
 }
 
@@ -71,4 +69,4 @@ const styles = StyleSheet.create({
     borderBottomRightRadius:10,
     borderTopRightRadius:10
   },
-});
+})

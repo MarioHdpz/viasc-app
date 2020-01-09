@@ -1,17 +1,16 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View,
   Text,
   StyleSheet,
   ImageBackground
-} from 'react-native';
+} from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
-import AsyncStorage from '@react-native-community/async-storage';
-import { NavigationEvents } from 'react-navigation';
-import ButtonLarge from '../components/buttonLarge';
+import AsyncStorage from '@react-native-community/async-storage'
+import { NavigationEvents } from 'react-navigation'
+import ButtonLarge from '../components/buttonLarge'
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   state={
     label:'Iniciar Avalúo',
     user:null,
@@ -19,19 +18,17 @@ export default class App extends Component<Props> {
 
   componentDidMount = () => {
     if (Platform.OS === 'android') {
-      SplashScreen.hide();
+      SplashScreen.hide()
     }
 
-    const user = this.props.navigation.getParam('user');
+    const user = this.props.navigation.getParam('user')
     this.setState({user},()=>{
-      console.log('INIT USER:',user);
-    });
-
-    this.getAllKeys()
+      this.getAllKeys()
+    })
   }
 
   onClickButton = () => {
-    this.props.navigation.navigate('InitAvaluo', { user:this.state.user });
+    this.props.navigation.navigate('InitAvaluo', { user:this.state.user })
   }
 
   getAllKeys = async () => {
@@ -43,11 +40,11 @@ export default class App extends Component<Props> {
     }
 
 
-    let k = false;
+    let k = false
     keys.map((d,i)=>{
       if (d === 'respuestas' ) {
         k = true
-        return null;
+        return null
       }
     })
 
@@ -55,7 +52,7 @@ export default class App extends Component<Props> {
       this.setState({label:'Continuar Avalúo'})
     }
     else{
-      this.setState({label:'Iniciar Avalúo'});
+      this.setState({label:'Iniciar Avalúo'})
     }
   }
 
@@ -74,7 +71,7 @@ export default class App extends Component<Props> {
           status = {null}
         />
       </ImageBackground>
-    );
+    )
   }
 }
 
@@ -84,4 +81,4 @@ const styles = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
   }
-});
+})

@@ -1,16 +1,15 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   View, Text, StyleSheet, Image, TextInput,
   TouchableOpacity, Dimensions, Alert, ImageBackground,
-} from 'react-native';
-import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
+} from 'react-native'
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 import SplashScreen from 'react-native-splash-screen'
 import {readResponseServer} from '../functions'
 
 //email:'gibran.aguilar@lytica.ai',
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   state={
     email:'jess.monter@lytica.ai',
     pass:'admin',
@@ -19,18 +18,18 @@ export default class App extends Component<Props> {
 
   componentDidMount() {
     if (Platform.OS === 'android') {
-      SplashScreen.hide();
+      SplashScreen.hide()
     }
   }
 
   login = async () => {
-    const {email,pass} = this.state;
+    const {email,pass} = this.state
 
     if (email && pass) {
       //before url: http://167.172.197.238:3000/rest-auth/login/
       //new url: http://18.219.244.117/rest-auth/login/
-      //const url = 'http://18.219.244.117/rest-auth/login/';
-      const url = 'http://167.172.197.238:3000/rest-auth/login/';
+      //const url = 'http://18.219.244.117/rest-auth/login/'
+      const url = 'http://167.172.197.238:3000/rest-auth/login/'
       const obj = {
         email:email,
         password:pass
@@ -45,7 +44,7 @@ export default class App extends Component<Props> {
           pass:pass
         }
         this.storeData( 'user', JSON.stringify(user) )
-        this.props.navigation.navigate('Init', {user:user});
+        this.props.navigation.navigate('Init', {user:user})
       })
       .catch((error) => {
         Alert.alert(
@@ -55,8 +54,8 @@ export default class App extends Component<Props> {
             {text: 'OK'},
           ],
           {cancelable: false},
-        );
-      });
+        )
+      })
     }
     else{
       Alert.alert(
@@ -66,7 +65,7 @@ export default class App extends Component<Props> {
           {text: 'OK'},
         ],
         {cancelable: false},
-      );
+      )
     }
   }
 
@@ -74,7 +73,7 @@ export default class App extends Component<Props> {
     try {
       await AsyncStorage.setItem(item, data)
     } catch (e) {
-      console.log("error de almacenaje");
+      console.log("error de almacenaje")
     }
   }
 
@@ -111,11 +110,11 @@ export default class App extends Component<Props> {
           />
         </TouchableOpacity>
       </ImageBackground>
-    );
+    )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -143,4 +142,4 @@ const styles = StyleSheet.create({
     fontSize:9,
     paddingBottom:12,
   },
-});
+})

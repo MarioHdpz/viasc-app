@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {
   Image,
   Text,
@@ -6,13 +6,12 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-} from 'react-native';
+} from 'react-native'
 
-type Props = {};
-export default class ButtonForm extends Component<Props> {
+export default class ButtonForm extends Component {
 
   render = () => {
-    const {disabled} = this.props;
+    const {disabled} = this.props
     return (
       <TouchableOpacity
       style={
@@ -41,11 +40,11 @@ export default class ButtonForm extends Component<Props> {
 
         }
       </TouchableOpacity>
-    );
+    )
   }
 }
 
-const {height, width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window')
 const styles = StyleSheet.create({
   button:{
     width:width-50,
@@ -85,4 +84,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
 
-});
+})
